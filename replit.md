@@ -2,7 +2,7 @@
 
 ## Overview
 
-This is a multi-page website for the State Enterprise Prosthetic and Orthopedic Plant of Dushanbe, Tajikistan. The application provides information about prosthetic and orthopedic services, products, patient eligibility, and contact information. All content is displayed in Tajik (Cyrillic script) to serve the local population, featuring a modern medical aesthetic that balances governmental professionalism with patient-focused warmth.
+This is a multi-page website for the State Enterprise Prosthetic and Orthopedic Plant of Dushanbe, Tajikistan. The application provides information about prosthetic and orthopedic services, products, patient eligibility, and contact information. The site supports three languages: Tajik (TJ - default), Russian (RU), and English (EN). It features a modern medical aesthetic that balances governmental professionalism with patient-focused warmth.
 
 The application serves as a digital gateway for disabled citizens to learn about free rehabilitation services, understand their rights under government resolution No. 604, and access information about the plant's four regional branches across Tajikistan.
 
@@ -94,11 +94,30 @@ Preferred communication style: Simple, everyday language.
 - Responsive navigation with mobile menu support
 - Consistent spacing using Tailwind's spacing scale
 
+### Multi-Language System
+
+**Language Support**
+- Tajik (TJ) - Default language, Cyrillic script
+- Russian (RU) - Common in region
+- English (EN) - International visitors
+
+**Implementation**
+- LanguageContext (client/src/lib/LanguageContext.tsx) - React Context for language state
+- Translations file (client/src/lib/translations.ts) - All content in TJ/RU/EN
+- Language preference persisted in localStorage with key "preferred-language"
+- Language switcher in header with Globe icon and toggle buttons
+
+**Usage in Components**
+```tsx
+const { language, setLanguage, t } = useLanguage();
+// t.header.title, t.about.mission, t.contact.form.submitButton, etc.
+```
+
 ### Content Management
 
 **Centralized Content**
-- All Tajik language content stored in `client/src/data/content.ts`
-- Structured data for easy translation and updates
+- All translations stored in `client/src/lib/translations.ts`
+- Structured data with nested objects matching component hierarchy
 - Includes site navigation, hero content, product descriptions, patient guide information, and branch details
 
 **Key Content Areas**
@@ -106,6 +125,17 @@ Preferred communication style: Simple, everyday language.
 - Eligibility criteria for free services (disability groups I & II, children under 18, war veterans)
 - Required documents for application
 - Branch locations: Dushanbe (main), Khujand, Kulob, Khorog
+
+**Leadership Information**
+- Director General: Muhabbatov Zafar Hukumovich
+- Deputy Director: Latifi Usmonali Noibpur
+- Departments: Finance & Planning, HR, Legal Unit
+
+**4 Workshops**
+- Workshop #1: Prosthetics (upper/lower limbs, belts, collars, fixation devices)
+- Workshop #2: Footwear (orthopedic shoes for adults and children)
+- Workshop #3: Mobility Devices (walkers, canes, wheelchairs, pillows)
+- Workshop #4: Rehabilitation (diagnostics, recommendations, training)
 
 ## External Dependencies
 
