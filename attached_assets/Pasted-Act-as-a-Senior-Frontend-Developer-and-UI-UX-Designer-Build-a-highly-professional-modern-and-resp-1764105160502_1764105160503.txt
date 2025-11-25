@@ -1,0 +1,68 @@
+Act as a Senior Frontend Developer and UI/UX Designer. Build a highly professional, modern, and responsive multi-page website for the "State Enterprise Prosthetic and Orthopedic Plant of Dushanbe" (Корхонаи давлатии «Заводи протезию ортопедии шаҳри Душанбе»).
+
+**Tech Stack:**
+- React (Vite) for architecture.
+- Tailwind CSS for styling (use a modern, clean medical aesthetic).
+- Framer Motion for smooth animations (fade-ins, slide-ups).
+- Lucide React for icons.
+- React Router for navigation.
+
+**Design Language:**
+- **Vibe:** Trustworthy, Technological, Caring, Governmental but modern.
+- **Colors:** Primary: Deep Teal (#0F766E), Secondary: Clean White (#F8FAFC), Accent: Gold/Amber (#F59E0B) for call-to-actions (reflecting the national emblem colors indirectly).
+- **Typography:** Inter or Roboto (clean sans-serif).
+
+**Site Structure & Content (All text must be in TAJIK language as default):**
+
+1.  **Header:**
+    *   Logo (use a placeholder with a medical icon).
+    *   Title: "Заводи протезию ортопедии шаҳри Душанбе".
+    *   Nav: Асосӣ (Home), Дар бораи мо (About), Маҳсулот (Products), Ба беморон (Patients/Legal), Тамос (Contacts).
+    *   Button: "Қабули дархост" (Apply).
+
+2.  **Hero Section (Modern & Impactful):**
+    *   Background: High-quality medical/rehab image with an overlay.
+    *   Headline: "Барқарорсозии ҳаракат – Таъмини ҳаёти шоиста".
+    *   Sub-text: "Истеҳсоли протезҳо, воситаҳои ортопедӣ ва тавонбахшии маъюбон дар сатҳи давлатӣ".
+    *   Stats badges floating: "4 Филиал", "Хизматрасонии ройгон", "Таҷҳизоти муосир".
+
+3.  **About Section (Interactive):**
+    *   Info: State enterprise under the Ministry of Health and Social Protection of Tajikistan.
+    *   Mission: Rehabilitation of disabled people, integration into society (based on Law on Social Protection).
+    *   Show a map/list of Branches (Филиалҳо):
+        *   Марказ: ш. Душанбе.
+        *   Филиали ш. Хуҷанд.
+        *   Филиали ш. Кӯлоб.
+        *   Филиали ш. Хоруғ.
+
+4.  **Products & Services (Grid with Hover Effects):**
+    *   Create cards for:
+        *   **Протезҳо:** Upper and lower limb prosthetics.
+        *   **Ортопедия:** Orthopedic shoes (adults/kids), insoles.
+        *   **Воситаҳои ёрирасон:** Bandages, corsets, crutches, wheelchairs.
+        *   **Статсионар:** In-patient rehabilitation (accomodation & food provided during fitting).
+
+5.  **"Patient Guide" Section (Crucial - Based on Gov Resolution No. 604):**
+    *   Use an Accordion component for this to make it clean.
+    *   **Tab 1: "Кӣ ҳуқуқи ройгон дорад?"** -> Text: "Маъюбони гурӯҳи I ва II, кӯдакони маъюби то 18-сола, иштирокчиёни ҶБВ ва шахсони ба онҳо баробаршуда (Тибқи Қарори Ҳукумати ҶТ №604)."
+    *   **Tab 2: "Ҳуҷҷатҳои зарурӣ"** -> List:
+        1. Ариза ба мақомоти ҳифзи иҷтимоӣ.
+        2. Шиноснома (нусха).
+        3. Маълумотномаи маъюбӣ (МСЭ).
+        4. Барномаи инфиродии тавонбахшӣ (ИПР).
+    *   **Tab 3: "Раванди қабул"** -> Steps: Application -> Review (15 days) -> Fitting -> Rehabilitation.
+
+6.  **Legal Base (Footer or separate block):**
+    *   Mention laws: "Қонуни ҶТ «Дар бораи ҳифзи иҷтимоии маъюбон»", "Қарори Ҳукумати ҶТ №604 ва №448".
+
+7.  **Contact Section:**
+    *   Address: Dushanbe (place a placeholder for map).
+    *   Phone numbers (use generic placeholders like +992...).
+    *   Working hours: Mon-Fri, 8:00 - 17:00.
+
+**Functionality Requirements:**
+- Ensure the site is **fully responsive** (looks great on mobile).
+- Use high-quality Unsplash placeholders for images (keywords: medical, prosthesis, doctor, rehabilitation).
+- Create a `data.js` file to store the text content so I can easily edit the Tajik text later without breaking the code.
+
+Start by setting up the Vite project and installing dependencies.
