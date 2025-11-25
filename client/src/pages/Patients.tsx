@@ -1,15 +1,19 @@
 import { motion } from "framer-motion";
-import { siteContent } from "@/data/content";
 import { FileCheck, FileText, ListChecks, CheckCircle2 } from "lucide-react";
 import { Card } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Link } from "wouter";
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { useLanguage } from "@/lib/LanguageContext";
 
 export default function Patients() {
+  const { t } = useLanguage();
+
   return (
     <div className="min-h-screen bg-background">
       {/* Hero Section */}
@@ -22,10 +26,10 @@ export default function Patients() {
             className="max-w-3xl mx-auto text-center"
           >
             <h1 className="text-4xl sm:text-5xl font-bold text-foreground mb-6" data-testid="text-page-title">
-              {siteContent.patientGuide.title}
+              {t.patientGuide.title}
             </h1>
             <p className="text-lg text-muted-foreground" data-testid="text-page-subtitle">
-              {siteContent.patientGuide.subtitle}
+              {t.patientGuide.subtitle}
             </p>
           </motion.div>
         </div>
@@ -53,13 +57,13 @@ export default function Patients() {
                       <FileCheck className="w-5 h-5" />
                     </div>
                     <span className="font-semibold text-lg">
-                      {siteContent.patientGuide.tabs[0].title}
+                      {t.patientGuide.tabs[0].title}
                     </span>
                   </div>
                 </AccordionTrigger>
                 <AccordionContent className="px-6 py-6 border-t">
                   <p className="text-muted-foreground leading-relaxed" data-testid="text-eligibility-content">
-                    {siteContent.patientGuide.tabs[0].content}
+                    {t.patientGuide.tabs[0].content}
                   </p>
                 </AccordionContent>
               </AccordionItem>
@@ -75,13 +79,13 @@ export default function Patients() {
                       <FileText className="w-5 h-5" />
                     </div>
                     <span className="font-semibold text-lg">
-                      {siteContent.patientGuide.tabs[1].title}
+                      {t.patientGuide.tabs[1].title}
                     </span>
                   </div>
                 </AccordionTrigger>
                 <AccordionContent className="px-6 py-6 border-t">
                   <ol className="space-y-3" data-testid="list-documents">
-                    {siteContent.patientGuide.tabs[1].items?.map((item, index) => (
+                    {t.patientGuide.tabs[1].items?.map((item, index) => (
                       <li key={index} className="flex items-start gap-3">
                         <span className="flex items-center justify-center w-6 h-6 rounded-full bg-primary/10 text-primary text-sm font-semibold flex-shrink-0 mt-0.5">
                           {index + 1}
@@ -104,13 +108,13 @@ export default function Patients() {
                       <ListChecks className="w-5 h-5" />
                     </div>
                     <span className="font-semibold text-lg">
-                      {siteContent.patientGuide.tabs[2].title}
+                      {t.patientGuide.tabs[2].title}
                     </span>
                   </div>
                 </AccordionTrigger>
                 <AccordionContent className="px-6 py-6 border-t">
                   <div className="space-y-6" data-testid="list-process-steps">
-                    {siteContent.patientGuide.tabs[2].steps?.map((stepItem, index) => (
+                    {t.patientGuide.tabs[2].steps?.map((stepItem, index) => (
                       <div key={index} className="flex items-start gap-4">
                         <div className="flex items-center justify-center w-8 h-8 rounded-full bg-primary text-primary-foreground text-sm font-bold flex-shrink-0">
                           {stepItem.step}
@@ -146,16 +150,11 @@ export default function Patients() {
                 </div>
                 <div className="flex-1">
                   <h2 className="text-2xl font-bold text-foreground mb-6" data-testid="text-legal-title">
-                    {siteContent.legal.title}
+                    {t.about.subtitle}
                   </h2>
-                  <div className="space-y-3">
-                    {siteContent.legal.documents.map((doc, index) => (
-                      <div key={index} className="flex items-start gap-3">
-                        <CheckCircle2 className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
-                        <p className="text-muted-foreground">{doc}</p>
-                      </div>
-                    ))}
-                  </div>
+                  <p className="text-muted-foreground leading-relaxed">
+                    {t.about.mission}
+                  </p>
                 </div>
               </div>
             </Card>
@@ -174,21 +173,20 @@ export default function Patients() {
             className="max-w-3xl mx-auto text-center"
           >
             <h2 className="text-3xl font-bold text-foreground mb-4" data-testid="text-cta-title">
-              Савол доред?
+              {t.contact.form.title}
             </h2>
             <p className="text-lg text-muted-foreground mb-8" data-testid="text-cta-subtitle">
-              Барои маълумоти муфассал бо мо тамос гиред
+              {t.contact.subtitle}
             </p>
-            <a href="/contacts">
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="px-8 py-3 bg-accent text-accent-foreground rounded-md font-semibold hover-elevate active-elevate-2 border border-accent-border"
+            <Link href="/contacts">
+              <Button
+                size="lg"
+                className="bg-accent text-accent-foreground hover:bg-accent border-accent-border"
                 data-testid="button-contact-cta"
               >
-                Тамос гиред
-              </motion.button>
-            </a>
+                {t.header.ctaButton}
+              </Button>
+            </Link>
           </motion.div>
         </div>
       </section>

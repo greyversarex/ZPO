@@ -1,5 +1,4 @@
 import { motion } from "framer-motion";
-import { siteContent } from "@/data/content";
 import { MapPin, Phone, Clock, Mail } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -12,8 +11,10 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { insertContactSubmissionSchema, type InsertContactSubmission } from "@shared/schema";
 import { useMutation } from "@tanstack/react-query";
 import { apiRequest } from "@/lib/queryClient";
+import { useLanguage } from "@/lib/LanguageContext";
 
 export default function Contacts() {
+  const { t } = useLanguage();
   const { toast } = useToast();
   
   const form = useForm<InsertContactSubmission>({
@@ -33,15 +34,15 @@ export default function Contacts() {
     },
     onSuccess: () => {
       toast({
-        title: "Паёми шумо қабул шуд",
-        description: "Мо дар наздиктарин вақт бо шумо тамос мегирем",
+        title: t.contact.form.successMessage,
+        description: t.contact.subtitle,
       });
       form.reset();
     },
     onError: (error: any) => {
       toast({
-        title: "Хатогӣ рух дод",
-        description: error.message || "Лутфан баъдтар кӯшиш кунед",
+        title: t.contact.form.errorMessage,
+        description: error?.message || t.contact.form.errorMessage,
         variant: "destructive",
       });
     },
@@ -63,10 +64,10 @@ export default function Contacts() {
             className="max-w-3xl mx-auto text-center"
           >
             <h1 className="text-4xl sm:text-5xl font-bold text-foreground mb-6" data-testid="text-page-title">
-              {siteContent.contact.title}
+              {t.contact.title}
             </h1>
             <p className="text-lg text-muted-foreground" data-testid="text-page-subtitle">
-              {siteContent.contact.subtitle}
+              {t.contact.subtitle}
             </p>
           </motion.div>
         </div>
@@ -91,10 +92,10 @@ export default function Contacts() {
                   </div>
                   <div>
                     <h3 className="font-semibold text-lg text-foreground mb-2" data-testid="text-address-title">
-                      {siteContent.contact.address.title}
+                      {t.contact.address.title}
                     </h3>
                     <p className="text-muted-foreground" data-testid="text-address-content">
-                      {siteContent.contact.address.street}
+                      {t.contact.address.full}
                     </p>
                   </div>
                 </div>
@@ -107,13 +108,40 @@ export default function Contacts() {
                   </div>
                   <div>
                     <h3 className="font-semibold text-lg text-foreground mb-2" data-testid="text-phone-title">
-                      {siteContent.contact.phone.title}
+                      {t.contact.phone.title}
                     </h3>
-                    {siteContent.contact.phone.numbers.map((number, index) => (
-                      <p key={index} className="text-muted-foreground" data-testid={`text-phone-number-${index}`}>
-                        {number}
-                      </p>
-                    ))}
+                    <div className="space-y-1">
+                      {t.contact.phone.numbers.map((number, index) => (
+                        <a
+                          key={index}
+                          href={`tel:${number.replace(/[^+\d]/g, '')}`}
+                          className="block text-muted-foreground hover:text-primary transition-colors"
+                          data-testid={`link-phone-${index}`}
+                        >
+                          {number}
+                        </a>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </Card>
+
+              <Card className="p-6 hover-elevate" data-testid="card-email">
+                <div className="flex items-start gap-4">
+                  <div className="w-12 h-12 rounded-md bg-primary text-primary-foreground flex items-center justify-center flex-shrink-0">
+                    <Mail className="w-6 h-6" />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-lg text-foreground mb-2" data-testid="text-email-title">
+                      {t.contact.email.title}
+                    </h3>
+                    <a
+                      href={`mailto:${t.contact.email.address}`}
+                      className="text-muted-foreground hover:text-primary transition-colors"
+                      data-testid="link-email"
+                    >
+                      {t.contact.email.address}
+                    </a>
                   </div>
                 </div>
               </Card>
@@ -125,13 +153,13 @@ export default function Contacts() {
                   </div>
                   <div>
                     <h3 className="font-semibold text-lg text-foreground mb-2" data-testid="text-hours-title">
-                      {siteContent.contact.hours.title}
+                      {t.contact.hours.title}
                     </h3>
                     <p className="text-muted-foreground mb-1" data-testid="text-hours-schedule">
-                      {siteContent.contact.hours.schedule}
+                      {t.contact.hours.schedule}
                     </p>
                     <p className="text-muted-foreground text-sm" data-testid="text-hours-weekend">
-                      {siteContent.contact.hours.weekend}
+                      {t.contact.hours.weekend}
                     </p>
                   </div>
                 </div>
@@ -140,14 +168,14 @@ export default function Contacts() {
               {/* Google Map */}
               <Card className="p-0 overflow-hidden" data-testid="card-map">
                 <iframe
-                  src="https://www.google.com/maps?q=38.5598,68.7738&hl=en&z=14&output=embed"
+                  src={t.about.branches[0].mapUrl}
                   width="100%"
                   height="300"
                   style={{ border: 0 }}
                   allowFullScreen
                   loading="lazy"
                   referrerPolicy="no-referrer-when-downgrade"
-                  title="Харитаи корхонаи протезӣ-ортопедӣ дар Дӯшанбе"
+                  title={t.about.branches[0].name}
                   data-testid="iframe-map"
                 />
               </Card>
@@ -166,7 +194,7 @@ export default function Contacts() {
                     <Mail className="w-5 h-5" />
                   </div>
                   <h2 className="text-2xl font-bold text-foreground" data-testid="text-form-title">
-                    {siteContent.contact.form.title}
+                    {t.contact.form.title}
                   </h2>
                 </div>
 
@@ -177,30 +205,11 @@ export default function Contacts() {
                       name="name"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>{siteContent.contact.form.namePlaceholder}</FormLabel>
+                          <FormLabel>{t.contact.form.namePlaceholder}</FormLabel>
                           <FormControl>
                             <Input
-                              placeholder={siteContent.contact.form.namePlaceholder}
+                              placeholder={t.contact.form.namePlaceholder}
                               data-testid="input-name"
-                              {...field}
-                            />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-
-                    <FormField
-                      control={form.control}
-                      name="email"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>{siteContent.contact.form.emailPlaceholder}</FormLabel>
-                          <FormControl>
-                            <Input
-                              type="email"
-                              placeholder={siteContent.contact.form.emailPlaceholder}
-                              data-testid="input-email"
                               {...field}
                             />
                           </FormControl>
@@ -214,7 +223,7 @@ export default function Contacts() {
                       name="phone"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Рақами телефон (ихтиёрӣ)</FormLabel>
+                          <FormLabel>{t.contact.form.phonePlaceholder}</FormLabel>
                           <FormControl>
                             <Input
                               type="tel"
@@ -230,13 +239,32 @@ export default function Contacts() {
 
                     <FormField
                       control={form.control}
+                      name="email"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>{t.contact.form.emailPlaceholder}</FormLabel>
+                          <FormControl>
+                            <Input
+                              type="email"
+                              placeholder={t.contact.form.emailPlaceholder}
+                              data-testid="input-email"
+                              {...field}
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+
+                    <FormField
+                      control={form.control}
                       name="message"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>{siteContent.contact.form.messagePlaceholder}</FormLabel>
+                          <FormLabel>{t.contact.form.messagePlaceholder}</FormLabel>
                           <FormControl>
                             <Textarea
-                              placeholder={siteContent.contact.form.messagePlaceholder}
+                              placeholder={t.contact.form.messagePlaceholder}
                               rows={6}
                               data-testid="input-message"
                               {...field}
@@ -254,7 +282,7 @@ export default function Contacts() {
                       disabled={submitMutation.isPending}
                       data-testid="button-submit-form"
                     >
-                      {submitMutation.isPending ? "Фиристода мешавад..." : siteContent.contact.form.submitButton}
+                      {submitMutation.isPending ? t.contact.form.sending : t.contact.form.submitButton}
                     </Button>
                   </form>
                 </Form>

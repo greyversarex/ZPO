@@ -1,11 +1,20 @@
 import { motion } from "framer-motion";
-import { siteContent } from "@/data/content";
-import { Building2, MapPin, Award } from "lucide-react";
+import { Building2, MapPin, Accessibility, Footprints, Armchair, HeartHandshake } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
+import { useLanguage } from "@/lib/LanguageContext";
+
+const workshopIcons = {
+  Accessibility,
+  Footprints,
+  Armchair,
+  HeartHandshake
+};
 
 export default function Home() {
+  const { t } = useLanguage();
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -50,10 +59,10 @@ export default function Home() {
             className="text-center max-w-4xl mx-auto space-y-8"
           >
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight" data-testid="text-hero-headline">
-              {siteContent.hero.headline}
+              {t.hero.headline}
             </h1>
             <p className="text-lg sm:text-xl text-white/90 max-w-2xl mx-auto" data-testid="text-hero-subheadline">
-              {siteContent.hero.subheadline}
+              {t.hero.subheadline}
             </p>
 
             {/* Stats Badges */}
@@ -63,7 +72,7 @@ export default function Home() {
               animate="visible"
               className="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-3xl mx-auto mt-12"
             >
-              {siteContent.hero.stats.map((stat, index) => (
+              {t.hero.stats.map((stat, index) => (
                 <motion.div
                   key={index}
                   variants={itemVariants}
@@ -88,7 +97,7 @@ export default function Home() {
                   className="bg-accent text-accent-foreground hover:bg-accent border-accent-border backdrop-blur"
                   data-testid="button-hero-learn-more"
                 >
-                  Маълумоти бештар
+                  {t.common.learnMore}
                 </Button>
               </Link>
               <Link href="/contacts">
@@ -98,7 +107,7 @@ export default function Home() {
                   className="bg-white/10 text-white border-white/30 backdrop-blur hover:bg-white/20"
                   data-testid="button-hero-contact"
                 >
-                  Тамос гиред
+                  {t.header.ctaButton}
                 </Button>
               </Link>
             </div>
@@ -117,10 +126,10 @@ export default function Home() {
             className="text-center max-w-3xl mx-auto mb-16"
           >
             <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4" data-testid="text-about-title">
-              {siteContent.about.title}
+              {t.about.title}
             </h2>
             <p className="text-lg text-muted-foreground" data-testid="text-about-subtitle">
-              {siteContent.about.subtitle}
+              {t.about.subtitle}
             </p>
           </motion.div>
 
@@ -131,7 +140,7 @@ export default function Home() {
             viewport={{ once: true }}
             className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
           >
-            {siteContent.about.branches.map((branch, index) => (
+            {t.about.branches.map((branch, index) => (
               <motion.div key={index} variants={itemVariants}>
                 <Card className="p-6 text-center hover-elevate h-full" data-testid={`branch-card-${index}`}>
                   <div className="flex justify-center mb-4">
@@ -141,7 +150,9 @@ export default function Home() {
                   </div>
                   <h3 className="font-semibold text-foreground mb-2" data-testid={`branch-name-${index}`}>{branch.name}</h3>
                   <p className="text-sm text-primary font-medium mb-1" data-testid={`branch-city-${index}`}>{branch.city}</p>
-                  <p className="text-sm text-muted-foreground" data-testid={`branch-desc-${index}`}>{branch.description}</p>
+                  {branch.address && (
+                    <p className="text-sm text-muted-foreground" data-testid={`branch-addr-${index}`}>{branch.address}</p>
+                  )}
                 </Card>
               </motion.div>
             ))}
@@ -150,14 +161,14 @@ export default function Home() {
           <div className="text-center mt-12">
             <Link href="/about">
               <Button variant="outline" size="lg" data-testid="button-about-learn-more">
-                Бештар донистан
+                {t.common.learnMore}
               </Button>
             </Link>
           </div>
         </div>
       </section>
 
-      {/* Services Preview */}
+      {/* Workshops Preview */}
       <section className="py-20 bg-muted/30">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
@@ -167,45 +178,49 @@ export default function Home() {
             transition={{ duration: 0.6 }}
             className="text-center max-w-3xl mx-auto mb-16"
           >
-            <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4" data-testid="text-products-title">
-              {siteContent.products.title}
+            <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4" data-testid="text-workshops-title">
+              {t.workshops.title}
             </h2>
-            <p className="text-lg text-muted-foreground" data-testid="text-products-subtitle">
-              {siteContent.products.subtitle}
+            <p className="text-lg text-muted-foreground" data-testid="text-workshops-subtitle">
+              {t.workshops.subtitle}
             </p>
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-            {siteContent.products.services.slice(0, 4).map((service, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-              >
-                <Card className="p-8 hover-elevate h-full" data-testid={`service-preview-${index}`}>
-                  <div className="flex items-start gap-4">
-                    <div className="w-12 h-12 rounded-md bg-primary text-primary-foreground flex items-center justify-center flex-shrink-0">
-                      {index === 0 && <Building2 className="w-6 h-6" />}
-                      {index === 1 && <Award className="w-6 h-6" />}
-                      {index === 2 && <Building2 className="w-6 h-6" />}
-                      {index === 3 && <Building2 className="w-6 h-6" />}
+            {t.workshops.items.map((workshop, index) => {
+              const IconComponent = workshopIcons[workshop.icon as keyof typeof workshopIcons] || Building2;
+              return (
+                <motion.div
+                  key={workshop.id}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                >
+                  <Card className="p-8 hover-elevate h-full" data-testid={`workshop-preview-${workshop.id}`}>
+                    <div className="flex items-start gap-4">
+                      <div className="w-12 h-12 rounded-md bg-primary text-primary-foreground flex items-center justify-center flex-shrink-0">
+                        <IconComponent className="w-6 h-6" />
+                      </div>
+                      <div className="flex-1">
+                        <h3 className="font-semibold text-lg text-foreground mb-2" data-testid={`workshop-title-${workshop.id}`}>
+                          {workshop.shortName}
+                        </h3>
+                        <p className="text-muted-foreground" data-testid={`workshop-desc-${workshop.id}`}>
+                          {workshop.description}
+                        </p>
+                      </div>
                     </div>
-                    <div className="flex-1">
-                      <h3 className="font-semibold text-lg text-foreground mb-2" data-testid={`service-title-${index}`}>{service.title}</h3>
-                      <p className="text-muted-foreground" data-testid={`service-desc-${index}`}>{service.description}</p>
-                    </div>
-                  </div>
-                </Card>
-              </motion.div>
-            ))}
+                  </Card>
+                </motion.div>
+              );
+            })}
           </div>
 
           <div className="text-center mt-12">
             <Link href="/products">
               <Button variant="default" size="lg" data-testid="button-products-view-all">
-                Ҳамаи маҳсулот
+                {t.common.viewAll}
               </Button>
             </Link>
           </div>

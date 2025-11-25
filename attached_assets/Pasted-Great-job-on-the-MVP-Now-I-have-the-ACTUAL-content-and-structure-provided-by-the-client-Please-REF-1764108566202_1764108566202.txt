@@ -1,0 +1,35 @@
+Great job on the MVP. Now I have the ACTUAL content and structure provided by the client. Please REFACTOR the website to include this specific data and implement Multi-language support (TJ, RU, EN).
+
+**1. Multi-language Support:**
+Create a context or state manager to switch between Tajik (Default), Russian, and English. Use the text provided below for translations.
+
+**2. Update Header:**
+Add a Language Switcher: [TJ] [RU] [EN].
+
+**3. Update "About Us" Section (Structure):**
+Add a "Leadership" (Роҳбарият) block with cards:
+*   **Director General:** Муҳаббатов Зафар Ҳукумович (MUHABBATOV Zafar Hukumovich).
+*   **Deputy Director:** Латифӣ Усмоналӣ Ноибпур (LATIFI Usmonali Noibpur).
+*   Mention departments: Finance & Planning, HR, Legal Unit.
+
+**4. Update "Production/Services" Section:**
+Replace generic services with these 4 specific Workshops (use icons for each):
+*   **Workshop 1 (Prosthetics):** Produces prosthetics/orthotics for lower/upper limbs, belts, plastic collars, fixation devices, devices for clubfoot (Shina Sito, Velinsky).
+*   **Workshop 2 (Footwear):** Orthopedic shoes for adults and children, leather insoles.
+*   **Workshop 3 (Mobile Devices):** Treadmills, walking aids, canes, small wheelchairs, orthopedic pillows, verticalizers.
+*   **Workshop 4 (Rehabilitation Dept):** Diagnostics, recommendations for assistive devices, training for everyday life and self-management.
+
+**5. Update "Branches" (Филиалҳо) Section:**
+Create detailed cards with contact info:
+*   **Dushanbe (Headquarters):** Shohmansur dist, Karategin St. 1. Phones: (+992 37) 2254320; 225 5797; 2254515. Email: seop.dushanbe@gmail.com.
+*   **Khujand Branch:** Est. 1989. Dir: Khusrav Mirradzhabov. Addr: Pairava Sulaymoni St. 7. Tel: +992 (3422) 61610. Note: Provides overnight stay for distant patients.
+*   **Kulob Branch:** Est. 1993. Dir: Bakhtier Rustamov. Addr: Borbad St. 33. Tel: +992 981066808. Note: Provides overnight stay.
+*   **Khorog Branch:** Just list it as a branch for now.
+
+**6. Update Footer:**
+Address: 734024, Dushanbe, Karategin St. 1.
+Email: seop.dushanbe@gmail.com
+Phones: (+992 37) 2254320, 2254515.
+
+**Task:**
+Rewrite the content logic to use this real data. Create a `translations.js` file containing the text for TJ, RU, and EN based on the input above. Update the UI to display this specific information elegantly.
