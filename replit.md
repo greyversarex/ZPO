@@ -156,3 +156,33 @@ Preferred communication style: Simple, everyday language.
 - PostgreSQL database expected via DATABASE_URL environment variable
 - Drizzle Kit configured for schema migrations
 - Session storage configured for PostgreSQL via connect-pg-simple
+
+## API Endpoints
+
+### Contact Form
+- **POST /api/contact** - Submit contact form (validates name, email, phone, message)
+- **GET /api/contact/submissions** - Get all contact submissions (admin)
+
+### Products (Services)
+- **GET /api/products** - Get all active products (add `?includeInactive=true` for admin)
+- **GET /api/products/:id** - Get single product by ID
+- **POST /api/products** - Create new product (Zod validation)
+- **PATCH /api/products/:id** - Update product (validates with updateProductSchema - no default overwrites)
+- **DELETE /api/products/:id** - Delete product
+
+### Branches
+- **GET /api/branches** - Get all active branches (add `?includeInactive=true` for admin)
+- **GET /api/branches/:id** - Get single branch by ID
+- **POST /api/branches** - Create new branch (Zod validation with latitude, longitude, mapUrl)
+- **PATCH /api/branches/:id** - Update branch (validates with updateBranchSchema - no default overwrites)
+- **DELETE /api/branches/:id** - Delete branch
+
+## Google Maps Integration
+- Using iframe embed approach (no API key required)
+- Coordinates stored for all 4 branches: Dushanbe (38.5598, 68.7738), Khujand (40.2828, 69.6219), Kulob (37.9100, 69.7850), Khorog (37.4894, 71.5537)
+- Interactive branch selector on About page
+- Static map on Contacts page showing main office
+
+## Database Seeding
+- Run `tsx server/seed.ts` to populate database with initial products and branches from content.ts
+- Seeds 4 products/services and 4 branch locations
