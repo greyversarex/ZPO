@@ -2,27 +2,53 @@ import { motion } from "framer-motion";
 import { siteContent } from "@/data/content";
 import { MapPin, Phone, Clock, Mail } from "lucide-react";
 import { Card } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Button } from "@/components/ui/button";
-import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { insertContactSubmissionSchema, type InsertContactSubmission } from "@shared/schema";
+import { useMutation } from "@tanstack/react-query";
+import { apiRequest } from "@/lib/queryClient";
 
 export default function Contacts() {
   const { toast } = useToast();
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    message: ""
+  
+  const form = useForm<InsertContactSubmission>({
+    resolver: zodResolver(insertContactSubmissionSchema),
+    defaultValues: {
+      name: "",
+      email: "",
+      phone: "",
+      message: "",
+    },
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    toast({
-      title: "Паёми шумо қабул шуд",
-      description: "Мо дар наздиктарин вақт бо шумо тамос мегирем",
-    });
-    setFormData({ name: "", email: "", message: "" });
+  const submitMutation = useMutation({
+    mutationFn: async (data: InsertContactSubmission) => {
+      const response = await apiRequest("POST", "/api/contact", data);
+      return await response.json();
+    },
+    onSuccess: () => {
+      toast({
+        title: "Паёми шумо қабул шуд",
+        description: "Мо дар наздиктарин вақт бо шумо тамос мегирем",
+      });
+      form.reset();
+    },
+    onError: (error: any) => {
+      toast({
+        title: "Хатогӣ рух дод",
+        description: error.message || "Лутфан баъдтар кӯшиш кунед",
+        variant: "destructive",
+      });
+    },
+  });
+
+  const onSubmit = (data: InsertContactSubmission) => {
+    submitMutation.mutate(data);
   };
 
   return (
@@ -139,61 +165,94 @@ export default function Contacts() {
                   </h2>
                 </div>
 
-                <form onSubmit={handleSubmit} className="space-y-6">
-                  <div className="space-y-2">
-                    <label htmlFor="name" className="text-sm font-medium text-foreground">
-                      {siteContent.contact.form.namePlaceholder}
-                    </label>
-                    <Input
-                      id="name"
-                      type="text"
-                      placeholder={siteContent.contact.form.namePlaceholder}
-                      value={formData.name}
-                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                      required
-                      data-testid="input-name"
+                <Form {...form}>
+                  <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+                    <FormField
+                      control={form.control}
+                      name="name"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>{siteContent.contact.form.namePlaceholder}</FormLabel>
+                          <FormControl>
+                            <Input
+                              placeholder={siteContent.contact.form.namePlaceholder}
+                              data-testid="input-name"
+                              {...field}
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
                     />
-                  </div>
 
-                  <div className="space-y-2">
-                    <label htmlFor="email" className="text-sm font-medium text-foreground">
-                      {siteContent.contact.form.emailPlaceholder}
-                    </label>
-                    <Input
-                      id="email"
-                      type="email"
-                      placeholder={siteContent.contact.form.emailPlaceholder}
-                      value={formData.email}
-                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      required
-                      data-testid="input-email"
+                    <FormField
+                      control={form.control}
+                      name="email"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>{siteContent.contact.form.emailPlaceholder}</FormLabel>
+                          <FormControl>
+                            <Input
+                              type="email"
+                              placeholder={siteContent.contact.form.emailPlaceholder}
+                              data-testid="input-email"
+                              {...field}
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
                     />
-                  </div>
 
-                  <div className="space-y-2">
-                    <label htmlFor="message" className="text-sm font-medium text-foreground">
-                      {siteContent.contact.form.messagePlaceholder}
-                    </label>
-                    <Textarea
-                      id="message"
-                      placeholder={siteContent.contact.form.messagePlaceholder}
-                      value={formData.message}
-                      onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                      required
-                      rows={6}
-                      data-testid="input-message"
+                    <FormField
+                      control={form.control}
+                      name="phone"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Рақами телефон (ихтиёрӣ)</FormLabel>
+                          <FormControl>
+                            <Input
+                              type="tel"
+                              placeholder="+992 XX XXX XXXX"
+                              data-testid="input-phone"
+                              {...field}
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
                     />
-                  </div>
 
-                  <Button
-                    type="submit"
-                    className="w-full bg-accent text-accent-foreground hover:bg-accent border-accent-border"
-                    size="lg"
-                    data-testid="button-submit-form"
-                  >
-                    {siteContent.contact.form.submitButton}
-                  </Button>
-                </form>
+                    <FormField
+                      control={form.control}
+                      name="message"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>{siteContent.contact.form.messagePlaceholder}</FormLabel>
+                          <FormControl>
+                            <Textarea
+                              placeholder={siteContent.contact.form.messagePlaceholder}
+                              rows={6}
+                              data-testid="input-message"
+                              {...field}
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+
+                    <Button
+                      type="submit"
+                      className="w-full bg-accent text-accent-foreground hover:bg-accent border-accent-border"
+                      size="lg"
+                      disabled={submitMutation.isPending}
+                      data-testid="button-submit-form"
+                    >
+                      {submitMutation.isPending ? "Фиристода мешавад..." : siteContent.contact.form.submitButton}
+                    </Button>
+                  </form>
+                </Form>
               </Card>
             </motion.div>
           </div>
