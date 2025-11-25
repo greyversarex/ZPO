@@ -137,14 +137,19 @@ export default function Contacts() {
                 </div>
               </Card>
 
-              {/* Map Placeholder */}
-              <Card className="p-6 overflow-hidden">
-                <div className="aspect-video bg-muted/50 rounded-md flex items-center justify-center">
-                  <div className="text-center">
-                    <MapPin className="w-12 h-12 text-muted-foreground mx-auto mb-2" />
-                    <p className="text-muted-foreground text-sm">Харитаи макон</p>
-                  </div>
-                </div>
+              {/* Google Map */}
+              <Card className="p-0 overflow-hidden" data-testid="card-map">
+                <iframe
+                  src="https://www.google.com/maps?q=38.5598,68.7738&hl=en&z=14&output=embed"
+                  width="100%"
+                  height="300"
+                  style={{ border: 0 }}
+                  allowFullScreen
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  title="Харитаи корхонаи протезӣ-ортопедӣ дар Дӯшанбе"
+                  data-testid="iframe-map"
+                />
               </Card>
             </motion.div>
 

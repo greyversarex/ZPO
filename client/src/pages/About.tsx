@@ -2,8 +2,11 @@ import { motion } from "framer-motion";
 import { siteContent } from "@/data/content";
 import { MapPin, Building2, Users, Award } from "lucide-react";
 import { Card } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { useState } from "react";
 
 export default function About() {
+  const [selectedBranch, setSelectedBranch] = useState(0);
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -116,6 +119,55 @@ export default function About() {
                 </Card>
               </motion.div>
             ))}
+          </motion.div>
+
+          {/* Interactive Map Section */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            className="mt-16 max-w-5xl mx-auto"
+          >
+            <Card className="p-6">
+              <h3 className="text-2xl font-bold text-foreground mb-6 text-center" data-testid="text-map-title">
+                Мақомҳои филиалҳо рӯи харита
+              </h3>
+              
+              <div className="flex flex-wrap gap-2 mb-6 justify-center">
+                {siteContent.about.branches.map((branch, index) => (
+                  <Button
+                    key={index}
+                    variant={selectedBranch === index ? "default" : "outline"}
+                    onClick={() => setSelectedBranch(index)}
+                    data-testid={`button-select-branch-${index}`}
+                    className="text-sm"
+                  >
+                    {branch.city}
+                  </Button>
+                ))}
+              </div>
+
+              <div className="relative w-full h-96 rounded-md overflow-hidden bg-muted/30">
+                <iframe
+                  src={siteContent.about.branches[selectedBranch].mapUrl}
+                  width="100%"
+                  height="100%"
+                  style={{ border: 0 }}
+                  allowFullScreen
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  title={`Харитаи ${siteContent.about.branches[selectedBranch].city}`}
+                  data-testid="iframe-branch-map"
+                />
+              </div>
+
+              <div className="mt-4 text-center">
+                <p className="text-muted-foreground text-sm" data-testid="text-selected-branch-info">
+                  <strong>{siteContent.about.branches[selectedBranch].name}:</strong> {siteContent.about.branches[selectedBranch].city} - {siteContent.about.branches[selectedBranch].description}
+                </p>
+              </div>
+            </Card>
           </motion.div>
         </div>
       </section>

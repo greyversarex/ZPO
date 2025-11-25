@@ -31,22 +31,26 @@ export const siteContent = {
       {
         name: "Марказ",
         city: "ш. Душанбе",
-        description: "Марказии асосӣ"
+        description: "Марказии асосӣ",
+        mapUrl: "https://www.google.com/maps?q=38.5598,68.7738&hl=en&z=14&output=embed"
       },
       {
         name: "Филиал",
         city: "ш. Хуҷанд",
-        description: "Минтақаи шимол"
+        description: "Минтақаи шимол",
+        mapUrl: "https://www.google.com/maps?q=40.2828,69.6219&hl=en&z=14&output=embed"
       },
       {
         name: "Филиал",
         city: "ш. Кӯлоб",
-        description: "Минтақаи ҷануб"
+        description: "Минтақаи ҷануб",
+        mapUrl: "https://www.google.com/maps?q=37.9100,69.7850&hl=en&z=14&output=embed"
       },
       {
         name: "Филиал",
         city: "ш. Хоруғ",
-        description: "Вилояти Кӯҳистони Бадахшон"
+        description: "Вилояти Кӯҳистони Бадахшон",
+        mapUrl: "https://www.google.com/maps?q=37.4894,71.5537&hl=en&z=14&output=embed"
       }
     ]
   },
