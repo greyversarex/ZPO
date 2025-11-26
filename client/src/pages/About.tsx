@@ -71,19 +71,9 @@ export default function About() {
                 />
               </div>
               <div className="p-8 md:p-12">
-                <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 rounded-md bg-primary text-primary-foreground flex items-center justify-center flex-shrink-0">
-                    <Award className="w-6 h-6" />
-                  </div>
-                  <div>
-                    <h2 className="text-2xl font-bold text-foreground mb-4" data-testid="text-mission-title">
-                      {t.about.title}
-                    </h2>
-                    <p className="text-lg text-foreground leading-relaxed" data-testid="text-mission-content">
-                      {t.about.mission}
-                    </p>
-                  </div>
-                </div>
+                <p className="text-lg text-foreground leading-relaxed" data-testid="text-mission-content">
+                  {t.about.mission}
+                </p>
               </div>
             </Card>
           </motion.div>
