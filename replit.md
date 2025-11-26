@@ -213,6 +213,51 @@ const { language, setLanguage, t } = useLanguage();
 - Interactive branch selector on About page
 - Static map on Contacts page showing main office
 
+## Admin Panel
+
+### Authentication
+- Admin login page at `/admin/login`
+- Token-based authentication stored in localStorage
+- Default credentials: admin / admin123 (created via seed script)
+
+### Admin Pages
+- **/admin** - Dashboard with summary cards for banners and news
+- **/admin/banners** - Manage homepage banner slider (CRUD operations)
+- **/admin/news** - Manage news feed (CRUD operations with image upload)
+
+### Admin Features
+- Multi-language content management (TJ/RU/EN for all content)
+- Image upload for banners and news (stored in /uploads directory)
+- Active/inactive toggle for content visibility
+- Sort order control for banners
+- Published date control for news items
+
+### API Endpoints (Admin)
+
+#### Banners
+- **GET /api/banners** - Get all active banners (add `?includeInactive=true` for admin)
+- **GET /api/banners/:id** - Get single banner by ID
+- **POST /api/banners** - Create new banner (requires auth)
+- **PATCH /api/banners/:id** - Update banner (requires auth)
+- **DELETE /api/banners/:id** - Delete banner (requires auth)
+
+#### News
+- **GET /api/news** - Get all active news (add `?includeInactive=true` for admin)
+- **GET /api/news/:id** - Get single news item by ID
+- **POST /api/news** - Create new news (requires auth)
+- **PATCH /api/news/:id** - Update news (requires auth)
+- **DELETE /api/news/:id** - Delete news (requires auth)
+
+#### Admin Auth
+- **POST /api/admin/login** - Admin login (returns token)
+- **POST /api/admin/logout** - Admin logout (requires auth)
+- **GET /api/admin/me** - Get current admin info (requires auth)
+- **POST /api/admin/setup** - Create initial admin (one-time)
+
+#### File Upload
+- **POST /api/upload** - Upload image (requires auth, returns imageUrl)
+
 ## Database Seeding
 - Run `tsx server/seed.ts` to populate database with initial products and branches from content.ts
-- Seeds 4 products/services and 4 branch locations
+- Run `tsx server/seed-admin.ts` to create admin user and seed initial banners/news
+- Seeds 4 products/services, 4 branch locations, 3 banners, and 4 news items
