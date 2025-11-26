@@ -9,16 +9,16 @@ import type { Banner, News } from "@shared/schema";
 import { useState, useEffect } from "react";
 import { format } from "date-fns";
 
-import workshopImg1 from "@assets/generated_images/prosthetics_workshop_photo.png";
-import workshopImg2 from "@assets/generated_images/orthopedic_shoes_workshop.png";
-import workshopImg3 from "@assets/generated_images/mobility_aids_workshop.png";
-import workshopImg4 from "@assets/generated_images/rehabilitation_center_photo.png";
+import workshopImgProsthetics from "@assets/20251105_135526_1764185493900.jpg";
+import workshopImgShoes from "@assets/20251105_140301_1764185477582.jpg";
+import workshopImgMobility from "@assets/20251105_140023_1764185537354.jpg";
+import workshopImgRehab from "@assets/IMG_20250702_104822_1764185582560.jpg";
 
 const workshopImages: Record<number, string> = {
-  1: workshopImg1,
-  2: workshopImg2,
-  3: workshopImg3,
-  4: workshopImg4
+  1: workshopImgProsthetics,
+  2: workshopImgShoes,
+  3: workshopImgMobility,
+  4: workshopImgRehab
 };
 
 function BannerSlider() {
