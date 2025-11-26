@@ -5,7 +5,7 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useLanguage } from "@/lib/LanguageContext";
 import type { Language } from "@/lib/translations";
-import logoIcon from "@assets/generated_images/3d_prosthetics_orthopedics_logo_icon.png";
+import logoIcon from "@assets/generated_images/gold_3d_accessibility_figure_transparent.png";
 
 const languageLabels: Record<Language, string> = {
   tj: "TJ",
