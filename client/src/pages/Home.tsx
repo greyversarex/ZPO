@@ -151,16 +151,7 @@ function BannerSlider() {
             </p>
           )}
 
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-3xl mx-auto mt-12">
-            {t.hero.stats.map((stat, index) => (
-              <Card key={index} className="bg-white/95 backdrop-blur p-6 text-center hover-elevate border-white/20" data-testid={`stat-badge-${index}`}>
-                <div className="text-3xl sm:text-4xl font-bold text-primary mb-2">{stat.number}</div>
-                <div className="text-sm text-muted-foreground font-medium">{stat.label}</div>
-              </Card>
-            ))}
-          </div>
-
-          <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center pt-8">
             {currentBanner.buttonTextTj && currentBanner.buttonLink ? (
               <Link href={currentBanner.buttonLink}>
                 <Button size="lg" className="bg-accent text-accent-foreground border-accent-border backdrop-blur" data-testid="hero-cta-primary">
