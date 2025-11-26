@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { FileCheck, FileText, ListChecks, Download } from "lucide-react";
+import { FileCheck, FileText, ListChecks, Download, HeartPulse, Accessibility, Home, Users, Stethoscope } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
@@ -10,6 +10,184 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { useLanguage } from "@/lib/LanguageContext";
+
+const additionalSections = {
+  sanatorium: {
+    tj: {
+      title: "Табобати санаторию курортӣ",
+      content: "Маъюбон ба табобати санаторию курортӣ дар асоси барномаи инфиродии тавонбахшӣ ва хулосаи мақомоти тандурустӣ таъмин карда мешаванд.",
+      items: [
+        "Маъюбони Ҷанги Бузурги Ватанӣ — ҳар сол 1 маротиба ба таври ройгон",
+        "Маъюбони гурӯҳи I ва маъюбони амалиёти ҷангӣ — дар 2 сол як маротиба",
+        "Маъюбони гурӯҳи I нобино, гурӯҳи II, маъюбон аз овони кӯдакӣ — дар 3 сол як маротиба ройгон ё дар 2 сол бо пардохти 50%",
+        "Маъюбони гурӯҳи III (корнакунанда) — дар 2 сол як маротиба бо пардохти 50%",
+        "Кӯдакони маъюби то 18-сола — тибқи тартиби Маркази саломатӣ"
+      ]
+    },
+    ru: {
+      title: "Санаторно-курортное лечение",
+      content: "Инвалиды обеспечиваются санаторно-курортным лечением на основании индивидуальной программы реабилитации и заключения органов здравоохранения.",
+      items: [
+        "Инвалиды ВОВ — ежегодно 1 раз бесплатно",
+        "Инвалиды I группы и инвалиды боевых действий — 1 раз в 2 года",
+        "Инвалиды I группы (незрячие), II группы, инвалиды с детства — 1 раз в 3 года бесплатно или 1 раз в 2 года с оплатой 50%",
+        "Инвалиды III группы (неработающие) — 1 раз в 2 года с оплатой 50%",
+        "Дети-инвалиды до 18 лет — согласно порядку Центра здоровья"
+      ]
+    },
+    en: {
+      title: "Sanatorium Treatment",
+      content: "Disabled persons are provided with sanatorium treatment based on individual rehabilitation program and health authority recommendations.",
+      items: [
+        "WWII veterans — once a year free of charge",
+        "Group I disabled and combat veterans — once every 2 years",
+        "Group I blind, Group II, childhood disabled — once every 3 years free or once every 2 years at 50% cost",
+        "Group III disabled (non-working) — once every 2 years at 50% cost",
+        "Disabled children under 18 — according to Health Center procedures"
+      ]
+    }
+  },
+  techMeans: {
+    tj: {
+      title: "Воситаҳои техникии тавонбахшӣ",
+      content: "Маъюбон бо воситаҳои техникии тавонбахшӣ ба таври ройгон таъмин карда мешаванд. Ҳуҷҷатҳои зарурӣ:",
+      items: [
+        "Ариза",
+        "Нусхаи шиноснома",
+        "Барномаи инфиродии тавонбахшии маъюб",
+        "Хулосаи Маркази саломатии ҷои истиқомат"
+      ],
+      note: "Ариза дар муддати 15 рӯз баррасӣ карда мешавад. Воситаҳои техникӣ фурӯхта ва тӯҳфа карда намешаванд."
+    },
+    ru: {
+      title: "Технические средства реабилитации",
+      content: "Инвалиды обеспечиваются техническими средствами реабилитации бесплатно. Необходимые документы:",
+      items: [
+        "Заявление",
+        "Копия удостоверения личности",
+        "Индивидуальная программа реабилитации инвалида",
+        "Заключение Центра здоровья по месту жительства"
+      ],
+      note: "Заявление рассматривается в течение 15 дней. Технические средства не подлежат продаже и дарению."
+    },
+    en: {
+      title: "Technical Rehabilitation Means",
+      content: "Disabled persons are provided with technical rehabilitation means free of charge. Required documents:",
+      items: [
+        "Application",
+        "Copy of ID document",
+        "Individual rehabilitation program",
+        "Health Center conclusion from place of residence"
+      ],
+      note: "Application is reviewed within 15 days. Technical means cannot be sold or gifted."
+    }
+  },
+  socialServices: {
+    tj: {
+      title: "Хизматрасониҳои ройгони иҷтимоӣ",
+      content: "Шахсони зерин ҳуқуқи гирифтани хизматрасониҳои ройгони иҷтимоӣ доранд:",
+      items: [
+        "Маъюбон ва кӯдакони маъюб",
+        "Шахсони пиронсол, ки қобилияти худхизматрасониро гум кардаанд",
+        "Собиқадорони Ҷанги Бузурги Ватанӣ",
+        "Шахсони бесаробон ва бе манбаи даромад",
+        "Қурбониёни савдои одамон",
+        "Занон ва кӯдакони зарардида аз зӯроварӣ"
+      ]
+    },
+    ru: {
+      title: "Бесплатные социальные услуги",
+      content: "Право на бесплатные социальные услуги имеют:",
+      items: [
+        "Инвалиды и дети-инвалиды",
+        "Пожилые лица, утратившие способность к самообслуживанию",
+        "Ветераны Великой Отечественной войны",
+        "Лица без крова и без источника дохода",
+        "Жертвы торговли людьми",
+        "Женщины и дети, пострадавшие от насилия"
+      ]
+    },
+    en: {
+      title: "Free Social Services",
+      content: "The following persons have the right to free social services:",
+      items: [
+        "Disabled persons and disabled children",
+        "Elderly persons who have lost self-care ability",
+        "WWII veterans",
+        "Homeless persons without income",
+        "Victims of human trafficking",
+        "Women and children affected by violence"
+      ]
+    }
+  },
+  serviceTypes: {
+    tj: {
+      title: "Намудҳои хизматрасонии иҷтимоӣ",
+      items: [
+        "Хизматрасонии иҷтимоии маишӣ — кӯмак дар фаъолияти ҳаётӣ, таъмини хӯрок, либос",
+        "Хизматрасонии иҷтимоии тиббӣ — кӯмаки тиббӣ, доруворӣ, муоинаҳо",
+        "Хизматрасонии иҷтимоии равонӣ — дастгирии равонӣ, машварат",
+        "Хизматрасонии иҷтимоии педагогӣ — таълим, тарбия, рушди малакаҳо",
+        "Хизматрасонии иҷтимоии ҳуқуқӣ — маслиҳати ҳуқуқӣ, ҳифзи ҳуқуқҳо"
+      ]
+    },
+    ru: {
+      title: "Виды социальных услуг",
+      items: [
+        "Социально-бытовые услуги — помощь в жизнедеятельности, обеспечение питанием, одеждой",
+        "Социально-медицинские услуги — медицинская помощь, лекарства, обследования",
+        "Социально-психологические услуги — психологическая поддержка, консультации",
+        "Социально-педагогические услуги — обучение, воспитание, развитие навыков",
+        "Социально-правовые услуги — юридические консультации, защита прав"
+      ]
+    },
+    en: {
+      title: "Types of Social Services",
+      items: [
+        "Social-domestic services — life support assistance, food, clothing provision",
+        "Social-medical services — medical assistance, medications, examinations",
+        "Social-psychological services — psychological support, counseling",
+        "Social-pedagogical services — education, upbringing, skill development",
+        "Social-legal services — legal consultations, rights protection"
+      ]
+    }
+  },
+  rights: {
+    tj: {
+      title: "Ҳуқуқҳои маъюбон",
+      items: [
+        "Ҳуқуқ ба ҳифзи иҷтимоӣ ва тавонбахшӣ",
+        "Ҳуқуқ ба таҳсили ройгон",
+        "Ҳуқуқ ба кор ва шуғл",
+        "Ҳуқуқ ба хизматрасонии тиббӣ",
+        "Ҳуқуқ ба дастрасии бемонеа ба иншоотҳо",
+        "Ҳуқуқ ба иштирок дар ҳаёти ҷамъиятӣ"
+      ]
+    },
+    ru: {
+      title: "Права инвалидов",
+      items: [
+        "Право на социальную защиту и реабилитацию",
+        "Право на бесплатное образование",
+        "Право на труд и занятость",
+        "Право на медицинское обслуживание",
+        "Право на беспрепятственный доступ к объектам",
+        "Право на участие в общественной жизни"
+      ]
+    },
+    en: {
+      title: "Rights of Disabled Persons",
+      items: [
+        "Right to social protection and rehabilitation",
+        "Right to free education",
+        "Right to work and employment",
+        "Right to medical services",
+        "Right to barrier-free access to facilities",
+        "Right to participate in public life"
+      ]
+    }
+  }
+};
 
 const documents = [
   {
@@ -171,6 +349,151 @@ export default function Patients() {
                       </div>
                     ))}
                   </div>
+                </AccordionContent>
+              </AccordionItem>
+
+              {/* Technical Rehabilitation Means */}
+              <AccordionItem value="techMeans" className="border rounded-md">
+                <AccordionTrigger 
+                  className="px-6 py-4 hover-elevate data-[state=open]:bg-muted/50"
+                  data-testid="accordion-tech-means"
+                >
+                  <div className="flex items-center gap-4 text-left">
+                    <div className="w-10 h-10 rounded-md bg-primary text-primary-foreground flex items-center justify-center flex-shrink-0">
+                      <Accessibility className="w-5 h-5" />
+                    </div>
+                    <span className="font-semibold text-lg">
+                      {additionalSections.techMeans[language].title}
+                    </span>
+                  </div>
+                </AccordionTrigger>
+                <AccordionContent className="px-6 py-6 border-t">
+                  <p className="text-muted-foreground mb-4">{additionalSections.techMeans[language].content}</p>
+                  <ol className="space-y-2 mb-4">
+                    {additionalSections.techMeans[language].items.map((item, index) => (
+                      <li key={index} className="flex items-start gap-3">
+                        <span className="flex items-center justify-center w-6 h-6 rounded-full bg-primary/10 text-primary text-sm font-semibold flex-shrink-0 mt-0.5">
+                          {index + 1}
+                        </span>
+                        <span className="text-muted-foreground">{item}</span>
+                      </li>
+                    ))}
+                  </ol>
+                  {additionalSections.techMeans[language].note && (
+                    <div className="p-3 bg-accent/10 border border-accent/20 rounded-md">
+                      <p className="text-sm text-accent-foreground">{additionalSections.techMeans[language].note}</p>
+                    </div>
+                  )}
+                </AccordionContent>
+              </AccordionItem>
+
+              {/* Sanatorium Treatment */}
+              <AccordionItem value="sanatorium" className="border rounded-md">
+                <AccordionTrigger 
+                  className="px-6 py-4 hover-elevate data-[state=open]:bg-muted/50"
+                  data-testid="accordion-sanatorium"
+                >
+                  <div className="flex items-center gap-4 text-left">
+                    <div className="w-10 h-10 rounded-md bg-primary text-primary-foreground flex items-center justify-center flex-shrink-0">
+                      <HeartPulse className="w-5 h-5" />
+                    </div>
+                    <span className="font-semibold text-lg">
+                      {additionalSections.sanatorium[language].title}
+                    </span>
+                  </div>
+                </AccordionTrigger>
+                <AccordionContent className="px-6 py-6 border-t">
+                  <p className="text-muted-foreground mb-4">{additionalSections.sanatorium[language].content}</p>
+                  <ul className="space-y-3">
+                    {additionalSections.sanatorium[language].items.map((item, index) => (
+                      <li key={index} className="flex items-start gap-3">
+                        <div className="w-2 h-2 rounded-full bg-primary mt-2 flex-shrink-0" />
+                        <span className="text-muted-foreground">{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </AccordionContent>
+              </AccordionItem>
+
+              {/* Free Social Services */}
+              <AccordionItem value="socialServices" className="border rounded-md">
+                <AccordionTrigger 
+                  className="px-6 py-4 hover-elevate data-[state=open]:bg-muted/50"
+                  data-testid="accordion-social-services"
+                >
+                  <div className="flex items-center gap-4 text-left">
+                    <div className="w-10 h-10 rounded-md bg-primary text-primary-foreground flex items-center justify-center flex-shrink-0">
+                      <Users className="w-5 h-5" />
+                    </div>
+                    <span className="font-semibold text-lg">
+                      {additionalSections.socialServices[language].title}
+                    </span>
+                  </div>
+                </AccordionTrigger>
+                <AccordionContent className="px-6 py-6 border-t">
+                  <p className="text-muted-foreground mb-4">{additionalSections.socialServices[language].content}</p>
+                  <ul className="space-y-3">
+                    {additionalSections.socialServices[language].items.map((item, index) => (
+                      <li key={index} className="flex items-start gap-3">
+                        <div className="w-2 h-2 rounded-full bg-primary mt-2 flex-shrink-0" />
+                        <span className="text-muted-foreground">{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </AccordionContent>
+              </AccordionItem>
+
+              {/* Types of Social Services */}
+              <AccordionItem value="serviceTypes" className="border rounded-md">
+                <AccordionTrigger 
+                  className="px-6 py-4 hover-elevate data-[state=open]:bg-muted/50"
+                  data-testid="accordion-service-types"
+                >
+                  <div className="flex items-center gap-4 text-left">
+                    <div className="w-10 h-10 rounded-md bg-primary text-primary-foreground flex items-center justify-center flex-shrink-0">
+                      <Stethoscope className="w-5 h-5" />
+                    </div>
+                    <span className="font-semibold text-lg">
+                      {additionalSections.serviceTypes[language].title}
+                    </span>
+                  </div>
+                </AccordionTrigger>
+                <AccordionContent className="px-6 py-6 border-t">
+                  <ul className="space-y-3">
+                    {additionalSections.serviceTypes[language].items.map((item, index) => (
+                      <li key={index} className="flex items-start gap-3">
+                        <div className="w-2 h-2 rounded-full bg-primary mt-2 flex-shrink-0" />
+                        <span className="text-muted-foreground">{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </AccordionContent>
+              </AccordionItem>
+
+              {/* Rights of Disabled Persons */}
+              <AccordionItem value="rights" className="border rounded-md">
+                <AccordionTrigger 
+                  className="px-6 py-4 hover-elevate data-[state=open]:bg-muted/50"
+                  data-testid="accordion-rights"
+                >
+                  <div className="flex items-center gap-4 text-left">
+                    <div className="w-10 h-10 rounded-md bg-primary text-primary-foreground flex items-center justify-center flex-shrink-0">
+                      <Home className="w-5 h-5" />
+                    </div>
+                    <span className="font-semibold text-lg">
+                      {additionalSections.rights[language].title}
+                    </span>
+                  </div>
+                </AccordionTrigger>
+                <AccordionContent className="px-6 py-6 border-t">
+                  <ul className="space-y-3">
+                    {additionalSections.rights[language].items.map((item, index) => (
+                      <li key={index} className="flex items-start gap-3">
+                        <div className="w-2 h-2 rounded-full bg-primary mt-2 flex-shrink-0" />
+                        <span className="text-muted-foreground">{item}</span>
+                      </li>
+                    ))}
+                  </ul>
                 </AccordionContent>
               </AccordionItem>
             </Accordion>
