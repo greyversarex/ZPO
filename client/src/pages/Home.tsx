@@ -118,10 +118,10 @@ function BannerSlider() {
             index === currentSlide ? "opacity-100" : "opacity-0"
           }`}
         >
-          <div className="absolute inset-0 bg-gradient-to-br from-primary/90 via-primary/80 to-primary/70">
+          <div className="absolute inset-0">
             {banner.imageUrl && (
               <div
-                className="absolute inset-0 opacity-30"
+                className="absolute inset-0"
                 style={{
                   backgroundImage: `url('${banner.imageUrl}')`,
                   backgroundSize: "cover",
@@ -129,6 +129,7 @@ function BannerSlider() {
                 }}
               />
             )}
+            <div className="absolute inset-0 bg-gradient-to-br from-primary/50 via-primary/40 to-primary/30" />
           </div>
         </div>
       ))}
