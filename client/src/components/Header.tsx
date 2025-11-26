@@ -1,10 +1,11 @@
 import { Link, useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
-import { Accessibility, Menu, X, Globe } from "lucide-react";
+import { Menu, X, Globe } from "lucide-react";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useLanguage } from "@/lib/LanguageContext";
 import type { Language } from "@/lib/translations";
+import logoIcon from "@assets/generated_images/3d_prosthetics_orthopedics_logo_icon.png";
 
 const languageLabels: Record<Language, string> = {
   tj: "TJ",
@@ -33,8 +34,8 @@ export default function Header() {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative">
         <div className="flex h-18 py-3 items-center justify-between gap-4">
           <Link href="/" className="flex items-center gap-3 px-2 py-1 rounded-md group" data-testid="link-nav-logo">
-            <div className="flex items-center justify-center w-11 h-11 rounded-lg bg-white/20 backdrop-blur-sm border border-white/30 text-white shadow-md" data-testid="icon-logo">
-              <Accessibility className="w-6 h-6" />
+            <div className="flex items-center justify-center w-11 h-11 rounded-lg bg-white/20 backdrop-blur-sm border border-white/30 shadow-md overflow-hidden" data-testid="icon-logo">
+              <img src={logoIcon} alt="Logo" className="w-9 h-9 object-contain" />
             </div>
             <span className="hidden sm:block text-sm md:text-base font-bold text-white max-w-xs lg:max-w-md line-clamp-2 drop-shadow-sm" data-testid="text-site-title">
               {t.header.shortTitle}
