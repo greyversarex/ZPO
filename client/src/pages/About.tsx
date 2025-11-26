@@ -52,9 +52,11 @@ export default function About() {
                 />
               </div>
               <div className="p-8 md:p-12">
-                <p className="text-lg text-foreground leading-relaxed" data-testid="text-mission-content">
-                  {t.about.mission}
-                </p>
+                <div className="border-l-4 border-accent pl-6">
+                  <p className="text-lg text-foreground leading-relaxed" data-testid="text-mission-content">
+                    {t.about.mission}
+                  </p>
+                </div>
               </div>
             </Card>
           </motion.div>
