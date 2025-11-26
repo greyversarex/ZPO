@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Building2, Accessibility, Footprints, Armchair, HeartHandshake, ChevronLeft, ChevronRight, Calendar, ArrowRight, Newspaper, Image as ImageIcon } from "lucide-react";
+import { Building2, ChevronLeft, ChevronRight, Calendar, Newspaper } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
@@ -9,11 +9,16 @@ import type { Banner, News } from "@shared/schema";
 import { useState, useEffect } from "react";
 import { format } from "date-fns";
 
-const workshopIcons = {
-  Accessibility,
-  Footprints,
-  Armchair,
-  HeartHandshake
+import workshopImg1 from "@assets/generated_images/prosthetics_workshop_photo.png";
+import workshopImg2 from "@assets/generated_images/orthopedic_shoes_workshop.png";
+import workshopImg3 from "@assets/generated_images/mobility_aids_workshop.png";
+import workshopImg4 from "@assets/generated_images/rehabilitation_center_photo.png";
+
+const workshopImages: Record<number, string> = {
+  1: workshopImg1,
+  2: workshopImg2,
+  3: workshopImg3,
+  4: workshopImg4
 };
 
 function BannerSlider() {
@@ -388,9 +393,9 @@ export default function Home() {
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
             {t.workshops.items.map((workshop, index) => {
-              const IconComponent = workshopIcons[workshop.icon as keyof typeof workshopIcons] || Building2;
+              const workshopImage = workshopImages[workshop.id];
               return (
                 <motion.div
                   key={workshop.id}
@@ -399,19 +404,21 @@ export default function Home() {
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
                 >
-                  <Card className="p-8 hover-elevate h-full" data-testid={`workshop-preview-${workshop.id}`}>
-                    <div className="flex items-start gap-4">
-                      <div className="w-12 h-12 rounded-md bg-primary text-primary-foreground flex items-center justify-center flex-shrink-0">
-                        <IconComponent className="w-6 h-6" />
-                      </div>
-                      <div className="flex-1">
-                        <h3 className="font-semibold text-lg text-foreground mb-2" data-testid={`workshop-title-${workshop.id}`}>
-                          {workshop.shortName}
-                        </h3>
-                        <p className="text-muted-foreground" data-testid={`workshop-desc-${workshop.id}`}>
-                          {workshop.description}
-                        </p>
-                      </div>
+                  <Card className="overflow-hidden hover-elevate h-full" data-testid={`workshop-preview-${workshop.id}`}>
+                    <div className="aspect-[4/3] w-full">
+                      <img 
+                        src={workshopImage} 
+                        alt={workshop.shortName}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                    <div className="p-6">
+                      <h3 className="font-semibold text-xl text-foreground mb-3" data-testid={`workshop-title-${workshop.id}`}>
+                        {workshop.shortName}
+                      </h3>
+                      <p className="text-muted-foreground" data-testid={`workshop-desc-${workshop.id}`}>
+                        {workshop.description}
+                      </p>
                     </div>
                   </Card>
                 </motion.div>
