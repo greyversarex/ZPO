@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { FileCheck, FileText, ListChecks, CheckCircle2 } from "lucide-react";
+import { FileCheck, FileText, ListChecks, Download } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
@@ -11,8 +11,53 @@ import {
 } from "@/components/ui/accordion";
 import { useLanguage } from "@/lib/LanguageContext";
 
+const documents = [
+  {
+    id: 1,
+    titleTj: "Қонун дар бораи ҳифзи иҷтимоии маъюбон",
+    titleRu: "Закон о социальной защите инвалидов",
+    titleEn: "Law on Social Protection of Disabled Persons",
+    file: "/attached_assets/ДАР БОРАИ ҲИФЗИ ИҶТИМОИИ МАЪЮБОН 2010_1764186405965.pdf"
+  },
+  {
+    id: 2,
+    titleTj: "Қоидаҳои бо воситаҳои техникии тавонбахшӣ таъмин намудани маъюбон (Қарори 604)",
+    titleRu: "Правила обеспечения инвалидов техническими средствами реабилитации (Постановление 604)",
+    titleEn: "Rules for Providing Disabled Persons with Technical Rehabilitation Means (Resolution 604)",
+    file: "/attached_assets/замима_1764186405966.pdf"
+  },
+  {
+    id: 3,
+    titleTj: "Қоидаҳои таъмин намудани маъюбон ба табобати санаторию курортӣ",
+    titleRu: "Правила обеспечения инвалидов санаторно-курортным лечением",
+    titleEn: "Rules for Providing Disabled Persons with Sanatorium Treatment",
+    file: "/attached_assets/курорти_1764186405964.pdf"
+  },
+  {
+    id: 4,
+    titleTj: "Тартиб ва ҳаҷми пешниҳод намудани хизматрасониҳои ройгони иҷтимоӣ",
+    titleRu: "Порядок и объемы предоставления бесплатного социального обслуживания",
+    titleEn: "Procedure and Scope of Free Social Services",
+    file: "/attached_assets/тартиби хизматрасонихои ройгони ичтимои_1764186420403.pdf"
+  },
+  {
+    id: 5,
+    titleTj: "Қарори Ҳукумати ҶТ № 448",
+    titleRu: "Постановление Правительства РТ № 448",
+    titleEn: "Government Resolution No. 448",
+    file: "/attached_assets/448_1764186440463.pdf"
+  },
+  {
+    id: 6,
+    titleTj: "Қонун дар бораи ҳифзи саломатии аҳолӣ",
+    titleRu: "Закон об охране здоровья населения",
+    titleEn: "Law on Public Health Protection",
+    file: "/attached_assets/КЧТ Дар бораи хиязи саломатии ахоли_1764186411155.pdf"
+  }
+];
+
 export default function Patients() {
-  const { t } = useLanguage();
+  const { language, t } = useLanguage();
 
   return (
     <div className="min-h-screen bg-background">
@@ -133,7 +178,7 @@ export default function Patients() {
         </div>
       </section>
 
-      {/* Legal Base Section */}
+      {/* Documents Download Section */}
       <section className="py-20 bg-muted/30">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
@@ -143,21 +188,36 @@ export default function Patients() {
             transition={{ duration: 0.6 }}
             className="max-w-4xl mx-auto"
           >
-            <Card className="p-8 md:p-12">
-              <div className="flex items-start gap-4 mb-6">
-                <div className="w-12 h-12 rounded-md bg-primary text-primary-foreground flex items-center justify-center flex-shrink-0">
-                  <CheckCircle2 className="w-6 h-6" />
-                </div>
-                <div className="flex-1">
-                  <h2 className="text-2xl font-bold text-foreground mb-6" data-testid="text-legal-title">
-                    {t.about.subtitle}
-                  </h2>
-                  <p className="text-muted-foreground leading-relaxed">
-                    {t.about.mission}
-                  </p>
-                </div>
-              </div>
-            </Card>
+            <h2 className="text-3xl font-bold text-foreground mb-8 text-center" data-testid="text-documents-title">
+              {language === 'tj' ? 'Ҳуҷҷатҳои меъёрӣ' : language === 'ru' ? 'Нормативные документы' : 'Regulatory Documents'}
+            </h2>
+            <div className="grid gap-4">
+              {documents.map((doc) => {
+                const title = language === 'tj' ? doc.titleTj : language === 'ru' ? doc.titleRu : doc.titleEn;
+                return (
+                  <Card key={doc.id} className="p-4 hover-elevate">
+                    <div className="flex items-center justify-between gap-4">
+                      <div className="flex items-center gap-3 flex-1 min-w-0">
+                        <div className="w-10 h-10 rounded-md bg-primary/10 text-primary flex items-center justify-center flex-shrink-0">
+                          <FileText className="w-5 h-5" />
+                        </div>
+                        <span className="text-foreground font-medium truncate" data-testid={`text-doc-title-${doc.id}`}>
+                          {title}
+                        </span>
+                      </div>
+                      <a href={doc.file} download target="_blank" rel="noopener noreferrer">
+                        <Button variant="outline" size="sm" className="flex items-center gap-2" data-testid={`button-download-${doc.id}`}>
+                          <Download className="w-4 h-4" />
+                          <span className="hidden sm:inline">
+                            {language === 'tj' ? 'Боргирӣ' : language === 'ru' ? 'Скачать' : 'Download'}
+                          </span>
+                        </Button>
+                      </a>
+                    </div>
+                  </Card>
+                );
+              })}
+            </div>
           </motion.div>
         </div>
       </section>

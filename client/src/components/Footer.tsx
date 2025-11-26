@@ -15,13 +15,16 @@ export default function Footer() {
       <div className="absolute bottom-0 left-0 w-48 h-48 bg-accent/10 rounded-full translate-y-1/2 -translate-x-1/2 blur-2xl" />
       
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 relative z-10">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
           {/* Branding */}
           <div className="space-y-4" data-testid="footer-branding">
             <h3 className="text-base font-bold text-white flex items-center gap-2" data-testid="text-footer-title">
               <div className="w-1 h-5 bg-accent rounded-full" />
               {t.header.shortTitle}
             </h3>
+            <p className="text-sm text-white/80 max-w-md leading-relaxed" data-testid="text-footer-description">
+              {t.hero.subheadline}
+            </p>
           </div>
 
           {/* Contact Info */}
@@ -67,6 +70,17 @@ export default function Footer() {
                 </a>
               </div>
             </div>
+          </div>
+
+          {/* Ministry */}
+          <div className="space-y-4" data-testid="footer-legal">
+            <h3 className="text-base font-bold text-white flex items-center gap-2" data-testid="text-ministry-title">
+              <div className="w-1 h-5 bg-accent rounded-full" />
+              {t.footer.ministry}
+            </h3>
+            <p className="text-sm text-white/80 leading-relaxed">
+              {t.about.mission}
+            </p>
           </div>
         </div>
 
