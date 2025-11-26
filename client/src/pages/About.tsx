@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { useState } from "react";
 import { useLanguage } from "@/lib/LanguageContext";
+import teamPhoto from "@assets/IMG-20250925-WA0032_1764182104707.jpg";
 
 export default function About() {
   const { t } = useLanguage();
@@ -60,18 +61,28 @@ export default function About() {
             transition={{ duration: 0.6 }}
             className="max-w-4xl mx-auto"
           >
-            <Card className="p-8 md:p-12">
-              <div className="flex items-start gap-4 mb-6">
-                <div className="w-12 h-12 rounded-md bg-primary text-primary-foreground flex items-center justify-center flex-shrink-0">
-                  <Award className="w-6 h-6" />
-                </div>
-                <div>
-                  <h2 className="text-2xl font-bold text-foreground mb-4" data-testid="text-mission-title">
-                    {t.about.title}
-                  </h2>
-                  <p className="text-lg text-foreground leading-relaxed" data-testid="text-mission-content">
-                    {t.about.mission}
-                  </p>
+            <Card className="overflow-hidden">
+              <div className="aspect-[16/9] md:aspect-[21/9] w-full">
+                <img 
+                  src={teamPhoto} 
+                  alt="Команда предприятия" 
+                  className="w-full h-full object-cover"
+                  data-testid="img-team-photo"
+                />
+              </div>
+              <div className="p-8 md:p-12">
+                <div className="flex items-start gap-4">
+                  <div className="w-12 h-12 rounded-md bg-primary text-primary-foreground flex items-center justify-center flex-shrink-0">
+                    <Award className="w-6 h-6" />
+                  </div>
+                  <div>
+                    <h2 className="text-2xl font-bold text-foreground mb-4" data-testid="text-mission-title">
+                      {t.about.title}
+                    </h2>
+                    <p className="text-lg text-foreground leading-relaxed" data-testid="text-mission-content">
+                      {t.about.mission}
+                    </p>
+                  </div>
                 </div>
               </div>
             </Card>
