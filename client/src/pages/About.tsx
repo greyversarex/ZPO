@@ -32,25 +32,6 @@ export default function About() {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Hero Section */}
-      <section className="relative py-20 bg-gradient-to-br from-primary/5 to-primary/10">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="max-w-3xl mx-auto text-center"
-          >
-            <h1 className="text-4xl sm:text-5xl font-bold text-foreground mb-6" data-testid="text-page-title">
-              {t.about.title}
-            </h1>
-            <p className="text-lg text-muted-foreground" data-testid="text-page-subtitle">
-              {t.about.subtitle}
-            </p>
-          </motion.div>
-        </div>
-      </section>
-
       {/* Mission Section */}
       <section className="py-20">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -124,36 +105,6 @@ export default function About() {
             ))}
           </motion.div>
 
-          {/* Departments */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            className="mt-16 max-w-3xl mx-auto"
-          >
-            <Card className="p-8">
-              <div className="flex items-center gap-3 mb-6">
-                <div className="w-10 h-10 rounded-md bg-primary/10 flex items-center justify-center">
-                  <Briefcase className="w-5 h-5 text-primary" />
-                </div>
-                <h3 className="text-xl font-bold text-foreground" data-testid="text-departments-title">
-                  {t.about.departments.title}
-                </h3>
-              </div>
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                {t.about.departments.list.map((dept, index) => (
-                  <div
-                    key={index}
-                    className="p-4 rounded-md bg-muted/50 text-center"
-                    data-testid={`dept-${index}`}
-                  >
-                    <span className="text-sm font-medium text-foreground">{dept}</span>
-                  </div>
-                ))}
-              </div>
-            </Card>
-          </motion.div>
         </div>
       </section>
 
@@ -314,62 +265,6 @@ export default function About() {
         </div>
       </section>
 
-      {/* Key Features */}
-      <section className="py-20 bg-muted/30">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="max-w-5xl mx-auto"
-          >
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              <Card className="p-8 text-center hover-elevate" data-testid="card-feature-0">
-                <div className="flex justify-center mb-4">
-                  <div className="w-14 h-14 rounded-md bg-primary text-primary-foreground flex items-center justify-center">
-                    <Users className="w-7 h-7" />
-                  </div>
-                </div>
-                <h3 className="font-semibold text-lg text-foreground mb-3" data-testid="text-feature-title-0">
-                  {t.hero.stats[1].label}
-                </h3>
-                <p className="text-muted-foreground" data-testid="text-feature-desc-0">
-                  {t.hero.stats[1].number}
-                </p>
-              </Card>
-
-              <Card className="p-8 text-center hover-elevate" data-testid="card-feature-1">
-                <div className="flex justify-center mb-4">
-                  <div className="w-14 h-14 rounded-md bg-primary text-primary-foreground flex items-center justify-center">
-                    <Award className="w-7 h-7" />
-                  </div>
-                </div>
-                <h3 className="font-semibold text-lg text-foreground mb-3" data-testid="text-feature-title-1">
-                  {t.hero.stats[2].label}
-                </h3>
-                <p className="text-muted-foreground" data-testid="text-feature-desc-1">
-                  {t.hero.stats[2].number}
-                </p>
-              </Card>
-
-              <Card className="p-8 text-center hover-elevate" data-testid="card-feature-2">
-                <div className="flex justify-center mb-4">
-                  <div className="w-14 h-14 rounded-md bg-primary text-primary-foreground flex items-center justify-center">
-                    <Building2 className="w-7 h-7" />
-                  </div>
-                </div>
-                <h3 className="font-semibold text-lg text-foreground mb-3" data-testid="text-feature-title-2">
-                  {t.hero.stats[0].label}
-                </h3>
-                <p className="text-muted-foreground" data-testid="text-feature-desc-2">
-                  {t.hero.stats[0].number}
-                </p>
-              </Card>
-            </div>
-          </motion.div>
-        </div>
-      </section>
     </div>
   );
 }

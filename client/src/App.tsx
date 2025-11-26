@@ -9,7 +9,6 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Home from "@/pages/Home";
 import About from "@/pages/About";
-import Products from "@/pages/Products";
 import Patients from "@/pages/Patients";
 import Contacts from "@/pages/Contacts";
 import NotFound from "@/pages/not-found";
@@ -23,7 +22,6 @@ function PublicRouter() {
     <Switch>
       <Route path="/" component={Home} />
       <Route path="/about" component={About} />
-      <Route path="/products" component={Products} />
       <Route path="/patients" component={Patients} />
       <Route path="/contacts" component={Contacts} />
       <Route component={NotFound} />

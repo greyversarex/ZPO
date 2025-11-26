@@ -419,13 +419,6 @@ export default function Home() {
             })}
           </div>
 
-          <div className="text-center mt-12">
-            <Link href="/products">
-              <Button variant="default" size="lg" data-testid="button-products-view-all">
-                {t.common.viewAll}
-              </Button>
-            </Link>
-          </div>
         </div>
       </section>
     </div>
