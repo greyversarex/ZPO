@@ -4,7 +4,7 @@ export const translations = {
   tj: {
     header: {
       title: "Корхонаи давлатии протезию ортопедии Душанбе",
-      shortTitle: "КД Протезию ортопедӣ",
+      shortTitle: "Заводи протезию ортопедӣ",
       nav: {
         home: "Асосӣ",
         about: "Дар бораи мо",
@@ -225,7 +225,7 @@ export const translations = {
   ru: {
     header: {
       title: "Государственное предприятие протезно-ортопедический завод Душанбе",
-      shortTitle: "ГП Протезно-ортопедический",
+      shortTitle: "Завод протезно-ортопедический",
       nav: {
         home: "Главная",
         about: "О нас",
@@ -446,7 +446,7 @@ export const translations = {
   en: {
     header: {
       title: "State Enterprise Prosthetic and Orthopedic Plant of Dushanbe",
-      shortTitle: "SE Prosthetic & Orthopedic",
+      shortTitle: "Prosthetic & Orthopedic Plant",
       nav: {
         home: "Home",
         about: "About Us",

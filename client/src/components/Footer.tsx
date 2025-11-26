@@ -5,42 +5,55 @@ export default function Footer() {
   const { t } = useLanguage();
 
   return (
-    <footer className="border-t bg-muted/30">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <footer className="relative bg-gradient-to-br from-primary via-primary/95 to-primary/85 text-white overflow-hidden">
+      {/* Decorative gradient overlay */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none" />
+      <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-white/30 to-transparent" />
+      
+      {/* Decorative shapes */}
+      <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/2 blur-3xl" />
+      <div className="absolute bottom-0 left-0 w-48 h-48 bg-accent/10 rounded-full translate-y-1/2 -translate-x-1/2 blur-2xl" />
+      
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
           {/* Branding */}
           <div className="space-y-4" data-testid="footer-branding">
             <div className="flex items-center gap-3">
-              <div className="flex items-center justify-center w-10 h-10 rounded-md bg-primary text-primary-foreground" data-testid="icon-footer-heart">
-                <Heart className="w-6 h-6" />
+              <div className="flex items-center justify-center w-12 h-12 rounded-xl bg-white/15 backdrop-blur-sm border border-white/25 shadow-lg" data-testid="icon-footer-heart">
+                <Heart className="w-6 h-6 text-white" />
               </div>
-              <span className="text-sm font-semibold text-foreground" data-testid="text-footer-title">
+              <span className="text-base font-bold text-white drop-shadow-sm" data-testid="text-footer-title">
                 {t.header.shortTitle}
               </span>
             </div>
-            <p className="text-sm text-muted-foreground max-w-md" data-testid="text-footer-description">
+            <p className="text-sm text-white/80 max-w-md leading-relaxed" data-testid="text-footer-description">
               {t.hero.subheadline}
             </p>
           </div>
 
           {/* Contact Info */}
           <div className="space-y-4" data-testid="footer-contact">
-            <h3 className="text-sm font-semibold text-foreground">
+            <h3 className="text-base font-bold text-white flex items-center gap-2">
+              <div className="w-1 h-5 bg-accent rounded-full" />
               {t.contact.title}
             </h3>
             <div className="space-y-3">
-              <div className="flex items-start gap-2 text-sm text-muted-foreground">
-                <MapPin className="w-4 h-4 mt-0.5 shrink-0 text-primary" />
-                <span data-testid="text-footer-address">{t.footer.address}</span>
+              <div className="flex items-start gap-3 text-sm text-white/80 group">
+                <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-white/10 border border-white/15 shrink-0 group-hover:bg-white/15 transition-colors">
+                  <MapPin className="w-4 h-4 text-accent" />
+                </div>
+                <span data-testid="text-footer-address" className="pt-1">{t.footer.address}</span>
               </div>
-              <div className="flex items-start gap-2 text-sm text-muted-foreground">
-                <Phone className="w-4 h-4 mt-0.5 shrink-0 text-primary" />
-                <div className="flex flex-col">
+              <div className="flex items-start gap-3 text-sm text-white/80 group">
+                <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-white/10 border border-white/15 shrink-0 group-hover:bg-white/15 transition-colors">
+                  <Phone className="w-4 h-4 text-accent" />
+                </div>
+                <div className="flex flex-col pt-1">
                   {t.footer.phones.map((phone, index) => (
                     <a 
                       key={index}
                       href={`tel:${phone.replace(/[^+\d]/g, '')}`}
-                      className="hover:text-primary transition-colors"
+                      className="hover:text-white transition-colors"
                       data-testid={`link-footer-phone-${index}`}
                     >
                       {phone}
@@ -48,11 +61,13 @@ export default function Footer() {
                   ))}
                 </div>
               </div>
-              <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                <Mail className="w-4 h-4 shrink-0 text-primary" />
+              <div className="flex items-center gap-3 text-sm text-white/80 group">
+                <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-white/10 border border-white/15 shrink-0 group-hover:bg-white/15 transition-colors">
+                  <Mail className="w-4 h-4 text-accent" />
+                </div>
                 <a 
                   href={`mailto:${t.footer.email}`}
-                  className="hover:text-primary transition-colors"
+                  className="hover:text-white transition-colors"
                   data-testid="link-footer-email"
                 >
                   {t.footer.email}
@@ -63,17 +78,18 @@ export default function Footer() {
 
           {/* Ministry */}
           <div className="space-y-4" data-testid="footer-legal">
-            <h3 className="text-sm font-semibold text-foreground" data-testid="text-ministry-title">
+            <h3 className="text-base font-bold text-white flex items-center gap-2" data-testid="text-ministry-title">
+              <div className="w-1 h-5 bg-accent rounded-full" />
               {t.footer.ministry}
             </h3>
-            <p className="text-sm text-muted-foreground">
+            <p className="text-sm text-white/80 leading-relaxed">
               {t.about.mission}
             </p>
           </div>
         </div>
 
-        <div className="pt-8 border-t">
-          <p className="text-sm text-center text-muted-foreground" data-testid="text-copyright">
+        <div className="pt-8 border-t border-white/20">
+          <p className="text-sm text-center text-white/70" data-testid="text-copyright">
             {t.footer.copyright}
           </p>
         </div>

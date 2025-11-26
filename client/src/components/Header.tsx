@@ -28,14 +28,15 @@ export default function Header() {
   const languages: Language[] = ['tj', 'ru', 'en'];
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex h-16 items-center justify-between gap-4">
-          <Link href="/" className="flex items-center gap-3 hover-elevate active-elevate-2 px-2 py-1 rounded-md" data-testid="link-nav-logo">
-            <div className="flex items-center justify-center w-10 h-10 rounded-md bg-primary text-primary-foreground" data-testid="icon-logo-heart">
+    <header className="sticky top-0 z-50 w-full bg-gradient-to-r from-primary via-primary/95 to-primary/90 shadow-lg">
+      <div className="absolute inset-0 bg-gradient-to-b from-white/10 to-transparent pointer-events-none" />
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative">
+        <div className="flex h-18 py-3 items-center justify-between gap-4">
+          <Link href="/" className="flex items-center gap-3 px-2 py-1 rounded-md group" data-testid="link-nav-logo">
+            <div className="flex items-center justify-center w-11 h-11 rounded-lg bg-white/20 backdrop-blur-sm border border-white/30 text-white shadow-md" data-testid="icon-logo-heart">
               <Heart className="w-6 h-6" />
             </div>
-            <span className="hidden sm:block text-sm md:text-base font-semibold text-foreground max-w-xs lg:max-w-md line-clamp-2" data-testid="text-site-title">
+            <span className="hidden sm:block text-sm md:text-base font-bold text-white max-w-xs lg:max-w-md line-clamp-2 drop-shadow-sm" data-testid="text-site-title">
               {t.header.shortTitle}
             </span>
           </Link>
@@ -45,8 +46,11 @@ export default function Header() {
             {navItems.map((item) => (
               <Link key={item.path} href={item.path}>
                 <Button
-                  variant={location === item.path ? "secondary" : "ghost"}
+                  variant="ghost"
                   size="sm"
+                  className={`text-white ${
+                    location === item.path ? "bg-white/20 font-semibold" : ""
+                  }`}
                   data-testid={`link-nav-${item.path.replace('/', '') || 'home'}`}
                 >
                   {item.label}
@@ -57,14 +61,18 @@ export default function Header() {
 
           <div className="flex items-center gap-2">
             {/* Language Switcher */}
-            <div className="flex items-center gap-0.5 bg-muted rounded-md p-0.5" data-testid="language-switcher">
-              <Globe className="w-4 h-4 text-muted-foreground mx-1 hidden sm:block" />
+            <div className="flex items-center gap-0.5 bg-white/15 backdrop-blur-sm rounded-lg p-0.5 border border-white/20" data-testid="language-switcher">
+              <Globe className="w-4 h-4 text-white/80 mx-1.5 hidden sm:block" />
               {languages.map((lang) => (
                 <Button
                   key={lang}
-                  variant={language === lang ? "secondary" : "ghost"}
+                  variant="ghost"
                   size="sm"
-                  className="h-7 px-2 text-xs font-medium"
+                  className={`h-7 px-2.5 text-xs font-semibold toggle-elevate ${
+                    language === lang 
+                      ? "toggle-elevated bg-white text-primary shadow-sm" 
+                      : "text-white"
+                  }`}
                   onClick={() => setLanguage(lang)}
                   data-testid={`button-lang-${lang}`}
                 >
@@ -77,7 +85,7 @@ export default function Header() {
               <Button
                 variant="default"
                 size="sm"
-                className="bg-accent text-accent-foreground hover:bg-accent border-accent-border hidden sm:flex"
+                className="bg-accent text-accent-foreground font-semibold shadow-md border-accent-border hidden sm:flex"
                 data-testid="button-cta-apply"
               >
                 {t.header.ctaButton}
@@ -88,7 +96,7 @@ export default function Header() {
             <Button
               variant="ghost"
               size="icon"
-              className="lg:hidden"
+              className="lg:hidden text-white"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               data-testid="button-mobile-menu-toggle"
             >
@@ -105,14 +113,16 @@ export default function Header() {
               animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.2 }}
-              className="lg:hidden overflow-hidden border-t"
+              className="lg:hidden overflow-hidden border-t border-white/20"
             >
               <div className="py-4 space-y-1">
                 {navItems.map((item) => (
                   <Link key={item.path} href={item.path}>
                     <Button
-                      variant={location === item.path ? "secondary" : "ghost"}
-                      className="w-full justify-start"
+                      variant="ghost"
+                      className={`w-full justify-start text-white ${
+                        location === item.path ? "bg-white/20 font-semibold" : ""
+                      }`}
                       onClick={() => setMobileMenuOpen(false)}
                       data-testid={`link-mobile-nav-${item.path.replace('/', '') || 'home'}`}
                     >
@@ -122,7 +132,8 @@ export default function Header() {
                 ))}
                 <Link href="/contacts">
                   <Button
-                    className="w-full mt-2 bg-accent text-accent-foreground hover:bg-accent border-accent-border"
+                    variant="default"
+                    className="w-full mt-2 bg-accent text-accent-foreground font-semibold shadow-md border-accent-border"
                     onClick={() => setMobileMenuOpen(false)}
                     data-testid="button-mobile-cta"
                   >
