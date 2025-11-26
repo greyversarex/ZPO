@@ -129,7 +129,7 @@ function BannerSlider() {
                 }}
               />
             )}
-            <div className="absolute inset-0 bg-gradient-to-br from-primary/50 via-primary/40 to-primary/30" />
+            <div className="absolute inset-0 bg-gradient-to-br from-primary/40 via-primary/30 to-primary/20" />
           </div>
         </div>
       ))}
