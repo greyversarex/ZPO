@@ -251,7 +251,7 @@ export default function Patients() {
   return (
     <div className="min-h-screen bg-background">
       {/* Hero Section */}
-      <section className="relative py-20 bg-gradient-to-br from-primary/5 to-primary/10">
+      <section className="relative py-20 bg-gradient-to-r from-amber-50 via-amber-100/50 to-orange-50 dark:from-amber-950/30 dark:via-amber-900/20 dark:to-orange-950/30">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -281,9 +281,9 @@ export default function Patients() {
           >
             <Accordion type="single" collapsible className="space-y-4" defaultValue="eligibility">
               {/* Eligibility Tab */}
-              <AccordionItem value="eligibility" className="border-0 rounded-lg bg-gradient-to-r from-teal-50 to-teal-100/50 dark:from-teal-950/30 dark:to-teal-900/20">
+              <AccordionItem value="eligibility" className="border rounded-md">
                 <AccordionTrigger 
-                  className="px-6 py-4 hover-elevate data-[state=open]:bg-teal-100/50 dark:data-[state=open]:bg-teal-900/30 rounded-t-lg"
+                  className="px-6 py-4 hover-elevate data-[state=open]:bg-muted/50"
                   data-testid="accordion-eligibility"
                 >
                   <div className="flex items-center gap-4 text-left">
@@ -301,9 +301,9 @@ export default function Patients() {
               </AccordionItem>
 
               {/* Documents Tab */}
-              <AccordionItem value="documents" className="border-0 rounded-lg bg-gradient-to-r from-teal-50 to-teal-100/50 dark:from-teal-950/30 dark:to-teal-900/20">
+              <AccordionItem value="documents" className="border rounded-md">
                 <AccordionTrigger 
-                  className="px-6 py-4 hover-elevate data-[state=open]:bg-teal-100/50 dark:data-[state=open]:bg-teal-900/30 rounded-t-lg"
+                  className="px-6 py-4 hover-elevate data-[state=open]:bg-muted/50"
                   data-testid="accordion-documents"
                 >
                   <div className="flex items-center gap-4 text-left">
@@ -328,9 +328,9 @@ export default function Patients() {
               </AccordionItem>
 
               {/* Process Tab */}
-              <AccordionItem value="process" className="border-0 rounded-lg bg-gradient-to-r from-teal-50 to-teal-100/50 dark:from-teal-950/30 dark:to-teal-900/20">
+              <AccordionItem value="process" className="border rounded-md">
                 <AccordionTrigger 
-                  className="px-6 py-4 hover-elevate data-[state=open]:bg-teal-100/50 dark:data-[state=open]:bg-teal-900/30 rounded-t-lg"
+                  className="px-6 py-4 hover-elevate data-[state=open]:bg-muted/50"
                   data-testid="accordion-process"
                 >
                   <div className="flex items-center gap-4 text-left">
@@ -358,9 +358,9 @@ export default function Patients() {
               </AccordionItem>
 
               {/* Technical Rehabilitation Means */}
-              <AccordionItem value="techMeans" className="border-0 rounded-lg bg-gradient-to-r from-teal-50 to-teal-100/50 dark:from-teal-950/30 dark:to-teal-900/20">
+              <AccordionItem value="techMeans" className="border rounded-md">
                 <AccordionTrigger 
-                  className="px-6 py-4 hover-elevate data-[state=open]:bg-teal-100/50 dark:data-[state=open]:bg-teal-900/30 rounded-t-lg"
+                  className="px-6 py-4 hover-elevate data-[state=open]:bg-muted/50"
                   data-testid="accordion-tech-means"
                 >
                   <div className="flex items-center gap-4 text-left">
@@ -391,9 +391,9 @@ export default function Patients() {
               </AccordionItem>
 
               {/* Sanatorium Treatment */}
-              <AccordionItem value="sanatorium" className="border-0 rounded-lg bg-gradient-to-r from-teal-50 to-teal-100/50 dark:from-teal-950/30 dark:to-teal-900/20">
+              <AccordionItem value="sanatorium" className="border rounded-md">
                 <AccordionTrigger 
-                  className="px-6 py-4 hover-elevate data-[state=open]:bg-teal-100/50 dark:data-[state=open]:bg-teal-900/30 rounded-t-lg"
+                  className="px-6 py-4 hover-elevate data-[state=open]:bg-muted/50"
                   data-testid="accordion-sanatorium"
                 >
                   <div className="flex items-center gap-4 text-left">
@@ -417,9 +417,9 @@ export default function Patients() {
               </AccordionItem>
 
               {/* Free Social Services */}
-              <AccordionItem value="socialServices" className="border-0 rounded-lg bg-gradient-to-r from-teal-50 to-teal-100/50 dark:from-teal-950/30 dark:to-teal-900/20">
+              <AccordionItem value="socialServices" className="border rounded-md">
                 <AccordionTrigger 
-                  className="px-6 py-4 hover-elevate data-[state=open]:bg-teal-100/50 dark:data-[state=open]:bg-teal-900/30 rounded-t-lg"
+                  className="px-6 py-4 hover-elevate data-[state=open]:bg-muted/50"
                   data-testid="accordion-social-services"
                 >
                   <div className="flex items-center gap-4 text-left">
@@ -443,9 +443,9 @@ export default function Patients() {
               </AccordionItem>
 
               {/* Types of Social Services */}
-              <AccordionItem value="serviceTypes" className="border-0 rounded-lg bg-gradient-to-r from-teal-50 to-teal-100/50 dark:from-teal-950/30 dark:to-teal-900/20">
+              <AccordionItem value="serviceTypes" className="border rounded-md">
                 <AccordionTrigger 
-                  className="px-6 py-4 hover-elevate data-[state=open]:bg-teal-100/50 dark:data-[state=open]:bg-teal-900/30 rounded-t-lg"
+                  className="px-6 py-4 hover-elevate data-[state=open]:bg-muted/50"
                   data-testid="accordion-service-types"
                 >
                   <div className="flex items-center gap-4 text-left">
@@ -468,9 +468,9 @@ export default function Patients() {
               </AccordionItem>
 
               {/* Rights of Disabled Persons */}
-              <AccordionItem value="rights" className="border-0 rounded-lg bg-gradient-to-r from-teal-50 to-teal-100/50 dark:from-teal-950/30 dark:to-teal-900/20">
+              <AccordionItem value="rights" className="border rounded-md">
                 <AccordionTrigger 
-                  className="px-6 py-4 hover-elevate data-[state=open]:bg-teal-100/50 dark:data-[state=open]:bg-teal-900/30 rounded-t-lg"
+                  className="px-6 py-4 hover-elevate data-[state=open]:bg-muted/50"
                   data-testid="accordion-rights"
                 >
                   <div className="flex items-center gap-4 text-left">
