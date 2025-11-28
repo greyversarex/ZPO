@@ -51,7 +51,7 @@ function AppContent() {
   return (
     <div className="flex flex-col min-h-screen">
       <Header />
-      <main className="flex-1">
+      <main className="flex-1 bg-gradient-to-br from-teal-100 via-cyan-50 to-amber-50">
         <PublicRouter />
       </main>
       <Footer />
