@@ -1,5 +1,16 @@
 import { motion } from "framer-motion";
-import { FileCheck, FileText, ListChecks, Download, HeartPulse, Accessibility, Home, Users, Stethoscope } from "lucide-react";
+import { Download } from "lucide-react";
+import { 
+  PiCheckCircleBold, 
+  PiFileTextBold, 
+  PiListChecksBold, 
+  PiWheelchairBold, 
+  PiHeartbeatBold, 
+  PiUsersBold, 
+  PiStethoscopeBold, 
+  PiScalesBold,
+  PiFilePdfBold
+} from "react-icons/pi";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
@@ -276,7 +287,7 @@ export default function Patients() {
                   data-testid="accordion-eligibility"
                 >
                   <div className="flex items-center gap-4 text-left">
-                    <FileCheck className="w-8 h-8 text-teal-600 flex-shrink-0 drop-shadow-md" strokeWidth={1.5} />
+                    <PiCheckCircleBold className="w-7 h-7 text-teal-600 flex-shrink-0" />
                     <span className="font-bold text-lg">
                       {t.patientGuide.tabs[0].title}
                     </span>
@@ -296,7 +307,7 @@ export default function Patients() {
                   data-testid="accordion-documents"
                 >
                   <div className="flex items-center gap-4 text-left">
-                    <FileText className="w-8 h-8 text-teal-600 flex-shrink-0 drop-shadow-md" strokeWidth={1.5} />
+                    <PiFileTextBold className="w-7 h-7 text-teal-600 flex-shrink-0" />
                     <span className="font-bold text-lg">
                       {t.patientGuide.tabs[1].title}
                     </span>
@@ -323,7 +334,7 @@ export default function Patients() {
                   data-testid="accordion-process"
                 >
                   <div className="flex items-center gap-4 text-left">
-                    <ListChecks className="w-8 h-8 text-teal-600 flex-shrink-0 drop-shadow-md" strokeWidth={1.5} />
+                    <PiListChecksBold className="w-7 h-7 text-teal-600 flex-shrink-0" />
                     <span className="font-bold text-lg">
                       {t.patientGuide.tabs[2].title}
                     </span>
@@ -353,7 +364,7 @@ export default function Patients() {
                   data-testid="accordion-tech-means"
                 >
                   <div className="flex items-center gap-4 text-left">
-                    <Accessibility className="w-8 h-8 text-teal-600 flex-shrink-0 drop-shadow-md" strokeWidth={1.5} />
+                    <PiWheelchairBold className="w-7 h-7 text-teal-600 flex-shrink-0" />
                     <span className="font-bold text-lg">
                       {additionalSections.techMeans[language].title}
                     </span>
@@ -386,7 +397,7 @@ export default function Patients() {
                   data-testid="accordion-sanatorium"
                 >
                   <div className="flex items-center gap-4 text-left">
-                    <HeartPulse className="w-8 h-8 text-teal-600 flex-shrink-0 drop-shadow-md" strokeWidth={1.5} />
+                    <PiHeartbeatBold className="w-7 h-7 text-teal-600 flex-shrink-0" />
                     <span className="font-bold text-lg">
                       {additionalSections.sanatorium[language].title}
                     </span>
@@ -412,7 +423,7 @@ export default function Patients() {
                   data-testid="accordion-social-services"
                 >
                   <div className="flex items-center gap-4 text-left">
-                    <Users className="w-8 h-8 text-teal-600 flex-shrink-0 drop-shadow-md" strokeWidth={1.5} />
+                    <PiUsersBold className="w-7 h-7 text-teal-600 flex-shrink-0" />
                     <span className="font-bold text-lg">
                       {additionalSections.socialServices[language].title}
                     </span>
@@ -438,7 +449,7 @@ export default function Patients() {
                   data-testid="accordion-service-types"
                 >
                   <div className="flex items-center gap-4 text-left">
-                    <Stethoscope className="w-8 h-8 text-teal-600 flex-shrink-0 drop-shadow-md" strokeWidth={1.5} />
+                    <PiStethoscopeBold className="w-7 h-7 text-teal-600 flex-shrink-0" />
                     <span className="font-bold text-lg">
                       {additionalSections.serviceTypes[language].title}
                     </span>
@@ -463,7 +474,7 @@ export default function Patients() {
                   data-testid="accordion-rights"
                 >
                   <div className="flex items-center gap-4 text-left">
-                    <Home className="w-8 h-8 text-teal-600 flex-shrink-0 drop-shadow-md" strokeWidth={1.5} />
+                    <PiScalesBold className="w-7 h-7 text-teal-600 flex-shrink-0" />
                     <span className="font-bold text-lg">
                       {additionalSections.rights[language].title}
                     </span>
@@ -505,7 +516,7 @@ export default function Patients() {
                   <Card key={doc.id} className="p-4 hover-elevate">
                     <div className="flex items-center justify-between gap-4">
                       <div className="flex items-center gap-3 flex-1 min-w-0">
-                        <FileText className="w-7 h-7 text-teal-600 flex-shrink-0 drop-shadow-md" strokeWidth={1.5} />
+                        <PiFilePdfBold className="w-6 h-6 text-teal-600 flex-shrink-0" />
                         <span className="text-foreground font-medium truncate" data-testid={`text-doc-title-${doc.id}`}>
                           {title}
                         </span>
