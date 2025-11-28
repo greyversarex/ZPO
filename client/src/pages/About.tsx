@@ -56,6 +56,9 @@ export default function About() {
                   <p className="text-lg text-foreground leading-relaxed" data-testid="text-mission-content">
                     {t.about.mission}
                   </p>
+                  <p className="text-right text-muted-foreground italic mt-4" data-testid="text-mission-signature">
+                    — Маъмурият
+                  </p>
                 </div>
               </div>
             </Card>
