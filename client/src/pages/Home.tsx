@@ -248,7 +248,7 @@ function NewsFeed() {
 
   if (isLoading) {
     return (
-      <section className="py-20 bg-background" data-testid="news-section">
+      <section className="py-20 bg-gradient-to-br from-teal-50/80 via-cyan-50/60 to-amber-50/40" data-testid="news-section">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-16">
             <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4">{labels.title}</h2>
@@ -264,7 +264,7 @@ function NewsFeed() {
 
   if (news.length === 0) {
     return (
-      <section className="py-20 bg-background" data-testid="news-section">
+      <section className="py-20 bg-gradient-to-br from-teal-50/80 via-cyan-50/60 to-amber-50/40" data-testid="news-section">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto">
             <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4">{labels.title}</h2>
@@ -276,7 +276,7 @@ function NewsFeed() {
   }
 
   return (
-    <section className="py-20 bg-background" data-testid="news-section">
+    <section className="py-20 bg-gradient-to-br from-teal-50/80 via-cyan-50/60 to-amber-50/40" data-testid="news-section">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -365,7 +365,7 @@ export default function Home() {
       <NewsFeed />
 
       {/* Workshops Preview */}
-      <section className="py-20 bg-muted/30">
+      <section className="py-20 bg-gradient-to-bl from-teal-100/50 via-slate-100/80 to-cyan-50/60">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}

@@ -1,4 +1,4 @@
-import { MapPin, Phone, Mail } from "lucide-react";
+import { MapPin, Phone, Mail, Building2, Clock } from "lucide-react";
 import { useLanguage } from "@/lib/LanguageContext";
 
 export default function Footer() {
@@ -33,23 +33,23 @@ export default function Footer() {
               <div className="w-1 h-5 bg-accent rounded-full" />
               {t.contact.title}
             </h3>
-            <div className="space-y-3">
-              <div className="flex items-start gap-3 text-sm text-white/80 group">
-                <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-white/10 border border-white/15 shrink-0 group-hover:bg-white/15 transition-colors">
-                  <MapPin className="w-4 h-4 text-accent" />
+            <div className="space-y-4">
+              <div className="flex items-start gap-4 text-sm text-white/85 group">
+                <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-gradient-to-br from-amber-400/90 to-amber-500/90 shadow-lg shrink-0 group-hover:scale-105 transition-transform">
+                  <MapPin className="w-5 h-5 text-white" />
                 </div>
-                <span data-testid="text-footer-address" className="pt-1">{t.footer.address}</span>
+                <span data-testid="text-footer-address" className="pt-2 leading-relaxed">{t.footer.address}</span>
               </div>
-              <div className="flex items-start gap-3 text-sm text-white/80 group">
-                <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-white/10 border border-white/15 shrink-0 group-hover:bg-white/15 transition-colors">
-                  <Phone className="w-4 h-4 text-accent" />
+              <div className="flex items-start gap-4 text-sm text-white/85 group">
+                <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-gradient-to-br from-amber-400/90 to-amber-500/90 shadow-lg shrink-0 group-hover:scale-105 transition-transform">
+                  <Phone className="w-5 h-5 text-white" />
                 </div>
-                <div className="flex flex-col pt-1">
+                <div className="flex flex-col pt-2 gap-1">
                   {t.footer.phones.map((phone, index) => (
                     <a 
                       key={index}
                       href={`tel:${phone.replace(/[^+\d]/g, '')}`}
-                      className="hover:text-white transition-colors"
+                      className="hover:text-white transition-colors font-medium"
                       data-testid={`link-footer-phone-${index}`}
                     >
                       {phone}
@@ -57,13 +57,13 @@ export default function Footer() {
                   ))}
                 </div>
               </div>
-              <div className="flex items-center gap-3 text-sm text-white/80 group">
-                <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-white/10 border border-white/15 shrink-0 group-hover:bg-white/15 transition-colors">
-                  <Mail className="w-4 h-4 text-accent" />
+              <div className="flex items-center gap-4 text-sm text-white/85 group">
+                <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-gradient-to-br from-amber-400/90 to-amber-500/90 shadow-lg shrink-0 group-hover:scale-105 transition-transform">
+                  <Mail className="w-5 h-5 text-white" />
                 </div>
                 <a 
                   href={`mailto:${t.footer.email}`}
-                  className="hover:text-white transition-colors"
+                  className="hover:text-white transition-colors font-medium"
                   data-testid="link-footer-email"
                 >
                   {t.footer.email}

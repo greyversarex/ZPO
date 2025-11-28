@@ -41,14 +41,15 @@ export default function Header() {
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center gap-1">
+          <nav className="hidden lg:flex items-center gap-2">
             {navItems.map((item) => (
               <Link key={item.path} href={item.path}>
                 <Button
                   variant="ghost"
-                  size="sm"
-                  className={`text-white ${
-                    location === item.path ? "bg-white/20 font-semibold" : ""
+                  className={`text-white text-base px-5 py-2 h-10 font-medium tracking-wide ${
+                    location === item.path 
+                      ? "bg-white/25 font-semibold border border-white/30 shadow-sm" 
+                      : "border border-transparent"
                   }`}
                   data-testid={`link-nav-${item.path.replace('/', '') || 'home'}`}
                 >
