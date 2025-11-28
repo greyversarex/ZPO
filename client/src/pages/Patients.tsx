@@ -276,10 +276,10 @@ export default function Patients() {
                   data-testid="accordion-eligibility"
                 >
                   <div className="flex items-center gap-4 text-left">
-                    <div className="w-10 h-10 rounded-md bg-primary text-primary-foreground flex items-center justify-center flex-shrink-0">
-                      <FileCheck className="w-5 h-5" />
+                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-teal-500 to-teal-600 shadow-lg shadow-teal-500/25 flex items-center justify-center flex-shrink-0">
+                      <FileCheck className="w-6 h-6 text-white" />
                     </div>
-                    <span className="font-semibold text-lg">
+                    <span className="font-bold text-lg">
                       {t.patientGuide.tabs[0].title}
                     </span>
                   </div>
@@ -298,10 +298,10 @@ export default function Patients() {
                   data-testid="accordion-documents"
                 >
                   <div className="flex items-center gap-4 text-left">
-                    <div className="w-10 h-10 rounded-md bg-primary text-primary-foreground flex items-center justify-center flex-shrink-0">
-                      <FileText className="w-5 h-5" />
+                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-amber-400 to-amber-500 shadow-lg shadow-amber-500/25 flex items-center justify-center flex-shrink-0">
+                      <FileText className="w-6 h-6 text-white" />
                     </div>
-                    <span className="font-semibold text-lg">
+                    <span className="font-bold text-lg">
                       {t.patientGuide.tabs[1].title}
                     </span>
                   </div>
@@ -327,10 +327,10 @@ export default function Patients() {
                   data-testid="accordion-process"
                 >
                   <div className="flex items-center gap-4 text-left">
-                    <div className="w-10 h-10 rounded-md bg-primary text-primary-foreground flex items-center justify-center flex-shrink-0">
-                      <ListChecks className="w-5 h-5" />
+                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-emerald-500 to-emerald-600 shadow-lg shadow-emerald-500/25 flex items-center justify-center flex-shrink-0">
+                      <ListChecks className="w-6 h-6 text-white" />
                     </div>
-                    <span className="font-semibold text-lg">
+                    <span className="font-bold text-lg">
                       {t.patientGuide.tabs[2].title}
                     </span>
                   </div>
@@ -359,10 +359,10 @@ export default function Patients() {
                   data-testid="accordion-tech-means"
                 >
                   <div className="flex items-center gap-4 text-left">
-                    <div className="w-10 h-10 rounded-md bg-primary text-primary-foreground flex items-center justify-center flex-shrink-0">
-                      <Accessibility className="w-5 h-5" />
+                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-cyan-500 to-cyan-600 shadow-lg shadow-cyan-500/25 flex items-center justify-center flex-shrink-0">
+                      <Accessibility className="w-6 h-6 text-white" />
                     </div>
-                    <span className="font-semibold text-lg">
+                    <span className="font-bold text-lg">
                       {additionalSections.techMeans[language].title}
                     </span>
                   </div>
@@ -394,10 +394,10 @@ export default function Patients() {
                   data-testid="accordion-sanatorium"
                 >
                   <div className="flex items-center gap-4 text-left">
-                    <div className="w-10 h-10 rounded-md bg-primary text-primary-foreground flex items-center justify-center flex-shrink-0">
-                      <HeartPulse className="w-5 h-5" />
+                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-rose-500 to-rose-600 shadow-lg shadow-rose-500/25 flex items-center justify-center flex-shrink-0">
+                      <HeartPulse className="w-6 h-6 text-white" />
                     </div>
-                    <span className="font-semibold text-lg">
+                    <span className="font-bold text-lg">
                       {additionalSections.sanatorium[language].title}
                     </span>
                   </div>
@@ -422,10 +422,10 @@ export default function Patients() {
                   data-testid="accordion-social-services"
                 >
                   <div className="flex items-center gap-4 text-left">
-                    <div className="w-10 h-10 rounded-md bg-primary text-primary-foreground flex items-center justify-center flex-shrink-0">
-                      <Users className="w-5 h-5" />
+                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-violet-500 to-violet-600 shadow-lg shadow-violet-500/25 flex items-center justify-center flex-shrink-0">
+                      <Users className="w-6 h-6 text-white" />
                     </div>
-                    <span className="font-semibold text-lg">
+                    <span className="font-bold text-lg">
                       {additionalSections.socialServices[language].title}
                     </span>
                   </div>
@@ -450,10 +450,10 @@ export default function Patients() {
                   data-testid="accordion-service-types"
                 >
                   <div className="flex items-center gap-4 text-left">
-                    <div className="w-10 h-10 rounded-md bg-primary text-primary-foreground flex items-center justify-center flex-shrink-0">
-                      <Stethoscope className="w-5 h-5" />
+                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500 to-blue-600 shadow-lg shadow-blue-500/25 flex items-center justify-center flex-shrink-0">
+                      <Stethoscope className="w-6 h-6 text-white" />
                     </div>
-                    <span className="font-semibold text-lg">
+                    <span className="font-bold text-lg">
                       {additionalSections.serviceTypes[language].title}
                     </span>
                   </div>
@@ -477,10 +477,10 @@ export default function Patients() {
                   data-testid="accordion-rights"
                 >
                   <div className="flex items-center gap-4 text-left">
-                    <div className="w-10 h-10 rounded-md bg-primary text-primary-foreground flex items-center justify-center flex-shrink-0">
-                      <Home className="w-5 h-5" />
+                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-amber-500 to-orange-500 shadow-lg shadow-orange-500/25 flex items-center justify-center flex-shrink-0">
+                      <Home className="w-6 h-6 text-white" />
                     </div>
-                    <span className="font-semibold text-lg">
+                    <span className="font-bold text-lg">
                       {additionalSections.rights[language].title}
                     </span>
                   </div>
@@ -521,8 +521,8 @@ export default function Patients() {
                   <Card key={doc.id} className="p-4 hover-elevate">
                     <div className="flex items-center justify-between gap-4">
                       <div className="flex items-center gap-3 flex-1 min-w-0">
-                        <div className="w-10 h-10 rounded-md bg-primary/10 text-primary flex items-center justify-center flex-shrink-0">
-                          <FileText className="w-5 h-5" />
+                        <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-teal-500 to-teal-600 shadow-md shadow-teal-500/20 flex items-center justify-center flex-shrink-0">
+                          <FileText className="w-5 h-5 text-white" />
                         </div>
                         <span className="text-foreground font-medium truncate" data-testid={`text-doc-title-${doc.id}`}>
                           {title}
