@@ -55,7 +55,7 @@ export default function Contacts() {
   return (
     <div className="min-h-screen bg-background">
       {/* Hero Section */}
-      <section className="relative py-20 bg-gradient-to-r from-gray-100 via-gray-200 to-gray-100 dark:from-gray-800 dark:via-gray-700 dark:to-gray-800">
+      <section className="relative py-20 bg-gradient-to-r from-teal-500 via-teal-600 to-teal-500 dark:from-teal-700 dark:via-teal-800 dark:to-teal-700">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -63,10 +63,10 @@ export default function Contacts() {
             transition={{ duration: 0.6 }}
             className="max-w-3xl mx-auto text-center"
           >
-            <h1 className="text-4xl sm:text-5xl font-bold text-foreground mb-6" data-testid="text-page-title">
+            <h1 className="text-4xl sm:text-5xl font-bold text-white mb-6" data-testid="text-page-title">
               {t.contact.title}
             </h1>
-            <p className="text-lg text-muted-foreground" data-testid="text-page-subtitle">
+            <p className="text-lg text-white/90" data-testid="text-page-subtitle">
               {t.contact.subtitle}
             </p>
           </motion.div>
