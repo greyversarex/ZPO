@@ -217,7 +217,7 @@ export default function AdminNews() {
               </div>
               <div>
                 <h1 className="font-bold text-lg">Идоракунии хабарҳо</h1>
-                <p className="text-sm text-muted-foreground">Навигариҳо ва эълонҳо</p>
+                <p className="text-sm text-muted-foreground">Хабарҳо ва эълонҳо</p>
               </div>
             </div>
           </div>

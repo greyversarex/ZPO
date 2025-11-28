@@ -230,7 +230,7 @@ function NewsFeed() {
   };
 
   const newsLabels = {
-    tj: { title: "Навигариҳо", subtitle: "Охирин хабарҳо ва эълонҳои корхона", readMore: "Бештар хондан", allNews: "Ҳамаи хабарҳо" },
+    tj: { title: "Хабарҳо", subtitle: "Охирин хабарҳо ва эълонҳои корхона", readMore: "Бештар хондан", allNews: "Ҳамаи хабарҳо" },
     ru: { title: "Новости", subtitle: "Последние новости и объявления предприятия", readMore: "Читать далее", allNews: "Все новости" },
     en: { title: "News", subtitle: "Latest news and announcements from the plant", readMore: "Read more", allNews: "All news" }
   };
@@ -275,9 +275,6 @@ function NewsFeed() {
       <section className="py-20 bg-background" data-testid="news-section">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto">
-            <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
-              <Newspaper className="w-8 h-8 text-primary" />
-            </div>
             <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4">{labels.title}</h2>
             <p className="text-lg text-muted-foreground">{labels.subtitle}</p>
           </div>
