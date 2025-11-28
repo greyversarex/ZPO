@@ -85,37 +85,37 @@ export default function Contacts() {
               transition={{ duration: 0.6 }}
               className="space-y-6"
             >
-              <Card className="p-6 hover-elevate" data-testid="card-address">
-                <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 rounded-md bg-primary text-primary-foreground flex items-center justify-center flex-shrink-0">
-                    <MapPin className="w-6 h-6" />
+              <Card className="p-6 hover-elevate group" data-testid="card-address">
+                <div className="flex items-start gap-5">
+                  <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-teal-500 to-teal-600 shadow-lg shadow-teal-500/30 flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform duration-300">
+                    <MapPin className="w-7 h-7 text-white" />
                   </div>
                   <div>
-                    <h3 className="font-semibold text-lg text-foreground mb-2" data-testid="text-address-title">
+                    <h3 className="font-bold text-lg text-foreground mb-2" data-testid="text-address-title">
                       {t.contact.address.title}
                     </h3>
-                    <p className="text-muted-foreground" data-testid="text-address-content">
+                    <p className="text-muted-foreground leading-relaxed" data-testid="text-address-content">
                       {t.contact.address.full}
                     </p>
                   </div>
                 </div>
               </Card>
 
-              <Card className="p-6 hover-elevate" data-testid="card-phone">
-                <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 rounded-md bg-primary text-primary-foreground flex items-center justify-center flex-shrink-0">
-                    <Phone className="w-6 h-6" />
+              <Card className="p-6 hover-elevate group" data-testid="card-phone">
+                <div className="flex items-start gap-5">
+                  <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-amber-400 to-amber-500 shadow-lg shadow-amber-500/30 flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform duration-300">
+                    <Phone className="w-7 h-7 text-white" />
                   </div>
                   <div>
-                    <h3 className="font-semibold text-lg text-foreground mb-2" data-testid="text-phone-title">
+                    <h3 className="font-bold text-lg text-foreground mb-2" data-testid="text-phone-title">
                       {t.contact.phone.title}
                     </h3>
-                    <div className="space-y-1">
+                    <div className="space-y-1.5">
                       {t.contact.phone.numbers.map((number, index) => (
                         <a
                           key={index}
                           href={`tel:${number.replace(/[^+\d]/g, '')}`}
-                          className="block text-muted-foreground hover:text-primary transition-colors"
+                          className="block text-muted-foreground hover:text-amber-600 font-medium transition-colors"
                           data-testid={`link-phone-${index}`}
                         >
                           {number}
@@ -126,18 +126,18 @@ export default function Contacts() {
                 </div>
               </Card>
 
-              <Card className="p-6 hover-elevate" data-testid="card-email">
-                <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 rounded-md bg-primary text-primary-foreground flex items-center justify-center flex-shrink-0">
-                    <Mail className="w-6 h-6" />
+              <Card className="p-6 hover-elevate group" data-testid="card-email">
+                <div className="flex items-start gap-5">
+                  <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-emerald-500 to-emerald-600 shadow-lg shadow-emerald-500/30 flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform duration-300">
+                    <Mail className="w-7 h-7 text-white" />
                   </div>
                   <div>
-                    <h3 className="font-semibold text-lg text-foreground mb-2" data-testid="text-email-title">
+                    <h3 className="font-bold text-lg text-foreground mb-2" data-testid="text-email-title">
                       {t.contact.email.title}
                     </h3>
                     <a
                       href={`mailto:${t.contact.email.address}`}
-                      className="text-muted-foreground hover:text-primary transition-colors"
+                      className="text-muted-foreground hover:text-emerald-600 font-medium transition-colors"
                       data-testid="link-email"
                     >
                       {t.contact.email.address}
@@ -146,16 +146,16 @@ export default function Contacts() {
                 </div>
               </Card>
 
-              <Card className="p-6 hover-elevate" data-testid="card-hours">
-                <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 rounded-md bg-primary text-primary-foreground flex items-center justify-center flex-shrink-0">
-                    <Clock className="w-6 h-6" />
+              <Card className="p-6 hover-elevate group" data-testid="card-hours">
+                <div className="flex items-start gap-5">
+                  <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-cyan-500 to-cyan-600 shadow-lg shadow-cyan-500/30 flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform duration-300">
+                    <Clock className="w-7 h-7 text-white" />
                   </div>
                   <div>
-                    <h3 className="font-semibold text-lg text-foreground mb-2" data-testid="text-hours-title">
+                    <h3 className="font-bold text-lg text-foreground mb-2" data-testid="text-hours-title">
                       {t.contact.hours.title}
                     </h3>
-                    <p className="text-muted-foreground mb-1" data-testid="text-hours-schedule">
+                    <p className="text-muted-foreground mb-1 font-medium" data-testid="text-hours-schedule">
                       {t.contact.hours.schedule}
                     </p>
                     <p className="text-muted-foreground text-sm" data-testid="text-hours-weekend">
@@ -189,9 +189,9 @@ export default function Contacts() {
               transition={{ duration: 0.6 }}
             >
               <Card className="p-8">
-                <div className="flex items-center gap-3 mb-6">
-                  <div className="w-10 h-10 rounded-md bg-primary text-primary-foreground flex items-center justify-center">
-                    <Mail className="w-5 h-5" />
+                <div className="flex items-center gap-4 mb-8">
+                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-amber-400 to-amber-500 shadow-lg shadow-amber-500/25 flex items-center justify-center">
+                    <Mail className="w-6 h-6 text-white" />
                   </div>
                   <h2 className="text-2xl font-bold text-foreground" data-testid="text-form-title">
                     {t.contact.form.title}
