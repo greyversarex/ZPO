@@ -66,53 +66,6 @@ export default function About() {
         </div>
       </section>
 
-      {/* Leadership Section */}
-      <section className="py-20 bg-muted/30">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="text-center max-w-3xl mx-auto mb-16"
-          >
-            <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4" data-testid="text-leadership-title">
-              {t.about.leadershipTitle}
-            </h2>
-          </motion.div>
-
-          <motion.div
-            variants={containerVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto"
-          >
-            {t.about.leaders.map((leader, index) => (
-              <motion.div key={index} variants={itemVariants}>
-                <Card className="p-8 hover-elevate h-full" data-testid={`leader-card-${index}`}>
-                  <div className="flex flex-col items-center text-center">
-                    <div className="w-24 h-24 rounded-full bg-primary/10 flex items-center justify-center mb-6">
-                      <User className="w-12 h-12 text-primary" />
-                    </div>
-                    <h3 className="font-bold text-xl text-foreground mb-2" data-testid={`leader-name-${index}`}>
-                      {leader.name}
-                    </h3>
-                    <Badge variant="secondary" className="mb-4" data-testid={`leader-position-${index}`}>
-                      {leader.position}
-                    </Badge>
-                    <p className="text-muted-foreground" data-testid={`leader-desc-${index}`}>
-                      {leader.description}
-                    </p>
-                  </div>
-                </Card>
-              </motion.div>
-            ))}
-          </motion.div>
-
-        </div>
-      </section>
-
       {/* Branches Section */}
       <section className="py-20">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
