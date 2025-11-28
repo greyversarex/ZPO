@@ -88,12 +88,12 @@ function BannerSlider() {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center pt-8">
               <Link href="/patients">
-                <Button size="lg" className="bg-accent text-accent-foreground border-accent-border backdrop-blur">
+                <Button size="lg" className="bg-gradient-to-br from-amber-400 to-amber-500 text-white font-semibold shadow-lg border border-amber-300/50 backdrop-blur">
                   {t.common.learnMore}
                 </Button>
               </Link>
               <Link href="/contacts">
-                <Button size="lg" variant="outline" className="bg-white/10 text-white border-white/30 backdrop-blur">
+                <Button size="lg" className="bg-gradient-to-br from-amber-400 to-amber-500 text-white font-semibold shadow-lg border border-amber-300/50 backdrop-blur">
                   {t.header.ctaButton}
                 </Button>
               </Link>
@@ -151,19 +151,19 @@ function BannerSlider() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center pt-8">
             {currentBanner.buttonTextTj && currentBanner.buttonLink ? (
               <Link href={currentBanner.buttonLink}>
-                <Button size="lg" className="bg-accent text-accent-foreground border-accent-border backdrop-blur" data-testid="hero-cta-primary">
+                <Button size="lg" className="bg-gradient-to-br from-amber-400 to-amber-500 text-white font-semibold shadow-lg border border-amber-300/50 backdrop-blur" data-testid="hero-cta-primary">
                   {getLocalizedText(currentBanner, 'buttonText')}
                 </Button>
               </Link>
             ) : (
               <Link href="/patients">
-                <Button size="lg" className="bg-accent text-accent-foreground border-accent-border backdrop-blur" data-testid="hero-cta-primary">
+                <Button size="lg" className="bg-gradient-to-br from-amber-400 to-amber-500 text-white font-semibold shadow-lg border border-amber-300/50 backdrop-blur" data-testid="hero-cta-primary">
                   {t.common.learnMore}
                 </Button>
               </Link>
             )}
             <Link href="/contacts">
-              <Button size="lg" variant="outline" className="bg-white/10 text-white border-white/30 backdrop-blur" data-testid="hero-cta-secondary">
+              <Button size="lg" className="bg-gradient-to-br from-amber-400 to-amber-500 text-white font-semibold shadow-lg border border-amber-300/50 backdrop-blur" data-testid="hero-cta-secondary">
                 {t.header.ctaButton}
               </Button>
             </Link>

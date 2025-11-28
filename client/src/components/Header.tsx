@@ -84,7 +84,7 @@ export default function Header() {
               <Button
                 variant="default"
                 size="sm"
-                className="bg-accent text-accent-foreground font-semibold shadow-md border-accent-border hidden sm:flex"
+                className="bg-gradient-to-br from-amber-400 to-amber-500 text-white font-semibold shadow-md border border-amber-300/50 hidden sm:flex"
                 data-testid="button-cta-apply"
               >
                 {t.header.ctaButton}
