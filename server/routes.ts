@@ -14,8 +14,8 @@ import multer from "multer";
 import path from "path";
 import fs from "fs";
 
-// Configure multer for file uploads
-const uploadDir = path.join(process.cwd(), "uploads");
+// Configure multer for file uploads - use data directory for persistence
+const uploadDir = path.join(process.cwd(), "data", "uploads");
 if (!fs.existsSync(uploadDir)) {
   fs.mkdirSync(uploadDir, { recursive: true });
 }
@@ -72,10 +72,11 @@ function requireAdmin(req: Request, res: Response, next: NextFunction) {
 }
 
 export async function registerRoutes(app: Express): Promise<Server> {
-  // Serve uploaded files
+  // Serve uploaded files from persistent data directory
   app.use("/uploads", (req, res, next) => {
     const filePath = path.join(uploadDir, req.path);
     if (fs.existsSync(filePath)) {
+      res.setHeader("Cache-Control", "public, max-age=31536000");
       res.sendFile(filePath);
     } else {
       res.status(404).json({ success: false, message: "File not found" });
