@@ -121,12 +121,12 @@ function BannerSlider() {
                 className="absolute inset-0"
                 style={{
                   backgroundImage: `url('${banner.imageUrl}')`,
-                  backgroundSize: "cover",
-                  backgroundPosition: "center"
+                  backgroundSize: (banner.imageFit as "cover" | "contain" | "fill") || "cover",
+                  backgroundPosition: (banner.imagePosition || "center").replace("-", " ")
                 }}
               />
             )}
-            <div className="absolute inset-0 bg-gradient-to-br from-primary/40 via-primary/30 to-primary/20" />
+            <div className="absolute inset-0 bg-gradient-to-br from-primary/25 via-primary/20 to-primary/10" />
           </div>
         </div>
       ))}
@@ -303,12 +303,16 @@ function NewsFeed() {
           {news.slice(0, 6).map((item) => (
             <motion.div key={item.id} variants={itemVariants}>
               <Card className="overflow-hidden hover-elevate h-full flex flex-col" data-testid={`news-card-${item.id}`}>
-                <div className="aspect-video bg-muted relative">
+                <div className="aspect-video bg-muted relative flex-shrink-0">
                   {item.imageUrl ? (
                     <img 
                       src={item.imageUrl} 
                       alt={getLocalizedText(item, 'title')}
-                      className="w-full h-full object-cover"
+                      className="w-full h-full"
+                      style={{
+                        objectFit: (item.imageFit as "cover" | "contain" | "fill") || "cover",
+                        objectPosition: (item.imagePosition || "center").replace("-", " ")
+                      }}
                     />
                   ) : (
                     <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-primary/20 to-primary/5">

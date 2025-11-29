@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { useAdmin } from "@/lib/AdminContext";
 import { useToast } from "@/hooks/use-toast";
@@ -37,6 +38,8 @@ export default function AdminBanners() {
     buttonTextEn: "",
     buttonLink: "",
     imageUrl: "",
+    imageFit: "cover" as "cover" | "contain" | "fill",
+    imagePosition: "center" as "center" | "top" | "bottom" | "left" | "right" | "top-left" | "top-right" | "bottom-left" | "bottom-right",
     sortOrder: 0,
     isActive: true
   });
@@ -138,6 +141,8 @@ export default function AdminBanners() {
       buttonTextEn: "",
       buttonLink: "",
       imageUrl: "",
+      imageFit: "cover",
+      imagePosition: "center",
       sortOrder: 0,
       isActive: true
     });
@@ -158,6 +163,8 @@ export default function AdminBanners() {
       buttonTextEn: banner.buttonTextEn || "",
       buttonLink: banner.buttonLink || "",
       imageUrl: banner.imageUrl || "",
+      imageFit: (banner.imageFit as typeof formData.imageFit) || "cover",
+      imagePosition: (banner.imagePosition as typeof formData.imagePosition) || "center",
       sortOrder: banner.sortOrder,
       isActive: banner.isActive
     });
@@ -355,7 +362,60 @@ export default function AdminBanners() {
                     </label>
                   </div>
                   {formData.imageUrl && (
-                    <img src={formData.imageUrl} alt="Preview" className="mt-2 h-24 object-cover rounded" />
+                    <div className="mt-3 space-y-3">
+                      <div className="aspect-video w-full bg-muted rounded overflow-hidden relative">
+                        <img 
+                          src={formData.imageUrl} 
+                          alt="Preview" 
+                          className="w-full h-full"
+                          style={{
+                            objectFit: formData.imageFit,
+                            objectPosition: formData.imagePosition.replace("-", " ")
+                          }}
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-br from-primary/25 via-primary/20 to-primary/10" />
+                      </div>
+                      <div className="grid grid-cols-2 gap-4">
+                        <div className="space-y-2">
+                          <Label>Андоза</Label>
+                          <Select
+                            value={formData.imageFit}
+                            onValueChange={(value: typeof formData.imageFit) => setFormData(prev => ({ ...prev, imageFit: value }))}
+                          >
+                            <SelectTrigger data-testid="select-banner-image-fit">
+                              <SelectValue />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="cover">Пурра (cover)</SelectItem>
+                              <SelectItem value="contain">Дохил (contain)</SelectItem>
+                              <SelectItem value="fill">Кашида (fill)</SelectItem>
+                            </SelectContent>
+                          </Select>
+                        </div>
+                        <div className="space-y-2">
+                          <Label>Ҷойгиршавӣ</Label>
+                          <Select
+                            value={formData.imagePosition}
+                            onValueChange={(value: typeof formData.imagePosition) => setFormData(prev => ({ ...prev, imagePosition: value }))}
+                          >
+                            <SelectTrigger data-testid="select-banner-image-position">
+                              <SelectValue />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="center">Марказ</SelectItem>
+                              <SelectItem value="top">Боло</SelectItem>
+                              <SelectItem value="bottom">Поён</SelectItem>
+                              <SelectItem value="left">Чап</SelectItem>
+                              <SelectItem value="right">Рост</SelectItem>
+                              <SelectItem value="top-left">Боло-чап</SelectItem>
+                              <SelectItem value="top-right">Боло-рост</SelectItem>
+                              <SelectItem value="bottom-left">Поён-чап</SelectItem>
+                              <SelectItem value="bottom-right">Поён-рост</SelectItem>
+                            </SelectContent>
+                          </Select>
+                        </div>
+                      </div>
+                    </div>
                   )}
                 </div>
 
