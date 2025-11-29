@@ -1,20 +1,20 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useLocation, Link } from "wouter";
 import { useQuery, useMutation } from "@tanstack/react-query";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import Cropper from "react-easy-crop";
+import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Slider } from "@/components/ui/slider";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { useAdmin } from "@/lib/AdminContext";
 import { useToast } from "@/hooks/use-toast";
 import { queryClient } from "@/lib/queryClient";
 import { 
-  ArrowLeft, Plus, Edit, Trash2, Image, Eye, EyeOff, Upload, 
-  GripVertical, LayoutDashboard
+  ArrowLeft, Plus, Edit, Trash2, Image, Upload, ZoomIn, ZoomOut, RotateCcw
 } from "lucide-react";
 import type { Banner } from "@shared/schema";
 
@@ -25,6 +25,10 @@ export default function AdminBanners() {
   const [editingBanner, setEditingBanner] = useState<Banner | null>(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [uploading, setUploading] = useState(false);
+  const [showCropper, setShowCropper] = useState(false);
+
+  const [crop, setCrop] = useState({ x: 0, y: 0 });
+  const [zoom, setZoom] = useState(1);
 
   const [formData, setFormData] = useState({
     titleTj: "",
@@ -38,8 +42,9 @@ export default function AdminBanners() {
     buttonTextEn: "",
     buttonLink: "",
     imageUrl: "",
-    imageFit: "cover" as "cover" | "contain" | "fill",
-    imagePosition: "center" as "center" | "top" | "bottom" | "left" | "right" | "top-left" | "top-right" | "bottom-left" | "bottom-right",
+    cropX: 0,
+    cropY: 0,
+    cropZoom: 1,
     sortOrder: 0,
     isActive: true
   });
@@ -64,6 +69,7 @@ export default function AdminBanners() {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/banners?includeInactive=true"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/banners"] });
       toast({ title: "Муваффақият", description: "Баннер илова шуд" });
       resetForm();
       setIsDialogOpen(false);
@@ -88,6 +94,7 @@ export default function AdminBanners() {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/banners?includeInactive=true"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/banners"] });
       toast({ title: "Муваффақият", description: "Баннер навсозӣ шуд" });
       resetForm();
       setIsDialogOpen(false);
@@ -108,12 +115,19 @@ export default function AdminBanners() {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/banners?includeInactive=true"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/banners"] });
       toast({ title: "Муваффақият", description: "Баннер нест шуд" });
     },
     onError: () => {
       toast({ title: "Хатогӣ", description: "Баннер нест нашуд", variant: "destructive" });
     }
   });
+
+  useEffect(() => {
+    if (!authLoading && !admin) {
+      setLocation("/admin/login");
+    }
+  }, [authLoading, admin, setLocation]);
 
   if (authLoading) {
     return (
@@ -124,7 +138,6 @@ export default function AdminBanners() {
   }
 
   if (!admin) {
-    setLocation("/admin/login");
     return null;
   }
 
@@ -141,16 +154,23 @@ export default function AdminBanners() {
       buttonTextEn: "",
       buttonLink: "",
       imageUrl: "",
-      imageFit: "cover",
-      imagePosition: "center",
+      cropX: 0,
+      cropY: 0,
+      cropZoom: 1,
       sortOrder: 0,
       isActive: true
     });
+    setCrop({ x: 0, y: 0 });
+    setZoom(1);
     setEditingBanner(null);
+    setShowCropper(false);
   };
 
   const handleEdit = (banner: Banner) => {
     setEditingBanner(banner);
+    const cropX = banner.cropX ?? 0;
+    const cropY = banner.cropY ?? 0;
+    const cropZoom = banner.cropZoom ?? 1;
     setFormData({
       titleTj: banner.titleTj,
       titleRu: banner.titleRu || "",
@@ -163,20 +183,30 @@ export default function AdminBanners() {
       buttonTextEn: banner.buttonTextEn || "",
       buttonLink: banner.buttonLink || "",
       imageUrl: banner.imageUrl || "",
-      imageFit: (banner.imageFit as typeof formData.imageFit) || "cover",
-      imagePosition: (banner.imagePosition as typeof formData.imagePosition) || "center",
+      cropX,
+      cropY,
+      cropZoom,
       sortOrder: banner.sortOrder,
       isActive: banner.isActive
     });
+    setCrop({ x: cropX, y: cropY });
+    setZoom(cropZoom);
+    setShowCropper(!!banner.imageUrl);
     setIsDialogOpen(true);
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    const dataToSave = {
+      ...formData,
+      cropX: crop.x,
+      cropY: crop.y,
+      cropZoom: zoom
+    };
     if (editingBanner) {
-      updateMutation.mutate({ id: editingBanner.id, data: formData });
+      updateMutation.mutate({ id: editingBanner.id, data: dataToSave });
     } else {
-      createMutation.mutate(formData);
+      createMutation.mutate(dataToSave);
     }
   };
 
@@ -197,6 +227,9 @@ export default function AdminBanners() {
       const data = await response.json();
       if (data.success) {
         setFormData(prev => ({ ...prev, imageUrl: data.imageUrl }));
+        setCrop({ x: 0, y: 0 });
+        setZoom(1);
+        setShowCropper(true);
         toast({ title: "Муваффақият", description: "Расм боргузорӣ шуд" });
       }
     } catch (error) {
@@ -205,10 +238,15 @@ export default function AdminBanners() {
     setUploading(false);
   };
 
+  const handleResetCrop = () => {
+    setCrop({ x: 0, y: 0 });
+    setZoom(1);
+  };
+
   return (
     <div className="min-h-screen bg-muted/30">
       <header className="bg-background border-b sticky top-0 z-50">
-        <div className="container mx-auto px-4 py-4 flex items-center justify-between">
+        <div className="container mx-auto px-4 py-4 flex items-center justify-between gap-4">
           <div className="flex items-center gap-3">
             <Link href="/admin">
               <Button variant="ghost" size="icon" data-testid="button-back">
@@ -342,7 +380,16 @@ export default function AdminBanners() {
                   <div className="flex gap-2">
                     <Input
                       value={formData.imageUrl}
-                      onChange={(e) => setFormData(prev => ({ ...prev, imageUrl: e.target.value }))}
+                      onChange={(e) => {
+                        setFormData(prev => ({ ...prev, imageUrl: e.target.value }));
+                        if (e.target.value) {
+                          setShowCropper(true);
+                          setCrop({ x: 0, y: 0 });
+                          setZoom(1);
+                        } else {
+                          setShowCropper(false);
+                        }
+                      }}
                       placeholder="URL ё боргузорӣ кунед"
                       data-testid="input-banner-image"
                     />
@@ -361,59 +408,54 @@ export default function AdminBanners() {
                       </Button>
                     </label>
                   </div>
-                  {formData.imageUrl && (
+                  
+                  {formData.imageUrl && showCropper && (
                     <div className="mt-3 space-y-3">
-                      <div className="aspect-video w-full bg-muted rounded overflow-hidden relative">
-                        <img 
-                          src={formData.imageUrl} 
-                          alt="Preview" 
-                          className="w-full h-full"
+                      <p className="text-sm text-muted-foreground">
+                        Кашед барои танзими мавқеи расм, чархро барои калон/хурд кардан истифода баред
+                      </p>
+                      <div className="relative w-full h-[250px] bg-muted rounded-md overflow-hidden">
+                        <Cropper
+                          image={formData.imageUrl}
+                          crop={crop}
+                          zoom={zoom}
+                          aspect={16 / 9}
+                          onCropChange={setCrop}
+                          onZoomChange={setZoom}
+                          showGrid={true}
                           style={{
-                            objectFit: formData.imageFit,
-                            objectPosition: formData.imagePosition.replace("-", " ")
+                            containerStyle: {
+                              borderRadius: "0.375rem"
+                            }
                           }}
                         />
-                        <div className="absolute inset-0 bg-gradient-to-br from-primary/25 via-primary/20 to-primary/10" />
+                        <div className="absolute inset-0 pointer-events-none bg-gradient-to-br from-primary/20 via-primary/15 to-primary/10" />
                       </div>
-                      <div className="grid grid-cols-2 gap-4">
-                        <div className="space-y-2">
-                          <Label>Андоза</Label>
-                          <Select
-                            value={formData.imageFit}
-                            onValueChange={(value: typeof formData.imageFit) => setFormData(prev => ({ ...prev, imageFit: value }))}
-                          >
-                            <SelectTrigger data-testid="select-banner-image-fit">
-                              <SelectValue />
-                            </SelectTrigger>
-                            <SelectContent>
-                              <SelectItem value="cover">Пурра (cover)</SelectItem>
-                              <SelectItem value="contain">Дохил (contain)</SelectItem>
-                              <SelectItem value="fill">Кашида (fill)</SelectItem>
-                            </SelectContent>
-                          </Select>
-                        </div>
-                        <div className="space-y-2">
-                          <Label>Ҷойгиршавӣ</Label>
-                          <Select
-                            value={formData.imagePosition}
-                            onValueChange={(value: typeof formData.imagePosition) => setFormData(prev => ({ ...prev, imagePosition: value }))}
-                          >
-                            <SelectTrigger data-testid="select-banner-image-position">
-                              <SelectValue />
-                            </SelectTrigger>
-                            <SelectContent>
-                              <SelectItem value="center">Марказ</SelectItem>
-                              <SelectItem value="top">Боло</SelectItem>
-                              <SelectItem value="bottom">Поён</SelectItem>
-                              <SelectItem value="left">Чап</SelectItem>
-                              <SelectItem value="right">Рост</SelectItem>
-                              <SelectItem value="top-left">Боло-чап</SelectItem>
-                              <SelectItem value="top-right">Боло-рост</SelectItem>
-                              <SelectItem value="bottom-left">Поён-чап</SelectItem>
-                              <SelectItem value="bottom-right">Поён-рост</SelectItem>
-                            </SelectContent>
-                          </Select>
-                        </div>
+                      
+                      <div className="flex items-center gap-3">
+                        <ZoomOut className="w-4 h-4 text-muted-foreground flex-shrink-0" />
+                        <Slider
+                          value={[zoom]}
+                          min={1}
+                          max={3}
+                          step={0.05}
+                          onValueChange={(value) => setZoom(value[0])}
+                          className="flex-1"
+                          data-testid="slider-zoom"
+                        />
+                        <ZoomIn className="w-4 h-4 text-muted-foreground flex-shrink-0" />
+                        <span className="text-sm text-muted-foreground w-12 text-right flex-shrink-0">
+                          {Math.round(zoom * 100)}%
+                        </span>
+                        <Button
+                          type="button"
+                          variant="ghost"
+                          size="sm"
+                          onClick={handleResetCrop}
+                          data-testid="button-reset-crop"
+                        >
+                          <RotateCcw className="w-4 h-4" />
+                        </Button>
                       </div>
                     </div>
                   )}
@@ -474,13 +516,19 @@ export default function AdminBanners() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {banners.map((banner) => (
               <Card key={banner.id} className="overflow-hidden" data-testid={`banner-card-${banner.id}`}>
-                <div className="aspect-video bg-muted relative">
+                <div className="aspect-video bg-muted relative overflow-hidden">
                   {banner.imageUrl ? (
-                    <img 
-                      src={banner.imageUrl} 
-                      alt={banner.titleTj}
-                      className="w-full h-full object-cover"
-                    />
+                    <div className="w-full h-full overflow-hidden">
+                      <img 
+                        src={banner.imageUrl} 
+                        alt={banner.titleTj}
+                        className="w-full h-full object-cover"
+                        style={{
+                          transform: `translate(${-(banner.cropX ?? 0)}%, ${-(banner.cropY ?? 0)}%) scale(${banner.cropZoom ?? 1})`,
+                          transformOrigin: "center center"
+                        }}
+                      />
+                    </div>
                   ) : (
                     <div className="w-full h-full flex items-center justify-center">
                       <Image className="w-12 h-12 text-muted-foreground" />

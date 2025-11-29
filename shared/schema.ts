@@ -1,5 +1,5 @@
 import { sql } from "drizzle-orm";
-import { pgTable, text, varchar, timestamp, integer, boolean } from "drizzle-orm/pg-core";
+import { pgTable, text, varchar, timestamp, integer, boolean, real } from "drizzle-orm/pg-core";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
 
@@ -157,6 +157,9 @@ export const banners = pgTable("banners", {
   imageUrl: text("image_url"),
   imageFit: text("image_fit").default("cover"),
   imagePosition: text("image_position").default("center"),
+  cropX: real("crop_x").default(0),
+  cropY: real("crop_y").default(0),
+  cropZoom: real("crop_zoom").default(1),
   buttonTextTj: text("button_text_tj"),
   buttonTextRu: text("button_text_ru"),
   buttonTextEn: text("button_text_en"),
@@ -182,6 +185,9 @@ export const news = pgTable("news", {
   imageUrl: text("image_url"),
   imageFit: text("image_fit").default("cover"),
   imagePosition: text("image_position").default("center"),
+  cropX: real("crop_x").default(0),
+  cropY: real("crop_y").default(0),
+  cropZoom: real("crop_zoom").default(1),
   isActive: boolean("is_active").notNull().default(true),
   publishedAt: timestamp("published_at").notNull().defaultNow(),
   createdAt: timestamp("created_at").notNull().defaultNow(),
@@ -217,6 +223,9 @@ export const updateBannerSchema = z.object({
   imageUrl: z.union([z.string(), z.null()]).optional(),
   imageFit: z.enum(["cover", "contain", "fill"]).optional(),
   imagePosition: z.enum(["center", "top", "bottom", "left", "right", "top-left", "top-right", "bottom-left", "bottom-right"]).optional(),
+  cropX: z.number().optional(),
+  cropY: z.number().optional(),
+  cropZoom: z.number().min(1).max(3).optional(),
   buttonTextTj: z.union([z.string(), z.null()]).optional(),
   buttonTextRu: z.union([z.string(), z.null()]).optional(),
   buttonTextEn: z.union([z.string(), z.null()]).optional(),
@@ -250,6 +259,9 @@ export const updateNewsSchema = z.object({
   imageUrl: z.union([z.string(), z.null()]).optional(),
   imageFit: z.enum(["cover", "contain", "fill"]).optional(),
   imagePosition: z.enum(["center", "top", "bottom", "left", "right", "top-left", "top-right", "bottom-left", "bottom-right"]).optional(),
+  cropX: z.number().optional(),
+  cropY: z.number().optional(),
+  cropZoom: z.number().min(1).max(3).optional(),
   isActive: z.boolean().optional(),
   publishedAt: z.coerce.date().optional(),
 });

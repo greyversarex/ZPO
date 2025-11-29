@@ -228,9 +228,44 @@ const { language, setLanguage, t } = useLanguage();
 ### Admin Features
 - Multi-language content management (TJ/RU/EN for all content)
 - Image upload for banners and news (stored in /uploads directory)
+- Interactive image cropper using react-easy-crop library:
+  - Drag to reposition image within frame
+  - Zoom slider (1x to 3x)
+  - Reset button to restore default position
+  - Crop values stored as cropX, cropY (normalized -100 to 100), cropZoom (1 to 3)
 - Active/inactive toggle for content visibility
 - Sort order control for banners
 - Published date control for news items
+
+### Image Crop Rendering
+**Utility Functions (client/src/lib/cropUtils.ts)**
+- `getCropTransformStyle()` - Requires container dimensions, returns pixel-based translate/scale CSS
+- `getCropStyle()` - Uses object-position percentages (for simple cases)
+- Formula for translate: translateX = -(cropX/100) * maxPanX where maxPanX = containerWidth * (zoom-1) / 2
+- Zoom-only crops (zoom > 1 with x=0, y=0) correctly apply scale transform
+
+**CroppedImage Component (client/src/components/CroppedImage.tsx)**
+- Reusable component for displaying cropped images on frontend
+- Uses ResizeObserver to measure container dimensions
+- Calls getCropTransformStyle() with actual container dimensions for accurate rendering
+- Automatically recalculates on container resize
+
+**Usage**
+```tsx
+<CroppedImage
+  src={imageUrl}
+  cropX={cropX}
+  cropY={cropY}
+  cropZoom={cropZoom}
+  alt="Description"
+/>
+```
+- Works for both banner hero slider and news card images
+
+**Known Limitation**
+- Pan translations use container dimensions rather than original image dimensions
+- This is accurate when container aspect ratio matches image aspect ratio
+- For more precise panning, future enhancement could store original image dimensions in database
 
 ### API Endpoints (Admin)
 

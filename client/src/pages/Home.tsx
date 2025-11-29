@@ -8,6 +8,7 @@ import { useQuery } from "@tanstack/react-query";
 import type { Banner, News } from "@shared/schema";
 import { useState, useEffect } from "react";
 import { format } from "date-fns";
+import { CroppedImage } from "@/components/CroppedImage";
 
 import workshopImgProsthetics from "@assets/20251105_135526_1764185493900.jpg";
 import workshopImgShoes from "@assets/20251105_140301_1764185477582.jpg";
@@ -117,13 +118,11 @@ function BannerSlider() {
         >
           <div className="absolute inset-0">
             {banner.imageUrl && (
-              <div
-                className="absolute inset-0"
-                style={{
-                  backgroundImage: `url('${banner.imageUrl}')`,
-                  backgroundSize: (banner.imageFit as "cover" | "contain" | "fill") || "cover",
-                  backgroundPosition: (banner.imagePosition || "center").replace("-", " ")
-                }}
+              <CroppedImage
+                src={banner.imageUrl}
+                cropX={banner.cropX}
+                cropY={banner.cropY}
+                cropZoom={banner.cropZoom}
               />
             )}
             <div className="absolute inset-0 bg-gradient-to-br from-primary/25 via-primary/20 to-primary/10" />
@@ -303,16 +302,14 @@ function NewsFeed() {
           {news.slice(0, 6).map((item) => (
             <motion.div key={item.id} variants={itemVariants}>
               <Card className="overflow-hidden hover-elevate h-full flex flex-col" data-testid={`news-card-${item.id}`}>
-                <div className="aspect-video bg-muted relative flex-shrink-0">
+                <div className="aspect-video bg-muted relative flex-shrink-0 overflow-hidden">
                   {item.imageUrl ? (
-                    <img 
-                      src={item.imageUrl} 
+                    <CroppedImage
+                      src={item.imageUrl}
                       alt={getLocalizedText(item, 'title')}
-                      className="w-full h-full"
-                      style={{
-                        objectFit: (item.imageFit as "cover" | "contain" | "fill") || "cover",
-                        objectPosition: (item.imagePosition || "center").replace("-", " ")
-                      }}
+                      cropX={item.cropX}
+                      cropY={item.cropY}
+                      cropZoom={item.cropZoom}
                     />
                   ) : (
                     <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-primary/20 to-primary/5">

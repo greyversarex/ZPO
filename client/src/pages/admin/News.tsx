@@ -1,19 +1,20 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useLocation, Link } from "wouter";
 import { useQuery, useMutation } from "@tanstack/react-query";
+import Cropper from "react-easy-crop";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Slider } from "@/components/ui/slider";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { useAdmin } from "@/lib/AdminContext";
 import { useToast } from "@/hooks/use-toast";
 import { queryClient } from "@/lib/queryClient";
 import { 
-  ArrowLeft, Plus, Edit, Trash2, Newspaper, Eye, EyeOff, Upload, Calendar
+  ArrowLeft, Plus, Edit, Trash2, Newspaper, Upload, Calendar, ZoomIn, ZoomOut, RotateCcw
 } from "lucide-react";
 import type { News } from "@shared/schema";
 import { format } from "date-fns";
@@ -25,6 +26,10 @@ export default function AdminNews() {
   const [editingNews, setEditingNews] = useState<News | null>(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [uploading, setUploading] = useState(false);
+  const [showCropper, setShowCropper] = useState(false);
+
+  const [crop, setCrop] = useState({ x: 0, y: 0 });
+  const [zoom, setZoom] = useState(1);
 
   const [formData, setFormData] = useState({
     titleTj: "",
@@ -37,8 +42,9 @@ export default function AdminNews() {
     excerptRu: "",
     excerptEn: "",
     imageUrl: "",
-    imageFit: "cover" as "cover" | "contain" | "fill",
-    imagePosition: "center" as "center" | "top" | "bottom" | "left" | "right" | "top-left" | "top-right" | "bottom-left" | "bottom-right",
+    cropX: 0,
+    cropY: 0,
+    cropZoom: 1,
     isActive: true,
     publishedAt: new Date().toISOString().split("T")[0]
   });
@@ -66,6 +72,7 @@ export default function AdminNews() {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/news?includeInactive=true"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/news"] });
       toast({ title: "Муваффақият", description: "Хабар илова шуд" });
       resetForm();
       setIsDialogOpen(false);
@@ -93,6 +100,7 @@ export default function AdminNews() {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/news?includeInactive=true"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/news"] });
       toast({ title: "Муваффақият", description: "Хабар навсозӣ шуд" });
       resetForm();
       setIsDialogOpen(false);
@@ -113,12 +121,19 @@ export default function AdminNews() {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/news?includeInactive=true"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/news"] });
       toast({ title: "Муваффақият", description: "Хабар нест шуд" });
     },
     onError: () => {
       toast({ title: "Хатогӣ", description: "Хабар нест нашуд", variant: "destructive" });
     }
   });
+
+  useEffect(() => {
+    if (!authLoading && !admin) {
+      setLocation("/admin/login");
+    }
+  }, [authLoading, admin, setLocation]);
 
   if (authLoading) {
     return (
@@ -129,7 +144,6 @@ export default function AdminNews() {
   }
 
   if (!admin) {
-    setLocation("/admin/login");
     return null;
   }
 
@@ -145,16 +159,23 @@ export default function AdminNews() {
       excerptRu: "",
       excerptEn: "",
       imageUrl: "",
-      imageFit: "cover",
-      imagePosition: "center",
+      cropX: 0,
+      cropY: 0,
+      cropZoom: 1,
       isActive: true,
       publishedAt: new Date().toISOString().split("T")[0]
     });
+    setCrop({ x: 0, y: 0 });
+    setZoom(1);
     setEditingNews(null);
+    setShowCropper(false);
   };
 
   const handleEdit = (item: News) => {
     setEditingNews(item);
+    const cropX = item.cropX ?? 0;
+    const cropY = item.cropY ?? 0;
+    const cropZoom = item.cropZoom ?? 1;
     setFormData({
       titleTj: item.titleTj,
       titleRu: item.titleRu || "",
@@ -166,20 +187,30 @@ export default function AdminNews() {
       excerptRu: item.excerptRu || "",
       excerptEn: item.excerptEn || "",
       imageUrl: item.imageUrl || "",
-      imageFit: (item.imageFit as typeof formData.imageFit) || "cover",
-      imagePosition: (item.imagePosition as typeof formData.imagePosition) || "center",
+      cropX,
+      cropY,
+      cropZoom,
       isActive: item.isActive,
       publishedAt: new Date(item.publishedAt).toISOString().split("T")[0]
     });
+    setCrop({ x: cropX, y: cropY });
+    setZoom(cropZoom);
+    setShowCropper(!!item.imageUrl);
     setIsDialogOpen(true);
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    const dataToSave = {
+      ...formData,
+      cropX: crop.x,
+      cropY: crop.y,
+      cropZoom: zoom
+    };
     if (editingNews) {
-      updateMutation.mutate({ id: editingNews.id, data: formData });
+      updateMutation.mutate({ id: editingNews.id, data: dataToSave });
     } else {
-      createMutation.mutate(formData);
+      createMutation.mutate(dataToSave);
     }
   };
 
@@ -200,6 +231,9 @@ export default function AdminNews() {
       const data = await response.json();
       if (data.success) {
         setFormData(prev => ({ ...prev, imageUrl: data.imageUrl }));
+        setCrop({ x: 0, y: 0 });
+        setZoom(1);
+        setShowCropper(true);
         toast({ title: "Муваффақият", description: "Расм боргузорӣ шуд" });
       }
     } catch (error) {
@@ -208,10 +242,15 @@ export default function AdminNews() {
     setUploading(false);
   };
 
+  const handleResetCrop = () => {
+    setCrop({ x: 0, y: 0 });
+    setZoom(1);
+  };
+
   return (
     <div className="min-h-screen bg-muted/30">
       <header className="bg-background border-b sticky top-0 z-50">
-        <div className="container mx-auto px-4 py-4 flex items-center justify-between">
+        <div className="container mx-auto px-4 py-4 flex items-center justify-between gap-4">
           <div className="flex items-center gap-3">
             <Link href="/admin">
               <Button variant="ghost" size="icon" data-testid="button-back">
@@ -340,7 +379,16 @@ export default function AdminNews() {
                   <div className="flex gap-2">
                     <Input
                       value={formData.imageUrl}
-                      onChange={(e) => setFormData(prev => ({ ...prev, imageUrl: e.target.value }))}
+                      onChange={(e) => {
+                        setFormData(prev => ({ ...prev, imageUrl: e.target.value }));
+                        if (e.target.value) {
+                          setShowCropper(true);
+                          setCrop({ x: 0, y: 0 });
+                          setZoom(1);
+                        } else {
+                          setShowCropper(false);
+                        }
+                      }}
                       placeholder="URL ё боргузорӣ кунед"
                       data-testid="input-news-image"
                     />
@@ -359,58 +407,53 @@ export default function AdminNews() {
                       </Button>
                     </label>
                   </div>
-                  {formData.imageUrl && (
+                  
+                  {formData.imageUrl && showCropper && (
                     <div className="mt-3 space-y-3">
-                      <div className="aspect-video w-full max-w-md bg-muted rounded overflow-hidden relative">
-                        <img 
-                          src={formData.imageUrl} 
-                          alt="Preview" 
-                          className="w-full h-full"
+                      <p className="text-sm text-muted-foreground">
+                        Кашед барои танзими мавқеи расм, чархро барои калон/хурд кардан истифода баред
+                      </p>
+                      <div className="relative w-full h-[250px] bg-muted rounded-md overflow-hidden">
+                        <Cropper
+                          image={formData.imageUrl}
+                          crop={crop}
+                          zoom={zoom}
+                          aspect={16 / 9}
+                          onCropChange={setCrop}
+                          onZoomChange={setZoom}
+                          showGrid={true}
                           style={{
-                            objectFit: formData.imageFit,
-                            objectPosition: formData.imagePosition.replace("-", " ")
+                            containerStyle: {
+                              borderRadius: "0.375rem"
+                            }
                           }}
                         />
                       </div>
-                      <div className="grid grid-cols-2 gap-4">
-                        <div className="space-y-2">
-                          <Label>Андоза</Label>
-                          <Select
-                            value={formData.imageFit}
-                            onValueChange={(value: typeof formData.imageFit) => setFormData(prev => ({ ...prev, imageFit: value }))}
-                          >
-                            <SelectTrigger data-testid="select-image-fit">
-                              <SelectValue />
-                            </SelectTrigger>
-                            <SelectContent>
-                              <SelectItem value="cover">Пурра (cover)</SelectItem>
-                              <SelectItem value="contain">Дохил (contain)</SelectItem>
-                              <SelectItem value="fill">Кашида (fill)</SelectItem>
-                            </SelectContent>
-                          </Select>
-                        </div>
-                        <div className="space-y-2">
-                          <Label>Ҷойгиршавӣ</Label>
-                          <Select
-                            value={formData.imagePosition}
-                            onValueChange={(value: typeof formData.imagePosition) => setFormData(prev => ({ ...prev, imagePosition: value }))}
-                          >
-                            <SelectTrigger data-testid="select-image-position">
-                              <SelectValue />
-                            </SelectTrigger>
-                            <SelectContent>
-                              <SelectItem value="center">Марказ</SelectItem>
-                              <SelectItem value="top">Боло</SelectItem>
-                              <SelectItem value="bottom">Поён</SelectItem>
-                              <SelectItem value="left">Чап</SelectItem>
-                              <SelectItem value="right">Рост</SelectItem>
-                              <SelectItem value="top-left">Боло-чап</SelectItem>
-                              <SelectItem value="top-right">Боло-рост</SelectItem>
-                              <SelectItem value="bottom-left">Поён-чап</SelectItem>
-                              <SelectItem value="bottom-right">Поён-рост</SelectItem>
-                            </SelectContent>
-                          </Select>
-                        </div>
+                      
+                      <div className="flex items-center gap-3">
+                        <ZoomOut className="w-4 h-4 text-muted-foreground flex-shrink-0" />
+                        <Slider
+                          value={[zoom]}
+                          min={1}
+                          max={3}
+                          step={0.05}
+                          onValueChange={(value) => setZoom(value[0])}
+                          className="flex-1"
+                          data-testid="slider-zoom"
+                        />
+                        <ZoomIn className="w-4 h-4 text-muted-foreground flex-shrink-0" />
+                        <span className="text-sm text-muted-foreground w-12 text-right flex-shrink-0">
+                          {Math.round(zoom * 100)}%
+                        </span>
+                        <Button
+                          type="button"
+                          variant="ghost"
+                          size="sm"
+                          onClick={handleResetCrop}
+                          data-testid="button-reset-crop"
+                        >
+                          <RotateCcw className="w-4 h-4" />
+                        </Button>
                       </div>
                     </div>
                   )}
@@ -471,17 +514,19 @@ export default function AdminNews() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {news.map((item) => (
               <Card key={item.id} className="overflow-hidden" data-testid={`news-card-${item.id}`}>
-                <div className="aspect-video bg-muted relative">
+                <div className="aspect-video bg-muted relative overflow-hidden">
                   {item.imageUrl ? (
-                    <img 
-                      src={item.imageUrl} 
-                      alt={item.titleTj}
-                      className="w-full h-full"
-                      style={{
-                        objectFit: (item.imageFit as "cover" | "contain" | "fill") || "cover",
-                        objectPosition: (item.imagePosition || "center").replace("-", " ")
-                      }}
-                    />
+                    <div className="w-full h-full overflow-hidden">
+                      <img 
+                        src={item.imageUrl} 
+                        alt={item.titleTj}
+                        className="w-full h-full object-cover"
+                        style={{
+                          transform: `translate(${-(item.cropX ?? 0)}%, ${-(item.cropY ?? 0)}%) scale(${item.cropZoom ?? 1})`,
+                          transformOrigin: "center center"
+                        }}
+                      />
+                    </div>
                   ) : (
                     <div className="w-full h-full flex items-center justify-center">
                       <Newspaper className="w-12 h-12 text-muted-foreground" />

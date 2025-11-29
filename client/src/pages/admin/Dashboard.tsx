@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useLocation, Link } from "wouter";
 import { useQuery } from "@tanstack/react-query";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -23,6 +24,12 @@ export default function AdminDashboard() {
     enabled: !!token
   });
 
+  useEffect(() => {
+    if (!authLoading && !admin) {
+      setLocation("/admin/login");
+    }
+  }, [authLoading, admin, setLocation]);
+
   if (authLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-muted/30">
@@ -32,7 +39,6 @@ export default function AdminDashboard() {
   }
 
   if (!admin) {
-    setLocation("/admin/login");
     return null;
   }
 
