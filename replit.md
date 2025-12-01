@@ -70,9 +70,34 @@ Preferred communication style: Simple, everyday language.
 - Migration support configured for PostgreSQL
 
 **Current Implementation**
-- In-memory storage for prototype/development
-- Ready for PostgreSQL integration via environment variable DATABASE_URL
+- PostgreSQL database via environment variable DATABASE_URL
 - Neon Database serverless driver configured
+
+### File Storage (Object Storage)
+
+**Persistent File Storage**
+- Uses Replit Object Storage (App Storage) for persistent file uploads
+- Files survive deployments and restarts
+- Fallback to local storage (data/uploads) if Object Storage unavailable
+
+**Configuration**
+- Environment variables required:
+  - PRIVATE_OBJECT_DIR: /uploads (bucket path for private files)
+  - PUBLIC_OBJECT_SEARCH_PATHS: /uploads (paths for public file serving)
+
+**File Upload Flow**
+1. Admin uploads image via multer (memory storage)
+2. Server uploads to Object Storage via objectStorageService.uploadFile()
+3. Returns URL path like `/objects/<unique-id>.jpg`
+4. If Object Storage fails, falls back to local `data/uploads` directory
+
+**File Serving**
+- `/objects/:path` - Serves files from Object Storage (new uploads)
+- `/uploads/:filename` - Serves legacy files from local data/uploads directory
+
+**Implementation Files**
+- server/objectStorage.ts - ObjectStorageService class with upload/download methods
+- server/routes.ts - File upload endpoint and serving routes
 
 ### Design System
 
