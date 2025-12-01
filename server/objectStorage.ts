@@ -160,6 +160,54 @@ export class ObjectStorageService {
     const entityId = rawObjectPath.slice(objectEntityDir.length);
     return `/objects/${entityId}`;
   }
+
+  async uploadFile(buffer: Buffer, filename: string, contentType: string): Promise<string> {
+    const privateObjectDir = this.getPrivateObjectDir();
+    const objectId = `${Date.now()}-${randomUUID()}`;
+    const extension = filename.split('.').pop() || 'jpg';
+    const objectName = `${objectId}.${extension}`;
+    const fullPath = `${privateObjectDir}/${objectName}`;
+    
+    const { bucketName, objectName: fullObjectName } = parseObjectPath(fullPath);
+    const bucket = objectStorageClient.bucket(bucketName);
+    const file = bucket.file(fullObjectName);
+    
+    await file.save(buffer, {
+      contentType: contentType,
+      metadata: {
+        cacheControl: 'public, max-age=31536000',
+      },
+    });
+    
+    return `/objects/${objectName}`;
+  }
+
+  async getObjectFile(objectPath: string): Promise<File> {
+    if (objectPath.startsWith("/objects/")) {
+      objectPath = objectPath.slice(9);
+    }
+    
+    let entityDir = this.getPrivateObjectDir();
+    if (!entityDir.endsWith("/")) {
+      entityDir = `${entityDir}/`;
+    }
+    
+    const objectEntityPath = `${entityDir}${objectPath}`;
+    const { bucketName, objectName } = parseObjectPath(objectEntityPath);
+    const bucket = objectStorageClient.bucket(bucketName);
+    const objectFile = bucket.file(objectName);
+    const [exists] = await objectFile.exists();
+    
+    if (!exists) {
+      throw new ObjectNotFoundError();
+    }
+    
+    return objectFile;
+  }
+
+  isObjectStorageConfigured(): boolean {
+    return !!(process.env.PRIVATE_OBJECT_DIR && process.env.PUBLIC_OBJECT_SEARCH_PATHS);
+  }
 }
 
 function parseObjectPath(path: string): {

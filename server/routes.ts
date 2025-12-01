@@ -13,25 +13,17 @@ import bcrypt from "bcryptjs";
 import multer from "multer";
 import path from "path";
 import fs from "fs";
+import { ObjectStorageService, ObjectNotFoundError } from "./objectStorage";
 
-// Configure multer for file uploads - use data directory for persistence
+// Configure multer for file uploads - use memory storage for Object Storage upload
 const uploadDir = path.join(process.cwd(), "data", "uploads");
 if (!fs.existsSync(uploadDir)) {
   fs.mkdirSync(uploadDir, { recursive: true });
 }
 
-const multerStorage = multer.diskStorage({
-  destination: (_req, _file, cb) => {
-    cb(null, uploadDir);
-  },
-  filename: (_req, file, cb) => {
-    const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
-    cb(null, uniqueSuffix + path.extname(file.originalname));
-  }
-});
-
+// Use memory storage for Object Storage uploads
 const upload = multer({
-  storage: multerStorage,
+  storage: multer.memoryStorage(),
   limits: { fileSize: 10 * 1024 * 1024 }, // 10MB limit
   fileFilter: (_req, file, cb) => {
     const allowedTypes = /jpeg|jpg|png|gif|webp/;
@@ -72,7 +64,23 @@ function requireAdmin(req: Request, res: Response, next: NextFunction) {
 }
 
 export async function registerRoutes(app: Express): Promise<Server> {
-  // Serve uploaded files from persistent data directory
+  const objectStorageService = new ObjectStorageService();
+
+  // Serve files from Object Storage (new persistent storage)
+  app.get("/objects/:objectPath(*)", async (req, res) => {
+    try {
+      const objectFile = await objectStorageService.getObjectFile(req.params.objectPath);
+      await objectStorageService.downloadObject(objectFile, res);
+    } catch (error) {
+      if (error instanceof ObjectNotFoundError) {
+        return res.status(404).json({ success: false, message: "File not found" });
+      }
+      console.error("Error serving object:", error);
+      res.status(500).json({ success: false, message: "Error serving file" });
+    }
+  });
+
+  // Serve uploaded files from local data directory (fallback for old uploads)
   app.use("/uploads", (req, res, next) => {
     const filePath = path.join(uploadDir, req.path);
     if (fs.existsSync(filePath)) {
@@ -633,8 +641,24 @@ export async function registerRoutes(app: Express): Promise<Server> {
         });
       }
       
-      const imageUrl = `/uploads/${req.file.filename}`;
-      res.json({ success: true, imageUrl });
+      // Upload to Object Storage for persistent storage
+      try {
+        const imageUrl = await objectStorageService.uploadFile(
+          req.file.buffer,
+          req.file.originalname,
+          req.file.mimetype
+        );
+        res.json({ success: true, imageUrl });
+      } catch (storageError) {
+        // Fallback to local storage if Object Storage fails
+        console.error("Object Storage upload failed, using local fallback:", storageError);
+        const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
+        const filename = uniqueSuffix + path.extname(req.file.originalname);
+        const filePath = path.join(uploadDir, filename);
+        fs.writeFileSync(filePath, req.file.buffer);
+        const imageUrl = `/uploads/${filename}`;
+        res.json({ success: true, imageUrl });
+      }
     } catch (error) {
       console.error("Error uploading file:", error);
       res.status(500).json({ 
