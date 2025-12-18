@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
-import { MapPin, Building2, Users, Award, Phone, Mail, User, Calendar, Briefcase } from "lucide-react";
-import { Card } from "@/components/ui/card";
+import { MapPin, Building2, Users, Award, Phone, Mail, User, Calendar, Briefcase, Users2 } from "lucide-react";
+import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { useState } from "react";
@@ -62,6 +62,59 @@ export default function About() {
                 </div>
               </div>
             </Card>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Leadership Section */}
+      <section className="py-20 bg-muted/30">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="text-center max-w-3xl mx-auto mb-16"
+          >
+            <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4 flex items-center justify-center gap-2" data-testid="text-leadership-title">
+              <Users2 className="w-8 h-8 text-primary" />
+              {t.about.leadershipTitle}
+            </h2>
+            <p className="text-lg text-muted-foreground">{t.about.subtitle}</p>
+          </motion.div>
+
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto"
+          >
+            {t.about.leaders.map((leader, index) => (
+              <motion.div key={index} variants={itemVariants}>
+                <Card className="overflow-hidden hover-elevate h-full flex flex-col" data-testid={`leader-card-${index}`}>
+                  <div className="h-2 bg-gradient-to-r from-primary to-accent" />
+                  <CardContent className="p-8 flex flex-col h-full">
+                    <div className="flex items-start gap-4 mb-4">
+                      <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+                        <User className="w-6 h-6 text-primary" />
+                      </div>
+                      <div className="flex-1">
+                        <h3 className="font-bold text-xl text-foreground" data-testid={`leader-name-${index}`}>
+                          {leader.name}
+                        </h3>
+                        <p className="text-sm text-primary font-semibold" data-testid={`leader-position-${index}`}>
+                          {leader.position}
+                        </p>
+                      </div>
+                    </div>
+                    <p className="text-sm text-muted-foreground leading-relaxed">
+                      {leader.description}
+                    </p>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            ))}
           </motion.div>
         </div>
       </section>
