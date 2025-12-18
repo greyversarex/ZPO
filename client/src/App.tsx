@@ -11,6 +11,7 @@ import Home from "@/pages/Home";
 import About from "@/pages/About";
 import Patients from "@/pages/Patients";
 import Contacts from "@/pages/Contacts";
+import NewsDetail from "@/pages/NewsDetail";
 import NotFound from "@/pages/not-found";
 import AdminLogin from "@/pages/admin/Login";
 import AdminDashboard from "@/pages/admin/Dashboard";
@@ -24,6 +25,7 @@ function PublicRouter() {
       <Route path="/about" component={About} />
       <Route path="/patients" component={Patients} />
       <Route path="/contacts" component={Contacts} />
+      <Route path="/news/:id" component={NewsDetail} />
       <Route component={NotFound} />
     </Switch>
   );

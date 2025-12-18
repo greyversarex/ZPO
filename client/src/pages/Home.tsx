@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Building2, ChevronLeft, ChevronRight, Calendar, Newspaper } from "lucide-react";
+import { Building2, ChevronLeft, ChevronRight, Calendar, Newspaper, ArrowRight } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
@@ -89,18 +89,6 @@ function BannerSlider() {
             <p className="text-lg sm:text-xl text-white/90 max-w-2xl mx-auto">
               {t.hero.subheadline}
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center pt-8">
-              <Link href="/patients">
-                <Button size="lg" className="bg-gradient-to-br from-amber-400 to-amber-500 text-white font-semibold shadow-lg border border-amber-300/50 backdrop-blur">
-                  {t.common.learnMore}
-                </Button>
-              </Link>
-              <Link href="/contacts">
-                <Button size="lg" className="bg-gradient-to-br from-amber-400 to-amber-500 text-white font-semibold shadow-lg border border-amber-300/50 backdrop-blur">
-                  {t.header.ctaButton}
-                </Button>
-              </Link>
-            </div>
           </motion.div>
         </div>
       </section>
@@ -149,26 +137,6 @@ function BannerSlider() {
             </p>
           )}
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-center pt-8">
-            {currentBanner.buttonTextTj && currentBanner.buttonLink ? (
-              <Link href={currentBanner.buttonLink}>
-                <Button size="lg" className="bg-gradient-to-br from-amber-400 to-amber-500 text-white font-semibold shadow-lg border border-amber-300/50 backdrop-blur" data-testid="hero-cta-primary">
-                  {getLocalizedText(currentBanner, 'buttonText')}
-                </Button>
-              </Link>
-            ) : (
-              <Link href="/patients">
-                <Button size="lg" className="bg-gradient-to-br from-amber-400 to-amber-500 text-white font-semibold shadow-lg border border-amber-300/50 backdrop-blur" data-testid="hero-cta-primary">
-                  {t.common.learnMore}
-                </Button>
-              </Link>
-            )}
-            <Link href="/contacts">
-              <Button size="lg" className="bg-gradient-to-br from-amber-400 to-amber-500 text-white font-semibold shadow-lg border border-amber-300/50 backdrop-blur" data-testid="hero-cta-secondary">
-                {t.header.ctaButton}
-              </Button>
-            </Link>
-          </div>
         </motion.div>
       </div>
 
@@ -286,35 +254,41 @@ function NewsFeed() {
           </motion.div>
           {news.slice(0, 5).map((item) => (
             <motion.div key={item.id} variants={itemVariants}>
-              <Card className="overflow-hidden hover-elevate h-full flex flex-col" data-testid={`news-card-${item.id}`}>
-                <div className="aspect-video bg-muted relative flex-shrink-0 overflow-hidden">
-                  {item.imageUrl ? (
-                    <CroppedImage
-                      src={item.imageUrl}
-                      alt={getLocalizedText(item, 'title')}
-                      cropX={item.cropX}
-                      cropY={item.cropY}
-                      cropZoom={item.cropZoom}
-                    />
-                  ) : (
-                    <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-primary/20 to-primary/5">
-                      <Newspaper className="w-12 h-12 text-primary/40" />
-                    </div>
-                  )}
-                </div>
-                <CardContent className="p-5 flex-1 flex flex-col">
-                  <div className="flex items-center gap-2 text-xs text-muted-foreground mb-3">
-                    <Calendar className="w-3.5 h-3.5" />
-                    {format(new Date(item.publishedAt), "dd.MM.yyyy")}
+              <Link href={`/news/${item.id}`}>
+                <Card className="overflow-hidden hover-elevate h-full flex flex-col cursor-pointer" data-testid={`news-card-${item.id}`}>
+                  <div className="aspect-video bg-muted relative flex-shrink-0 overflow-hidden">
+                    {item.imageUrl ? (
+                      <CroppedImage
+                        src={item.imageUrl}
+                        alt={getLocalizedText(item, 'title')}
+                        cropX={item.cropX}
+                        cropY={item.cropY}
+                        cropZoom={item.cropZoom}
+                      />
+                    ) : (
+                      <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-primary/20 to-primary/5">
+                        <Newspaper className="w-12 h-12 text-primary/40" />
+                      </div>
+                    )}
                   </div>
-                  <h3 className="font-semibold text-lg mb-2 line-clamp-2" data-testid={`news-item-title-${item.id}`}>
-                    {getLocalizedText(item, 'title')}
-                  </h3>
-                  <p className="text-sm text-muted-foreground line-clamp-3 flex-1">
-                    {getLocalizedText(item, 'excerpt') || getLocalizedText(item, 'content').substring(0, 150)}
-                  </p>
-                </CardContent>
-              </Card>
+                  <CardContent className="p-5 flex-1 flex flex-col">
+                    <div className="flex items-center gap-2 text-xs text-muted-foreground mb-3">
+                      <Calendar className="w-3.5 h-3.5" />
+                      {format(new Date(item.publishedAt), "dd.MM.yyyy")}
+                    </div>
+                    <h3 className="font-semibold text-lg mb-2 line-clamp-2 group-hover:text-primary transition-colors" data-testid={`news-item-title-${item.id}`}>
+                      {getLocalizedText(item, 'title')}
+                    </h3>
+                    <p className="text-sm text-muted-foreground line-clamp-3 flex-1">
+                      {getLocalizedText(item, 'excerpt') || getLocalizedText(item, 'content').substring(0, 150)}
+                    </p>
+                    <div className="mt-4 flex items-center gap-2 text-primary font-semibold text-sm">
+                      <span>{language === 'tj' ? 'Бештар' : language === 'ru' ? 'Подробнее' : 'Read more'}</span>
+                      <ArrowRight className="w-4 h-4" />
+                    </div>
+                  </CardContent>
+                </Card>
+              </Link>
             </motion.div>
           ))}
           {news.length === 0 && !isLoading && (
