@@ -1,0 +1,86 @@
+root@6176301-aq673142:/var/www/html# git config --global --add safe.directory /var/www/html
+root@6176301-aq673142:/var/www/html# git pull origin main
+remote: Enumerating objects: 58, done.
+remote: Counting objects: 100% (58/58), done.
+remote: Compressing objects: 100% (14/14), done.
+remote: Total 48 (delta 41), reused 41 (delta 34), pack-reused 0 (from 0)
+Unpacking objects: 100% (48/48), 450.41 KiB | 2.46 MiB/s, done.
+From https://github.com/greyversarex/ZPO
+ * branch            main       -> FETCH_HEAD
+   4f166cb..ed28eff  main       -> origin/main
+Updating 4f166cb..ed28eff
+error: Your local changes to the following files would be overwritten by merge:
+        .replit
+        client/src/App.tsx
+        client/src/pages/About.tsx
+        client/src/pages/Home.tsx
+Please commit your changes or stash them before you merge.
+Aborting
+root@6176301-aq673142:/var/www/html# npm install
+
+up to date, audited 605 packages in 5s
+
+84 packages are looking for funding
+  run `npm fund` for details
+
+10 vulnerabilities (3 low, 5 moderate, 2 high)
+
+To address issues that do not require attention, run:
+  npm audit fix
+
+To address all issues (including breaking changes), run:
+  npm audit fix --force
+
+Run `npm audit` for details.
+npm notice
+npm notice New minor version of npm available! 11.6.4 -> 11.7.0
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v11.7.0
+npm notice To update run: npm install -g npm@11.7.0
+npm notice
+root@6176301-aq673142:/var/www/html#  npm install -g npm@11.7.0
+
+changed 15 packages in 5s
+
+16 packages are looking for funding
+  run `npm fund` for details
+root@6176301-aq673142:/var/www/html# npm run build
+
+> rest-express@1.0.0 build
+> vite build && esbuild server/index-prod.ts --platform=node --packages=external --bundle --format=esm --outfile=dist/index.js
+
+vite v5.4.20 building for production...
+transforming (5) ../node_modules/@tanstack/react-query/build/modern/index.j
+A PostCSS plugin did not pass the `from` option to `postcss.parse`. This may cause imported assets to be incorrectly transformed. If you've recently added a PostCSS plugin that raised this warning, please contact the package author to fix the issue.
+✓ 2500 modules transformed.
+../dist/public/index.html                                                 2.27 kB │ gzip:   1.04 kB
+../dist/public/assets/IMG-20250925-WA0032_1764182104707-BSmYOIAs.jpg     95.69 kB
+../dist/public/assets/IMG_20250702_104822_1764185582560-D7gUrNTj.jpg  2,946.86 kB
+../dist/public/assets/20251105_140023_1764185537354-DwHWHlGf.jpg      3,541.61 kB
+../dist/public/assets/20251105_135526_1764185493900-BuyGcgn-.jpg      4,044.47 kB
+../dist/public/assets/20251105_140301_1764185477582-DLk3k510.jpg      4,301.96 kB
+../dist/public/assets/index-Q4mi-HS3.css                                 86.01 kB │ gzip:  13.46 kB
+../dist/public/assets/index-DEUIXtEi.js                                 731.61 kB │ gzip: 222.88 kB
+
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+✓ built in 17.55s
+
+  dist/index.js  50.7kb
+
+⚡ Done in 76ms
+root@6176301-aq673142:/var/www/html# pm2 restart all
+Use --update-env to update environment variables
+[PM2] Applying action restartProcessId on app [all](ids: [ 0 ])
+[PM2] [zavod-site](0) ✓
+┌────┬────────────────────┬──────────┬──────┬───────────┬──────────┬──────────┐
+│ id │ name               │ mode     │ ↺    │ status    │ cpu      │ memory   │
+├────┼────────────────────┼──────────┼──────┼───────────┼──────────┼──────────┤
+│ 0  │ zavod-site         │ fork     │ 2    │ online    │ 0%       │ 18.3mb   │
+└────┴────────────────────┴──────────┴──────┴───────────┴──────────┴──────────┘
+root@6176301-aq673142:/var/www/html# sudo systemctl restart
+Too few arguments.
+root@6176301-aq673142:/var/www/html# sudo systemctl restart zavod-site
+Failed to restart zavod-site.service: Unit zavod-site.service not found.
+root@6176301-aq673142:/var/www/html#
