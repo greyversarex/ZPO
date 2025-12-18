@@ -15,7 +15,7 @@ import workshopImgProsthetics from "@assets/20251105_135526_1764185493900.jpg";
 import workshopImgShoes from "@assets/20251105_140301_1764185477582.jpg";
 import workshopImgMobility from "@assets/20251105_140023_1764185537354.jpg";
 import workshopImgRehab from "@assets/IMG_20250702_104822_1764185582560.jpg";
-import presidentImg from "@assets/image_1766079491143.png";
+import presidentImg from "@assets/president_1766079800421.jpg";
 
 const workshopImages: Record<number, string> = {
   1: workshopImgProsthetics,
@@ -306,10 +306,17 @@ function NewsFeed() {
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true }}
-        className="grid grid-cols-1 md:grid-cols-2 gap-6"
+        className="grid grid-cols-1 md:grid-cols-3 gap-6"
       >
-        {news.slice(0, 6).map((item) => (
-          <motion.div key={item.id} variants={itemVariants}>
+        <PresidentCard
+          title={language === 'tj' ? 'Президент' : language === 'ru' ? 'Президент' : 'President'}
+          image={presidentImg}
+          description={language === 'tj' ? 'Паёмҳо ва ҳидояҳои рахбари кишвар барои беҳтарии ҷамъиёт ва пешрафти мамлакат' : language === 'ru' ? 'Послание и указания Президента Республики Таджикистан' : 'Messages and instructions of the President of Tajikistan'}
+          website="www.president.tj"
+          delay={0}
+        />
+        {news.slice(0, 5).map((item, index) => (
+          <motion.div key={item.id} variants={itemVariants} style={{ transitionDelay: `${(index + 1) * 0.1}s` }}>
             <Card className="overflow-hidden hover-elevate h-full flex flex-col" data-testid={`news-card-${item.id}`}>
               <div className="aspect-video bg-muted relative flex-shrink-0 overflow-hidden">
                 {item.imageUrl ? (
@@ -372,19 +379,11 @@ export default function Home() {
     <div className="min-h-screen">
       <BannerSlider />
       
-      <div className="flex flex-col lg:flex-row gap-8 py-20 bg-gradient-to-br from-teal-50/80 via-cyan-50/60 to-amber-50/40">
-        <div className="flex-1 container mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="py-20 bg-gradient-to-br from-teal-50/80 via-cyan-50/60 to-amber-50/40">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <NewsFeed />
         </div>
-        <div className="lg:w-80 lg:pr-8 flex justify-center lg:justify-end">
-          <PresidentCard
-            title="Президент"
-            image={presidentImg}
-            description="Паёмҳо ва ҳидояҳои рахбари кишвар барои беҳтарии ҷамъиёт ва пешрафти мамлакат"
-            website="www.president.tj"
-          />
-        </div>
-      </div>
+      </section>
 
       {/* Workshops Preview */}
       <section className="py-20 bg-gradient-to-bl from-teal-100/50 via-slate-100/80 to-cyan-50/60">
