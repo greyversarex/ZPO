@@ -247,43 +247,6 @@ function NewsFeed() {
     }
   };
 
-  if (isLoading) {
-    return (
-      <>
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center max-w-3xl mx-auto mb-16"
-        >
-          <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4">{labels.title}</h2>
-          <p className="text-lg text-muted-foreground">{labels.subtitle}</p>
-        </motion.div>
-        <div className="flex justify-center">
-          <div className="animate-pulse text-muted-foreground">Боргирӣ...</div>
-        </div>
-      </>
-    );
-  }
-
-  if (news.length === 0) {
-    return (
-      <>
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center max-w-3xl mx-auto"
-        >
-          <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4">{labels.title}</h2>
-          <p className="text-lg text-muted-foreground">{labels.subtitle}</p>
-        </motion.div>
-      </>
-    );
-  }
-
   return (
     <>
       <motion.div
@@ -301,54 +264,66 @@ function NewsFeed() {
         </p>
       </motion.div>
 
-      <motion.div
-        variants={containerVariants}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
-        className="grid grid-cols-1 md:grid-cols-3 gap-6"
-      >
-        <PresidentCard
-          title={language === 'tj' ? 'Президент' : language === 'ru' ? 'Президент' : 'President'}
-          image={presidentImg}
-          description={language === 'tj' ? 'Паёмҳо ва ҳидояҳои рахбари кишвар барои беҳтарии ҷамъиёт ва пешрафти мамлакат' : language === 'ru' ? 'Послание и указания Президента Республики Таджикистан' : 'Messages and instructions of the President of Tajikistan'}
-          website="www.president.tj"
-          delay={0}
-        />
-        {news.slice(0, 5).map((item, index) => (
-          <motion.div key={item.id} variants={itemVariants} style={{ transitionDelay: `${(index + 1) * 0.1}s` }}>
-            <Card className="overflow-hidden hover-elevate h-full flex flex-col" data-testid={`news-card-${item.id}`}>
-              <div className="aspect-video bg-muted relative flex-shrink-0 overflow-hidden">
-                {item.imageUrl ? (
-                  <CroppedImage
-                    src={item.imageUrl}
-                    alt={getLocalizedText(item, 'title')}
-                    cropX={item.cropX}
-                    cropY={item.cropY}
-                    cropZoom={item.cropZoom}
-                  />
-                ) : (
-                  <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-primary/20 to-primary/5">
-                    <Newspaper className="w-12 h-12 text-primary/40" />
-                  </div>
-                )}
-              </div>
-              <CardContent className="p-5 flex-1 flex flex-col">
-                <div className="flex items-center gap-2 text-xs text-muted-foreground mb-3">
-                  <Calendar className="w-3.5 h-3.5" />
-                  {format(new Date(item.publishedAt), "dd.MM.yyyy")}
-                </div>
-                <h3 className="font-semibold text-lg mb-2 line-clamp-2" data-testid={`news-item-title-${item.id}`}>
-                  {getLocalizedText(item, 'title')}
-                </h3>
-                <p className="text-sm text-muted-foreground line-clamp-3 flex-1">
-                  {getLocalizedText(item, 'excerpt') || getLocalizedText(item, 'content').substring(0, 150)}
-                </p>
-              </CardContent>
-            </Card>
+      {isLoading ? (
+        <div className="flex justify-center py-20">
+          <div className="animate-pulse text-muted-foreground">Боргирӣ...</div>
+        </div>
+      ) : (
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          className="grid grid-cols-1 md:grid-cols-3 gap-6"
+        >
+          <motion.div variants={itemVariants}>
+            <PresidentCard
+              title={language === 'tj' ? 'Президент' : language === 'ru' ? 'Президент' : 'President'}
+              image={presidentImg}
+              description={language === 'tj' ? 'Паёмҳо ва ҳидояҳои рахбари кишвар барои беҳтарии ҷамъиёт ва пешрафти мамлакат' : language === 'ru' ? 'Послание и указания Президента Республики Таджикистан' : 'Messages and instructions of the President of Tajikistan'}
+              website="www.president.tj"
+            />
           </motion.div>
-        ))}
-      </motion.div>
+          {news.slice(0, 5).map((item) => (
+            <motion.div key={item.id} variants={itemVariants}>
+              <Card className="overflow-hidden hover-elevate h-full flex flex-col" data-testid={`news-card-${item.id}`}>
+                <div className="aspect-video bg-muted relative flex-shrink-0 overflow-hidden">
+                  {item.imageUrl ? (
+                    <CroppedImage
+                      src={item.imageUrl}
+                      alt={getLocalizedText(item, 'title')}
+                      cropX={item.cropX}
+                      cropY={item.cropY}
+                      cropZoom={item.cropZoom}
+                    />
+                  ) : (
+                    <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-primary/20 to-primary/5">
+                      <Newspaper className="w-12 h-12 text-primary/40" />
+                    </div>
+                  )}
+                </div>
+                <CardContent className="p-5 flex-1 flex flex-col">
+                  <div className="flex items-center gap-2 text-xs text-muted-foreground mb-3">
+                    <Calendar className="w-3.5 h-3.5" />
+                    {format(new Date(item.publishedAt), "dd.MM.yyyy")}
+                  </div>
+                  <h3 className="font-semibold text-lg mb-2 line-clamp-2" data-testid={`news-item-title-${item.id}`}>
+                    {getLocalizedText(item, 'title')}
+                  </h3>
+                  <p className="text-sm text-muted-foreground line-clamp-3 flex-1">
+                    {getLocalizedText(item, 'excerpt') || getLocalizedText(item, 'content').substring(0, 150)}
+                  </p>
+                </CardContent>
+              </Card>
+            </motion.div>
+          ))}
+          {news.length === 0 && !isLoading && (
+            <div className="col-span-full text-center py-10 text-muted-foreground">
+              Хабарҳо ягон нест
+            </div>
+          )}
+        </motion.div>
+      )}
     </>
   );
 }
