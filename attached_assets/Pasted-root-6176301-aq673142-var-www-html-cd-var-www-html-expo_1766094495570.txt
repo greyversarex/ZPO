@@ -1,0 +1,14 @@
+root@6176301-aq673142:/var/www/html# cd /var/www/html
+export PGPASSWORD="ZavodPass2025"
+# Создать админа
+psql -U zavod_user -d zavod_db -h localhost << 'EOF'
+INSERT INTO admins (username, password) VALUES ('admin', '$2a$10$5/yO1.nzCPJXIKBvj.8g1eHVWBzz5gKWP.Y5.2Lqg.5q4KJHqJHM6');
+INSERT INTO banners (title_tj, title_ru, title_en, subtitle_tj, subtitle_ru, subtitle_en, image_url, button_text_tj, button_text_ru, button_text_en, button_link, sort_order, is_active) VALUES
+('Барқарорсозии ҳаракат – Таъмини ҳаёти шоиста', 'Восстановление движения – Обеспечение достойной жизни', 'Restoring Movement – Ensuring a Dignified Life', 'Истеҳсоли протезҳо, воситаҳои ортопедӣ ва тавонбахшии маъюбон дар сатҳи давлатӣ', 'Производство протезов, ортопедических изделий и реабилитация инвалидов на государственном уровне', 'Production of prosthetics, orthopedic devices and rehabilitation of disabled people at the state level', 'https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=1920&q=80', 'Маълумоти бештар', 'Подробнее', 'Learn More', '/patients', 0, true),
+('Хизматрасонии ройгон барои маъюбон', 'Бесплатные услуги для инвалидов', 'Free Services for Disabled Citizens', 'Мувофиқи қарори Ҳукумат №604', 'Согласно постановлению Правительства №604', 'According to Government Resolution No. 604', 'https://images.unsplash.com/photo-1559757175-5700dde675bc?w=1920&q=80', 'Тамос бо мо', 'Свяжитесь с нами', 'Contact Us', '/contacts', 1, true),
+('Технологияҳои муосир дар тавонбахшӣ', 'Современные технологии в реабилитации', 'Modern Technologies in Rehabilitation', 'Ҷорӣ намудани усулҳои нави тавонбахшӣ', 'Внедрение новых методов реабилитации', 'Implementing new rehabilitation methods', 'https://images.unsplash.com/photo-1631815588090-d4bfec5b1ccb?w=1920&q=80'echo "✅ Админ, баннеры и новости созданы успешно!"true, '2024-10-25');.unsplash
+ERROR:  duplicate key value violates unique constraint "admins_username_unique"
+DETAIL:  Key (username)=(admin) already exists.
+INSERT 0 3
+INSERT 0 4
+✅ Админ, баннеры и новости созданы успешно!
