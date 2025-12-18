@@ -1,0 +1,129 @@
+root@6176301-aq673142:/var/www/html# cd /var/www/html
+export PGPASSWORD="ZavodPass2025"
+export DATABASE_URL="postgresql://zavod_user:ZavodPass2025@localhost:5432/zavod_db"
+npx tsx server/seed-admin.ts
+Seeding banners, news and admin...
+(node:384220) Warning: Setting the NODE_TLS_REJECT_UNAUTHORIZED environment variable to '0' makes TLS connections and HTTPS requests insecure by disabling certificate verification.
+(Use `node --trace-warnings ...` to show where the warning was created)
+Error seeding: ErrorEvent {
+  [Symbol(kTarget)]: WebSocket {
+    _events: [Object: null prototype] {
+      error: [Function],
+      message: [Function],
+      close: [Function],
+      open: [Function]
+    },
+    _eventsCount: 4,
+    _maxListeners: undefined,
+    _binaryType: 'arraybuffer',
+    _closeCode: 1006,
+    _closeFrameReceived: false,
+    _closeFrameSent: false,
+    _closeMessage: <Buffer >,
+    _closeTimer: null,
+    _errorEmitted: true,
+    _extensions: {},
+    _paused: false,
+    _protocol: '',
+    _readyState: 3,
+    _receiver: null,
+    _sender: null,
+    _socket: null,
+    _bufferedAmount: 0,
+    _isServer: false,
+    _redirects: 0,
+    _autoPong: true,
+    _url: 'wss://localhost/v2',
+    _req: ClientRequest {
+      _events: [Object: null prototype],
+      _eventsCount: 4,
+      _maxListeners: undefined,
+      outputData: [],
+      outputSize: 0,
+      writable: true,
+      destroyed: true,
+      _last: true,
+      chunkedEncoding: false,
+      shouldKeepAlive: true,
+      maxRequestsOnConnectionReached: false,
+      _defaultKeepAlive: true,
+      useChunkedEncodingByDefault: false,
+      sendDate: false,
+      _removedConnection: false,
+      _removedContLen: false,
+      _removedTE: false,
+      strictContentLength: false,
+      _contentLength: 0,
+      _hasBody: true,
+      _trailer: '',
+      finished: true,
+      _headerSent: true,
+      _closed: true,
+      socket: [TLSSocket],
+      _header: 'GET /v2 HTTP/1.1\r\n' +
+        'Sec-WebSocket-Version: 13\r\n' +
+        'Sec-WebSocket-Key: 92BGSsIYsCSpCNeLq5qIAQ==\r\n' +
+        'Connection: Upgrade\r\n' +
+        'Upgrade: websocket\r\n' +
+        'Sec-WebSocket-Extensions: permessage-deflate; client_max_window_bits\r\n' +
+        'Host: localhost\r\n' +
+        '\r\n',
+      _keepAliveTimeout: 0,
+      _onPendingData: [Function: nop],
+      agent: undefined,
+      socketPath: undefined,
+      method: 'GET',
+      maxHeaderSize: undefined,
+      insecureHTTPParser: undefined,
+      joinDuplicateHeaders: undefined,
+      path: '/v2',
+      _ended: true,
+      res: [IncomingMessage],
+      aborted: true,
+      timeoutCb: null,
+      upgradeOrConnect: false,
+      parser: null,
+      maxHeadersCount: null,
+      reusedSocket: false,
+      host: 'localhost',
+      protocol: 'https:',
+      [Symbol(shapeMode)]: false,
+      [Symbol(kCapture)]: false,
+      [Symbol(kBytesWritten)]: 0,
+      [Symbol(kNeedDrain)]: false,
+      [Symbol(corked)]: 0,
+      [Symbol(kOutHeaders)]: [Object: null prototype],
+      [Symbol(errored)]: null,
+      [Symbol(kHighWaterMark)]: 16384,
+      [Symbol(kRejectNonStandardBodyWrites)]: false,
+      [Symbol(kUniqueHeaders)]: null,
+      [Symbol(kAborted)]: true,
+      [Symbol(kError)]: undefined
+    },
+    [Symbol(shapeMode)]: false,
+    [Symbol(kCapture)]: false
+  },
+  [Symbol(kType)]: 'error',
+  [Symbol(kError)]: Error: Unexpected server response: 200
+      at ClientRequest.<anonymous> (/var/www/html/node_modules/ws/lib/websocket.js:913:7)
+      at ClientRequest.emit (node:events:524:28)
+      at HTTPParser.parserOnIncomingClient (node:_http_client:702:27)
+      at HTTPParser.parserOnHeadersComplete (node:_http_common:118:17)
+      at TLSSocket.socketOnData (node:_http_client:544:22)
+      at TLSSocket.emit (node:events:524:28)
+      at addChunk (node:internal/streams/readable:561:12)
+      at readableAddChunkPushByteMode (node:internal/streams/readable:512:3)
+      at Readable.push (node:internal/streams/readable:392:5)
+      at TLSWrap.onStreamRead (node:internal/stream_base_commons:191:23),
+  [Symbol(kMessage)]: 'Unexpected server response: 200'
+}
+root@6176301-aq673142:/var/www/html# pm2 restart all
+Use --update-env to update environment variables
+[PM2] Applying action restartProcessId on app [all](ids: [ 0 ])
+[PM2] [zavod-site](0) ✓
+┌────┬────────────────────┬──────────┬──────┬───────────┬──────────┬──────────┐
+│ id │ name               │ mode     │ ↺    │ status    │ cpu      │ memory   │
+├────┼────────────────────┼──────────┼──────┼───────────┼──────────┼──────────┤
+│ 0  │ zavod-site         │ fork     │ 4    │ online    │ 0%       │ 17.6mb   │
+└────┴────────────────────┴──────────┴──────┴───────────┴──────────┴──────────┘
+root@6176301-aq673142:/var/www/html#
