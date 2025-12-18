@@ -1,0 +1,50 @@
+root@6176301-aq673142:/var/www/html# git fetch origin
+git reset --hard origin/main
+npm install
+npm run build
+HEAD is now at ed28eff Add leadership section to the About Us page with two key personnel
+⠼(node:384062) Warning: Setting the NODE_TLS_REJECT_UNAUTHORIZED environment variable to '0' makes TLS connections and HTTPS requests insecure by disabling certificate verification.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+changed 5 packages, and audited 604 packages in 2s
+
+84 packages are looking for funding
+  run `npm fund` for details
+
+10 vulnerabilities (3 low, 5 moderate, 2 high)
+
+To address issues that do not require attention, run:
+  npm audit fix
+
+To address all issues (including breaking changes), run:
+  npm audit fix --force
+
+Run `npm audit` for details.
+
+> rest-express@1.0.0 build
+> vite build && esbuild server/index-prod.ts --platform=node --packages=external --bundle --format=esm --outfile=dist/index.js
+
+vite v5.4.20 building for production...
+transforming (5) ../node_modules/@tanstack/react-query/build/modern/index.j
+A PostCSS plugin did not pass the `from` option to `postcss.parse`. This may cause imported assets to be incorrectly transformed. If you've recently added a PostCSS plugin that raised this warning, please contact the package author to fix the issue.
+✓ 2503 modules transformed.
+../dist/public/index.html                                                 2.27 kB │ gzip:   1.04 kB
+../dist/public/assets/president_1766079800421-DEjSBD6A.jpg               84.80 kB
+../dist/public/assets/IMG-20250925-WA0032_1764182104707-BSmYOIAs.jpg     95.69 kB
+../dist/public/assets/IMG_20250702_104822_1764185582560-D7gUrNTj.jpg  2,946.86 kB
+../dist/public/assets/20251105_140023_1764185537354-DwHWHlGf.jpg      3,541.61 kB
+../dist/public/assets/20251105_135526_1764185493900-BuyGcgn-.jpg      4,044.47 kB
+../dist/public/assets/20251105_140301_1764185477582-DLk3k510.jpg      4,301.96 kB
+../dist/public/assets/index-DBFyeN_D.css                                105.15 kB │ gzip:  15.60 kB
+../dist/public/assets/index-DEq6aI8q.js                                 735.39 kB │ gzip: 224.19 kB
+
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+✓ built in 15.82s
+
+  dist/index.js  50.8kb
+
+⚡ Done in 38ms
+root@6176301-aq673142:/var/www/html#
