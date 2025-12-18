@@ -1,0 +1,182 @@
+root@6176301-aq673142:/var/www/html# export $(cat .env | xargs) && npx tsx server/seed-admin.ts
+Seeding banners, news and admin...
+Error seeding: ErrorEvent {
+  [Symbol(kTarget)]: WebSocket {
+    _events: [Object: null prototype] {
+      error: [Function],
+      message: [Function],
+      close: [Function],
+      open: [Function]
+    },
+    _eventsCount: 4,
+    _maxListeners: undefined,
+    _binaryType: 'arraybuffer',
+    _closeCode: 1006,
+    _closeFrameReceived: false,
+    _closeFrameSent: false,
+    _closeMessage: <Buffer >,
+    _closeTimer: null,
+    _errorEmitted: true,
+    _extensions: {},
+    _paused: false,
+    _protocol: '',
+    _readyState: 3,
+    _receiver: null,
+    _sender: null,
+    _socket: null,
+    _bufferedAmount: 0,
+    _isServer: false,
+    _redirects: 0,
+    _autoPong: true,
+    _url: 'wss://localhost/v2',
+    _req: null,
+    [Symbol(shapeMode)]: false,
+    [Symbol(kCapture)]: false
+  },
+  [Symbol(kType)]: 'error',
+  [Symbol(kError)]: Error [ERR_TLS_CERT_ALTNAME_INVALID]: Hostname/IP does not match certificate's altnames: Host: localhost. is not in the cert's altnames: DNS:www.zpo.life, DNS:zpo.life
+      at Object.checkServerIdentity (node:tls:316:12)
+      at TLSSocket.onConnectSecure (node:_tls_wrap:1687:27)
+      at TLSSocket.emit (node:events:524:28)
+      at TLSSocket._finishInit (node:_tls_wrap:1076:8)
+      at ssl.onhandshakedone (node:_tls_wrap:862:12) {
+    code: 'ERR_TLS_CERT_ALTNAME_INVALID',
+    reason: "Host: localhost. is not in the cert's altnames: DNS:www.zpo.life, DNS:zpo.life",
+    host: 'localhost',
+    cert: {
+      subject: [Object: null prototype],
+      issuer: [Object: null prototype],
+      subjectaltname: 'DNS:www.zpo.life, DNS:zpo.life',
+      infoAccess: [Object: null prototype],
+      ca: false,
+      bits: 256,
+      pubkey: <Buffer 04 2f ae 25 71 13 c9 ba 4b 29 fe d2 91 dc 61 f2 17 f5 96 7c 51 85 38 0e ce 79 5b 94 08 f4 ce 45 79 0c 2a cf 9f ca 45 61 83 83 f9 bd 87 68 5b 64 b8 aa ... 15 more bytes>,
+      asn1Curve: 'prime256v1',
+      nistCurve: 'P-256',
+      valid_from: 'Dec  5 21:04:38 2025 GMT',
+      valid_to: 'Mar  5 21:04:37 2026 GMT',
+      fingerprint: '94:45:69:81:D0:59:DC:23:62:91:35:69:FC:35:EE:80:07:0B:7B:0C',
+      fingerprint256: 'D7:60:A2:57:FD:15:13:2B:47:CB:79:85:75:15:2B:5C:84:B6:A8:CF:D2:2E:DA:63:13:D0:66:5C:8A:91:A8:EF',
+      fingerprint512: '15:91:39:27:A1:71:5C:E9:EB:EF:CD:04:2A:D6:94:57:33:0F:A9:74:4F:F4:C2:5A:7A:21:F7:7E:13:74:70:9C:D8:C7:52:BD:53:D5:D1:10:58:E5:C5:E0:7F:52:6B:1F:C1:F8:BF:02:7D:A5:30:23:4F:9A:8D:28:57:3D:A0:A6',
+      ext_key_usage: [Array],
+      serialNumber: '066AC9201BC9C7510C8D16878E034DAA1A29',
+      raw: <Buffer 30 82 03 8d 30 82 03 13 a0 03 02 01 02 02 12 06 6a c9 20 1b c9 c7 51 0c 8d 16 87 8e 03 4d aa 1a 29 30 0a 06 08 2a 86 48 ce 3d 04 03 03 30 32 31 0b 30 ... 863 more bytes>,
+      issuerCertificate: [Object]
+    }
+  },
+  [Symbol(kMessage)]: "Hostname/IP does not match certificate's altnames: Host: localhost. is not in the cert's altnames: DNS:www.zpo.life, DNS:zpo.life"
+}
+root@6176301-aq673142:/var/www/html# export $(cat .env | xargs) && npx tsx server/seed-admin.ts
+Seeding banners, news and admin...
+Error seeding: ErrorEvent {
+  [Symbol(kTarget)]: WebSocket {
+    _events: [Object: null prototype] {
+      error: [Function],
+      message: [Function],
+      close: [Function],
+      open: [Function]
+    },
+    _eventsCount: 4,
+    _maxListeners: undefined,
+    _binaryType: 'arraybuffer',
+    _closeCode: 1006,
+    _closeFrameReceived: false,
+    _closeFrameSent: false,
+    _closeMessage: <Buffer >,
+    _closeTimer: null,
+    _errorEmitted: true,
+    _extensions: {},
+    _paused: false,
+    _protocol: '',
+    _readyState: 3,
+    _receiver: null,
+    _sender: null,
+    _socket: null,
+    _bufferedAmount: 0,
+    _isServer: false,
+    _redirects: 0,
+    _autoPong: true,
+    _url: 'wss://localhost/v2',
+    _req: null,
+    [Symbol(shapeMode)]: false,
+    [Symbol(kCapture)]: false
+  },
+  [Symbol(kType)]: 'error',
+  [Symbol(kError)]: Error [ERR_TLS_CERT_ALTNAME_INVALID]: Hostname/IP does not match certificate's altnames: Host: localhost. is not in the cert's altnames: DNS:www.zpo.life, DNS:zpo.life
+      at Object.checkServerIdentity (node:tls:316:12)
+      at TLSSocket.onConnectSecure (node:_tls_wrap:1687:27)
+      at TLSSocket.emit (node:events:524:28)
+      at TLSSocket._finishInit (node:_tls_wrap:1076:8)
+      at ssl.onhandshakedone (node:_tls_wrap:862:12) {
+    code: 'ERR_TLS_CERT_ALTNAME_INVALID',
+    reason: "Host: localhost. is not in the cert's altnames: DNS:www.zpo.life, DNS:zpo.life",
+    host: 'localhost',
+    cert: {
+      subject: [Object: null prototype],
+      issuer: [Object: null prototype],
+      subjectaltname: 'DNS:www.zpo.life, DNS:zpo.life',
+      infoAccess: [Object: null prototype],
+      ca: false,
+      bits: 256,
+      pubkey: <Buffer 04 2f ae 25 71 13 c9 ba 4b 29 fe d2 91 dc 61 f2 17 f5 96 7c 51 85 38 0e ce 79 5b 94 08 f4 ce 45 79 0c 2a cf 9f ca 45 61 83 83 f9 bd 87 68 5b 64 b8 aa ... 15 more bytes>,
+      asn1Curve: 'prime256v1',
+      nistCurve: 'P-256',
+      valid_from: 'Dec  5 21:04:38 2025 GMT',
+      valid_to: 'Mar  5 21:04:37 2026 GMT',
+      fingerprint: '94:45:69:81:D0:59:DC:23:62:91:35:69:FC:35:EE:80:07:0B:7B:0C',
+      fingerprint256: 'D7:60:A2:57:FD:15:13:2B:47:CB:79:85:75:15:2B:5C:84:B6:A8:CF:D2:2E:DA:63:13:D0:66:5C:8A:91:A8:EF',
+      fingerprint512: '15:91:39:27:A1:71:5C:E9:EB:EF:CD:04:2A:D6:94:57:33:0F:A9:74:4F:F4:C2:5A:7A:21:F7:7E:13:74:70:9C:D8:C7:52:BD:53:D5:D1:10:58:E5:C5:E0:7F:52:6B:1F:C1:F8:BF:02:7D:A5:30:23:4F:9A:8D:28:57:3D:A0:A6',
+      ext_key_usage: [Array],
+      serialNumber: '066AC9201BC9C7510C8D16878E034DAA1A29',
+      raw: <Buffer 30 82 03 8d 30 82 03 13 a0 03 02 01 02 02 12 06 6a c9 20 1b c9 c7 51 0c 8d 16 87 8e 03 4d aa 1a 29 30 0a 06 08 2a 86 48 ce 3d 04 03 03 30 32 31 0b 30 ... 863 more bytes>,
+      issuerCertificate: [Object]
+    }
+  },
+  [Symbol(kMessage)]: "Hostname/IP does not match certificate's altnames: Host: localhost. is not in the cert's altnames: DNS:www.zpo.life, DNS:zpo.life"
+}
+root@6176301-aq673142:/var/www/html# nano /var/www/html/.env                    root@6176301-aq673142:/var/www/html# export $(cat .env | xargs) && npx tsx server/seed-admin.ts
+Seeding banners, news and admin...
+Error seeding: ErrorEvent {
+  [Symbol(kTarget)]: WebSocket {
+    _events: [Object: null prototype] {
+      error: [Function],
+      message: [Function],
+      close: [Function],
+      open: [Function]
+    },
+    _eventsCount: 4,
+    _maxListeners: undefined,
+    _binaryType: 'arraybuffer',
+    _closeCode: 1006,
+    _closeFrameReceived: false,
+    _closeFrameSent: false,
+    _closeMessage: <Buffer >,
+    _closeTimer: null,
+    _errorEmitted: true,
+    _extensions: {},
+    _paused: false,
+    _protocol: '',
+    _readyState: 3,
+    _receiver: null,
+    _sender: null,
+    _socket: null,
+    _bufferedAmount: 0,
+    _isServer: false,
+    _redirects: 0,
+    _autoPong: true,
+    _url: 'wss://db.timeweb.ru/v2',
+    _req: null,
+    [Symbol(shapeMode)]: false,
+    [Symbol(kCapture)]: false
+  },
+  [Symbol(kType)]: 'error',
+  [Symbol(kError)]: Error: getaddrinfo ENOTFOUND db.timeweb.ru
+      at GetAddrInfoReqWrap.onlookupall [as oncomplete] (node:dns:122:26) {
+    errno: -3008,
+    code: 'ENOTFOUND',
+    syscall: 'getaddrinfo',
+    hostname: 'db.timeweb.ru'
+  },
+  [Symbol(kMessage)]: 'getaddrinfo ENOTFOUND db.timeweb.ru'
+}
+root@6176301-aq673142:/var/www/html#
