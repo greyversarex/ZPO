@@ -132,6 +132,20 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Delete contact submission
+  app.delete("/api/contact/submissions/:id", requireAdmin, async (req, res) => {
+    try {
+      await storage.deleteContactSubmission(req.params.id);
+      res.json({ success: true });
+    } catch (error) {
+      console.error("Error deleting contact submission:", error);
+      res.status(500).json({ 
+        success: false, 
+        message: "Хатогӣ рух дод" 
+      });
+    }
+  });
+
   // Products API
   app.get("/api/products", async (req, res) => {
     try {

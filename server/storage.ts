@@ -17,6 +17,7 @@ export interface IStorage {
   createUser(user: InsertUser): Promise<User>;
   createContactSubmission(submission: InsertContactSubmission): Promise<ContactSubmission>;
   getAllContactSubmissions(): Promise<ContactSubmission[]>;
+  deleteContactSubmission(id: string): Promise<void>;
   
   getAllProducts(includeInactive?: boolean): Promise<Product[]>;
   getProduct(id: string): Promise<Product | undefined>;
@@ -72,7 +73,11 @@ export class DbStorage implements IStorage {
   }
 
   async getAllContactSubmissions(): Promise<ContactSubmission[]> {
-    return await db.select().from(contactSubmissions).orderBy(contactSubmissions.createdAt);
+    return await db.select().from(contactSubmissions).orderBy(desc(contactSubmissions.createdAt));
+  }
+
+  async deleteContactSubmission(id: string): Promise<void> {
+    await db.delete(contactSubmissions).where(eq(contactSubmissions.id, id));
   }
 
   async getAllProducts(includeInactive = false): Promise<Product[]> {

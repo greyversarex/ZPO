@@ -6,9 +6,9 @@ import { Button } from "@/components/ui/button";
 import { useAdmin } from "@/lib/AdminContext";
 import { 
   LayoutDashboard, Image, Newspaper, LogOut, 
-  ArrowRight, Eye, EyeOff 
+  ArrowRight, Eye, EyeOff, Mail
 } from "lucide-react";
-import type { Banner, News } from "@shared/schema";
+import type { Banner, News, ContactSubmission } from "@shared/schema";
 
 export default function AdminDashboard() {
   const [, setLocation] = useLocation();
@@ -21,6 +21,11 @@ export default function AdminDashboard() {
 
   const { data: news = [] } = useQuery<News[]>({
     queryKey: ["/api/news?includeInactive=true"],
+    enabled: !!token
+  });
+
+  const { data: submissions = [] } = useQuery<ContactSubmission[]>({
+    queryKey: ["/api/contact/submissions"],
     enabled: !!token
   });
 
@@ -87,11 +92,11 @@ export default function AdminDashboard() {
         <div className="mb-8">
           <h2 className="text-2xl font-bold mb-2">Хуш омадед!</h2>
           <p className="text-muted-foreground">
-            Аз ин ҷо шумо метавонед баннерҳо ва хабарҳоро идора кунед
+            Аз ин ҷо шумо метавонед баннерҳо, хабарҳо ва почтаро идора кунед
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
           <Card className="hover-elevate" data-testid="card-banners-summary">
             <CardHeader className="flex flex-row items-center justify-between gap-2 pb-2">
               <CardTitle className="text-lg font-medium">Баннерҳо</CardTitle>
@@ -135,6 +140,31 @@ export default function AdminDashboard() {
                 <Link href="/admin/news">
                   <Button size="sm" data-testid="button-manage-news">
                     Идоракунӣ
+                    <ArrowRight className="w-4 h-4 ml-2" />
+                  </Button>
+                </Link>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card className="hover-elevate" data-testid="card-mail-summary">
+            <CardHeader className="flex flex-row items-center justify-between gap-2 pb-2">
+              <CardTitle className="text-lg font-medium">Почта</CardTitle>
+              <div className="w-10 h-10 bg-blue-500/10 rounded-lg flex items-center justify-center">
+                <Mail className="w-5 h-5 text-blue-500" />
+              </div>
+            </CardHeader>
+            <CardContent>
+              <div className="flex items-end justify-between">
+                <div>
+                  <div className="text-3xl font-bold">{submissions.length}</div>
+                  <p className="text-sm text-muted-foreground">
+                    паём
+                  </p>
+                </div>
+                <Link href="/admin/mail">
+                  <Button size="sm" data-testid="button-manage-mail">
+                    Дидан
                     <ArrowRight className="w-4 h-4 ml-2" />
                   </Button>
                 </Link>

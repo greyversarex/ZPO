@@ -17,6 +17,7 @@ import AdminLogin from "@/pages/admin/Login";
 import AdminDashboard from "@/pages/admin/Dashboard";
 import AdminBanners from "@/pages/admin/Banners";
 import AdminNews from "@/pages/admin/News";
+import AdminMail from "@/pages/admin/Mail";
 
 function PublicRouter() {
   return (
@@ -38,6 +39,7 @@ function AdminRouter() {
       <Route path="/admin" component={AdminDashboard} />
       <Route path="/admin/banners" component={AdminBanners} />
       <Route path="/admin/news" component={AdminNews} />
+      <Route path="/admin/mail" component={AdminMail} />
     </Switch>
   );
 }
