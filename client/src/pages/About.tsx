@@ -89,21 +89,28 @@ export default function About() {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
-            className="flex justify-center max-w-4xl mx-auto"
+            className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto"
           >
-            {t.about.leaders.slice(0, 1).map((leader, index) => (
-              <motion.div key={index} variants={itemVariants} className="w-full max-w-md">
+            {t.about.leaders.map((leader, index) => (
+              <motion.div key={index} variants={itemVariants}>
                 <Card className="overflow-hidden hover-elevate h-full flex flex-col" data-testid={`leader-card-${index}`}>
                   <div className="h-2 bg-gradient-to-r from-primary to-accent" />
-                  <div className="aspect-[4/3] w-full overflow-hidden">
-                    <img 
-                      src={ceoPhoto} 
-                      alt={leader.name}
-                      className="w-full h-full object-cover object-top"
-                      data-testid="img-ceo-photo"
-                    />
-                  </div>
+                  {index === 0 && (
+                    <div className="aspect-[3/4] w-full overflow-hidden">
+                      <img 
+                        src={ceoPhoto} 
+                        alt={leader.name}
+                        className="w-full h-full object-cover object-center"
+                        data-testid="img-ceo-photo"
+                      />
+                    </div>
+                  )}
                   <CardContent className="p-8 flex flex-col h-full text-center">
+                    {index !== 0 && (
+                      <div className="w-20 h-20 mx-auto mb-4 rounded-full bg-primary/10 flex items-center justify-center">
+                        <User className="w-10 h-10 text-primary" />
+                      </div>
+                    )}
                     <h3 className="font-bold text-xl text-foreground mb-2" data-testid={`leader-name-${index}`}>
                       {leader.name}
                     </h3>

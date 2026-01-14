@@ -36,6 +36,11 @@ export const translations = {
           name: "Муҳаббатов Зафар Ҳукумович",
           position: "Директори генералӣ",
           description: ""
+        },
+        {
+          name: "Латифӣ Усмоналӣ Ноибпур",
+          position: "Муовини директор",
+          description: ""
         }
       ],
       departments: {
@@ -252,6 +257,11 @@ export const translations = {
           name: "Мухаббатов Зафар Хукумович",
           position: "Генеральный директор",
           description: ""
+        },
+        {
+          name: "Латифи Усмонали Ноибпур",
+          position: "Заместитель директора",
+          description: ""
         }
       ],
       departments: {
@@ -467,6 +477,11 @@ export const translations = {
         {
           name: "Muhabbatov Zafar Hukumovich",
           position: "Director General",
+          description: ""
+        },
+        {
+          name: "Latifi Usmonali Noibpur",
+          position: "Deputy Director",
           description: ""
         }
       ],
