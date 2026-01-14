@@ -27,7 +27,7 @@ export const translations = {
 
     about: {
       title: "Дар бораи корхона",
-      subtitle: "Корхонаи давлатии зери назорати Вазорати меҳнат, муҳоҷират ва шуғли аҳолии Ҷумҳурии Тоҷикистон",
+      subtitle: "Корхонаи давлатии зери назорати Вазорати тандурустӣ ва ҳифзи иҷтимоии аҳолии Ҷумҳурии Тоҷикистон",
       mission: "Мақсади асосии мо тавонбахшӣ ва барқарорсозии маъюбон, ҳамчунин интиграсияи онҳо ба ҷомеа мебошад. Мо дар асоси Қонуни Ҷумҳурии Тоҷикистон «Дар бораи ҳифзи иҷтимоии маъюбон» фаъолият менамоем.",
       
       leadershipTitle: "Роҳбарият",
@@ -35,12 +35,7 @@ export const translations = {
         {
           name: "Муҳаббатов Зафар Ҳукумович",
           position: "Директори генералӣ",
-          description: "Сарпарасти умумии корхона ва филиалҳо"
-        },
-        {
-          name: "Латифӣ Усмоналӣ Ноибпур",
-          position: "Муовини директор",
-          description: "Назорати истеҳсолот ва сифат"
+          description: ""
         }
       ],
       departments: {
@@ -203,7 +198,7 @@ export const translations = {
 
     footer: {
       copyright: "© 2025 Корхонаи давлатии протезию ортопедии Душанбе. Ҳамаи ҳуқуқҳо маҳфузанд.",
-      ministry: "Вазорати меҳнат, муҳоҷират ва шуғли аҳолии Ҷумҳурии Тоҷикистон",
+      ministry: "Вазорати тандурустӣ ва ҳифзи иҷтимоии аҳолии Ҷумҳурии Тоҷикистон",
       address: "734024, ш. Душанбе, кӯчаи Қаротегин 1",
       phones: ["(+992 37) 225-43-20", "(+992 37) 225-45-15"],
       email: "seop.dushanbe@gmail.com"
@@ -248,7 +243,7 @@ export const translations = {
 
     about: {
       title: "О предприятии",
-      subtitle: "Государственное предприятие под надзором Министерства труда, миграции и занятости населения Республики Таджикистан",
+      subtitle: "Государственное предприятие под надзором Министерства здравоохранения и социальной защиты населения Республики Таджикистан",
       mission: "Наша основная цель – реабилитация и восстановление инвалидов, а также их интеграция в общество. Мы работаем на основе Закона Республики Таджикистан «О социальной защите инвалидов».",
       
       leadershipTitle: "Руководство",
@@ -256,12 +251,7 @@ export const translations = {
         {
           name: "Мухаббатов Зафар Хукумович",
           position: "Генеральный директор",
-          description: "Общее руководство предприятием и филиалами"
-        },
-        {
-          name: "Латифи Усмонали Ноибпур",
-          position: "Заместитель директора",
-          description: "Контроль производства и качества"
+          description: ""
         }
       ],
       departments: {
@@ -424,7 +414,7 @@ export const translations = {
 
     footer: {
       copyright: "© 2025 Государственное предприятие протезно-ортопедический завод Душанбе. Все права защищены.",
-      ministry: "Министерство труда, миграции и занятости населения Республики Таджикистан",
+      ministry: "Министерство здравоохранения и социальной защиты населения Республики Таджикистан",
       address: "734024, г. Душанбе, ул. Каратегин 1",
       phones: ["(+992 37) 225-43-20", "(+992 37) 225-45-15"],
       email: "seop.dushanbe@gmail.com"
@@ -469,7 +459,7 @@ export const translations = {
 
     about: {
       title: "About the Enterprise",
-      subtitle: "State enterprise under the supervision of the Ministry of Labor, Migration and Employment of the Republic of Tajikistan",
+      subtitle: "State enterprise under the supervision of the Ministry of Health and Social Protection of the Republic of Tajikistan",
       mission: "Our main goal is the rehabilitation and recovery of persons with disabilities, as well as their integration into society. We operate under the Law of the Republic of Tajikistan 'On Social Protection of Persons with Disabilities'.",
       
       leadershipTitle: "Leadership",
@@ -477,12 +467,7 @@ export const translations = {
         {
           name: "Muhabbatov Zafar Hukumovich",
           position: "Director General",
-          description: "Overall management of the enterprise and branches"
-        },
-        {
-          name: "Latifi Usmonali Noibpur",
-          position: "Deputy Director",
-          description: "Production and quality control"
+          description: ""
         }
       ],
       departments: {
@@ -645,7 +630,7 @@ export const translations = {
 
     footer: {
       copyright: "© 2025 State Enterprise Prosthetic and Orthopedic Plant of Dushanbe. All rights reserved.",
-      ministry: "Ministry of Labor, Migration and Employment of the Republic of Tajikistan",
+      ministry: "Ministry of Health and Social Protection of the Republic of Tajikistan",
       address: "734024, Dushanbe, Karategin St. 1",
       phones: ["(+992 37) 225-43-20", "(+992 37) 225-45-15"],
       email: "seop.dushanbe@gmail.com"

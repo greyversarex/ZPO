@@ -6,6 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { useState } from "react";
 import { useLanguage } from "@/lib/LanguageContext";
 import teamPhoto from "@assets/IMG-20250925-WA0032_1764182104707.jpg";
+import ceoPhoto from "@assets/photo_2026-01-15_02-05-27_1768424738394.jpg";
 
 export default function About() {
   const { t } = useLanguage();
@@ -88,28 +89,26 @@ export default function About() {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
-            className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto"
+            className="flex justify-center max-w-4xl mx-auto"
           >
-            {t.about.leaders.map((leader, index) => (
-              <motion.div key={index} variants={itemVariants}>
+            {t.about.leaders.slice(0, 1).map((leader, index) => (
+              <motion.div key={index} variants={itemVariants} className="w-full max-w-md">
                 <Card className="overflow-hidden hover-elevate h-full flex flex-col" data-testid={`leader-card-${index}`}>
                   <div className="h-2 bg-gradient-to-r from-primary to-accent" />
-                  <CardContent className="p-8 flex flex-col h-full">
-                    <div className="flex items-start gap-4 mb-4">
-                      <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
-                        <User className="w-6 h-6 text-primary" />
-                      </div>
-                      <div className="flex-1">
-                        <h3 className="font-bold text-xl text-foreground" data-testid={`leader-name-${index}`}>
-                          {leader.name}
-                        </h3>
-                        <p className="text-sm text-primary font-semibold" data-testid={`leader-position-${index}`}>
-                          {leader.position}
-                        </p>
-                      </div>
-                    </div>
-                    <p className="text-sm text-muted-foreground leading-relaxed">
-                      {leader.description}
+                  <div className="aspect-[4/3] w-full overflow-hidden">
+                    <img 
+                      src={ceoPhoto} 
+                      alt={leader.name}
+                      className="w-full h-full object-cover object-top"
+                      data-testid="img-ceo-photo"
+                    />
+                  </div>
+                  <CardContent className="p-8 flex flex-col h-full text-center">
+                    <h3 className="font-bold text-xl text-foreground mb-2" data-testid={`leader-name-${index}`}>
+                      {leader.name}
+                    </h3>
+                    <p className="text-sm text-primary font-semibold" data-testid={`leader-position-${index}`}>
+                      {leader.position}
                     </p>
                   </CardContent>
                 </Card>
