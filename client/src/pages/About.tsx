@@ -89,38 +89,27 @@ export default function About() {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
-            className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto"
+            className="flex justify-center max-w-md mx-auto"
           >
-            {t.about.leaders.map((leader, index) => (
-              <motion.div key={index} variants={itemVariants}>
-                <Card className="overflow-hidden hover-elevate h-full flex flex-col" data-testid={`leader-card-${index}`}>
-                  <div className="h-2 bg-gradient-to-r from-primary to-accent" />
-                  {index === 0 && (
-                    <div className="aspect-[3/4] w-full overflow-hidden">
-                      <img 
-                        src={ceoPhoto} 
-                        alt={leader.name}
-                        className="w-full h-full object-cover object-center"
-                        data-testid="img-ceo-photo"
-                      />
-                    </div>
-                  )}
-                  <CardContent className="p-8 flex flex-col h-full text-center">
-                    {index !== 0 && (
-                      <div className="w-20 h-20 mx-auto mb-4 rounded-full bg-primary/10 flex items-center justify-center">
-                        <User className="w-10 h-10 text-primary" />
-                      </div>
-                    )}
-                    <h3 className="font-bold text-xl text-foreground mb-2" data-testid={`leader-name-${index}`}>
-                      {leader.name}
-                    </h3>
-                    <p className="text-sm text-primary font-semibold" data-testid={`leader-position-${index}`}>
-                      {leader.position}
-                    </p>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            ))}
+            <motion.div variants={itemVariants} className="w-full">
+              <Card className="overflow-hidden hover-elevate" data-testid="leader-card-0">
+                <div className="h-2 bg-gradient-to-r from-primary to-accent" />
+                <img 
+                  src={ceoPhoto} 
+                  alt={t.about.leaders[0].name}
+                  className="w-full object-cover object-center"
+                  data-testid="img-ceo-photo"
+                />
+                <CardContent className="p-6 text-center">
+                  <h3 className="font-bold text-xl text-foreground mb-1" data-testid="leader-name-0">
+                    {t.about.leaders[0].name}
+                  </h3>
+                  <p className="text-sm text-primary font-semibold" data-testid="leader-position-0">
+                    {t.about.leaders[0].position}
+                  </p>
+                </CardContent>
+              </Card>
+            </motion.div>
           </motion.div>
         </div>
       </section>
