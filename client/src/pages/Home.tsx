@@ -246,9 +246,9 @@ function NewsFeed() {
         >
           <motion.div variants={itemVariants}>
             <PresidentCard
-              title={language === 'tj' ? 'Президент' : language === 'ru' ? 'Президент' : 'President'}
+              title={language === 'tj' ? 'Президенти Ҷумҳурии Тоҷикистон' : language === 'ru' ? 'Президент Республики Таджикистан' : 'President of the Republic of Tajikistan'}
               image={presidentImg}
-              description={language === 'tj' ? 'Паёмҳо ва ҳидояҳои рахбари кишвар барои беҳтарии ҷамъиёт ва пешрафти мамлакат' : language === 'ru' ? 'Послание и указания Президента Республики Таджикистан' : 'Messages and instructions of the President of Tajikistan'}
+              description={language === 'tj' ? 'Хабар, вохӯрӣ, суханронӣ ва сафарҳо' : language === 'ru' ? 'Новости, встречи, выступления и визиты' : 'News, meetings, speeches and visits'}
               website="www.president.tj"
             />
           </motion.div>
