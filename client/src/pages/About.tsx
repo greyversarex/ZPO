@@ -7,6 +7,7 @@ import { useState } from "react";
 import { useLanguage } from "@/lib/LanguageContext";
 import teamPhoto from "@assets/IMG-20250925-WA0032_1764182104707.jpg";
 import ceoPhoto from "@assets/photo_2026-01-15_02-05-27_1768424738394.jpg";
+import deputyPhoto from "@assets/deputy-director.jpg";
 
 export default function About() {
   const { t } = useLanguage();
@@ -89,27 +90,29 @@ export default function About() {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
-            className="flex justify-center max-w-md mx-auto"
+            className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto"
           >
-            <motion.div variants={itemVariants} className="w-full">
-              <Card className="overflow-hidden hover-elevate" data-testid="leader-card-0">
-                <div className="h-2 bg-gradient-to-r from-primary to-accent" />
-                <img 
-                  src={ceoPhoto} 
-                  alt={t.about.leaders[0].name}
-                  className="w-full object-cover object-center"
-                  data-testid="img-ceo-photo"
-                />
-                <CardContent className="p-6 text-center">
-                  <h3 className="font-bold text-xl text-foreground mb-1" data-testid="leader-name-0">
-                    {t.about.leaders[0].name}
-                  </h3>
-                  <p className="text-sm text-primary font-semibold" data-testid="leader-position-0">
-                    {t.about.leaders[0].position}
-                  </p>
-                </CardContent>
-              </Card>
-            </motion.div>
+            {t.about.leaders.map((leader, index) => (
+              <motion.div key={index} variants={itemVariants} className="w-full">
+                <Card className="overflow-hidden hover-elevate" data-testid={`leader-card-${index}`}>
+                  <div className="h-2 bg-gradient-to-r from-primary to-accent" />
+                  <img 
+                    src={index === 0 ? ceoPhoto : deputyPhoto} 
+                    alt={leader.name}
+                    className="w-full aspect-[4/5] object-cover object-center"
+                    data-testid={`img-leader-photo-${index}`}
+                  />
+                  <CardContent className="p-6 text-center">
+                    <h3 className="font-bold text-xl text-foreground mb-1" data-testid={`leader-name-${index}`}>
+                      {leader.name}
+                    </h3>
+                    <p className="text-sm text-primary font-semibold" data-testid={`leader-position-${index}`}>
+                      {leader.position}
+                    </p>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            ))}
           </motion.div>
         </div>
       </section>
