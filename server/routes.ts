@@ -26,10 +26,11 @@ const upload = multer({
   storage: multer.memoryStorage(),
   limits: { fileSize: 10 * 1024 * 1024 }, // 10MB limit
   fileFilter: (_req, file, cb) => {
-    const allowedTypes = /jpeg|jpg|png|gif|webp/;
-    const extname = allowedTypes.test(path.extname(file.originalname).toLowerCase());
-    const mimetype = allowedTypes.test(file.mimetype);
-    if (extname && mimetype) {
+    const allowedExtensions = /jpeg|jpg|png|gif|webp|bmp|svg|tiff|tif|heic|heif|avif|ico/;
+    const allowedMimetypes = /image\/(jpeg|jpg|png|gif|webp|bmp|svg\+xml|tiff|heic|heif|avif|x-icon|vnd\.microsoft\.icon)/;
+    const extname = allowedExtensions.test(path.extname(file.originalname).toLowerCase());
+    const mimetype = allowedMimetypes.test(file.mimetype);
+    if (extname || mimetype) {
       cb(null, true);
     } else {
       cb(new Error("Only images are allowed"));
