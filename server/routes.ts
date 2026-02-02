@@ -16,7 +16,10 @@ import fs from "fs";
 import { ObjectStorageService, ObjectNotFoundError } from "./objectStorage";
 
 // Configure multer for file uploads - use memory storage for Object Storage upload
-const uploadDir = path.join(process.cwd(), "data", "uploads");
+// Use UPLOAD_DIR env var for custom path (Timeweb uses "uploads", Replit uses "data/uploads")
+const uploadDir = process.env.UPLOAD_DIR 
+  ? path.resolve(process.env.UPLOAD_DIR)
+  : path.join(process.cwd(), "data", "uploads");
 if (!fs.existsSync(uploadDir)) {
   fs.mkdirSync(uploadDir, { recursive: true });
 }
