@@ -1,0 +1,55 @@
+root@6176301-aq673142:/var/www/html# pm2 logs zavod-site --err --lines 50
+[TAILING] Tailing last 50 lines for [zavod-site] process (change the value with --lines option)
+/root/.pm2/logs/zavod-site-error.log last 50 lines:
+0|zavod-si |     at done (/var/www/html/node_modules/multer/lib/make-middleware.js:59:7)
+0|zavod-si |     at indicateDone (/var/www/html/node_modules/multer/lib/make-middleware.js:63:68)
+0|zavod-si |     at Multipart.<anonymous> (/var/www/html/node_modules/multer/lib/make-middleware.js:187:7)
+0|zavod-si |     at Multipart.emit (node:events:524:28)
+0|zavod-si |     at emitCloseNT (node:internal/streams/destroy:147:10)
+0|zavod-si | Error: ENOENT: no such file or directory, stat '/var/www/html/data/uploads/index.html'
+0|zavod-si | Error: ENOENT: no such file or directory, stat '/var/www/html/data/uploads/index.html'
+0|zavod-si | URIError: Failed to decode param '/%c0'
+0|zavod-si |     at decodeURIComponent (<anonymous>)
+0|zavod-si |     at decode_param (/var/www/html/node_modules/express/lib/router/layer.js:172:12)
+0|zavod-si |     at Layer.match (/var/www/html/node_modules/express/lib/router/layer.js:123:27)
+0|zavod-si |     at matchLayer (/var/www/html/node_modules/express/lib/router/index.js:585:18)
+0|zavod-si |     at next (/var/www/html/node_modules/express/lib/router/index.js:226:15)
+0|zavod-si |     at SendStream.error (/var/www/html/node_modules/serve-static/index.js:121:7)
+0|zavod-si |     at SendStream.emit (node:events:524:28)
+0|zavod-si |     at SendStream.error (/var/www/html/node_modules/send/index.js:270:17)
+0|zavod-si |     at SendStream.pipe (/var/www/html/node_modules/send/index.js:515:10)
+0|zavod-si |     at serveStatic (/var/www/html/node_modules/serve-static/index.js:125:12)
+0|zavod-si | URIError: Failed to decode param '/%c0/'
+0|zavod-si |     at decodeURIComponent (<anonymous>)
+0|zavod-si |     at decode_param (/var/www/html/node_modules/express/lib/router/layer.js:172:12)
+0|zavod-si |     at Layer.match (/var/www/html/node_modules/express/lib/router/layer.js:123:27)
+0|zavod-si |     at matchLayer (/var/www/html/node_modules/express/lib/router/index.js:585:18)
+0|zavod-si |     at next (/var/www/html/node_modules/express/lib/router/index.js:226:15)
+0|zavod-si |     at SendStream.error (/var/www/html/node_modules/serve-static/index.js:121:7)
+0|zavod-si |     at SendStream.emit (node:events:524:28)
+0|zavod-si |     at SendStream.error (/var/www/html/node_modules/send/index.js:270:17)
+0|zavod-si |     at SendStream.pipe (/var/www/html/node_modules/send/index.js:515:10)
+0|zavod-si |     at serveStatic (/var/www/html/node_modules/serve-static/index.js:125:12)
+0|zavod-si | Error: ENOENT: no such file or directory, stat '/var/www/html/data/uploads/index.html'
+0|zavod-si | Error: ENOENT: no such file or directory, stat '/var/www/html/data/uploads/index.html'
+0|zavod-si | Error: ENOENT: no such file or directory, stat '/var/www/html/data/uploads/index.html'
+0|zavod-si | Error: ENOENT: no such file or directory, stat '/var/www/html/data/uploads/index.html'
+0|zavod-si | Error: ENOENT: no such file or directory, stat '/var/www/html/data/uploads/index.html'
+0|zavod-si | Error: ENOENT: no such file or directory, stat '/var/www/html/data/uploads/index.html'
+0|zavod-si | Error: ENOENT: no such file or directory, stat '/var/www/html/data/uploads/index.html'
+0|zavod-si | Error: ENOENT: no such file or directory, stat '/var/www/html/data/uploads/index.html'
+0|zavod-si | Error: ENOENT: no such file or directory, stat '/var/www/html/data/uploads/index.html'
+0|zavod-si | Error: ENOENT: no such file or directory, stat '/var/www/html/data/uploads/index.html'
+0|zavod-si | Object Storage upload failed, using local fallback: Error: PRIVATE_OBJECT_DIR not set. Create a bucket in 'Object Storage' tool and set PRIVATE_OBJECT_DIR env var.
+0|zavod-si |     at ObjectStorageService.getPrivateObjectDir (file:///var/www/html/dist/index.js:481:13)
+0|zavod-si |     at ObjectStorageService.uploadFile (file:///var/www/html/dist/index.js:580:35)
+0|zavod-si |     at file:///var/www/html/dist/index.js:1240:53
+0|zavod-si |     at Layer.handle [as handle_request] (/var/www/html/node_modules/express/lib/router/layer.js:95:5)
+0|zavod-si |     at next (/var/www/html/node_modules/express/lib/router/route.js:149:13)
+0|zavod-si |     at done (/var/www/html/node_modules/multer/lib/make-middleware.js:59:7)
+0|zavod-si |     at indicateDone (/var/www/html/node_modules/multer/lib/make-middleware.js:63:68)
+0|zavod-si |     at Multipart.<anonymous> (/var/www/html/node_modules/multer/lib/make-middleware.js:187:7)
+0|zavod-si |     at Multipart.emit (node:events:524:28)
+0|zavod-si |     at emitCloseNT (node:internal/streams/destroy:147:10)
+
+^C

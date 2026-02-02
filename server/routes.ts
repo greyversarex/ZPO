@@ -83,8 +83,19 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   // Serve uploaded files from local data directory (fallback for old uploads)
   app.use("/uploads", (req, res, next) => {
+    // Skip if no specific file requested
+    if (!req.path || req.path === "/" || req.path === "/index.html") {
+      return res.status(404).json({ success: false, message: "File not found" });
+    }
+    
     const filePath = path.join(uploadDir, req.path);
-    if (fs.existsSync(filePath)) {
+    
+    // Security check: ensure path doesn't escape uploads directory
+    if (!filePath.startsWith(uploadDir)) {
+      return res.status(403).json({ success: false, message: "Access denied" });
+    }
+    
+    if (fs.existsSync(filePath) && fs.statSync(filePath).isFile()) {
       res.setHeader("Cache-Control", "public, max-age=31536000");
       res.sendFile(filePath);
     } else {
